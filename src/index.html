@@ -38,7 +38,7 @@
     <section id="right-container">
         <p class="title">SEU PROJETO</p>
 
-        <textarea type="text" placeholder="Nome do seu projeto" style="padding-bottom: 20px;"></textarea>
+        <textarea placeholder="Nome do seu projeto" style="padding-bottom: 20px;"></textarea>
         <textarea placeholder="Descrição do seu projeto" style="padding-bottom: 40px;"></textarea>
 
         <p class="title">PERSONALIZAÇÃO</p>
@@ -49,7 +49,11 @@
             <option value="3">C#</option>
         </select>
 
-        <button onclick="handleForm()">Salvar projeto</button>
+        <div id="color-changer">
+            <button></button>
+        </div>
+
+        <button id="submit" type="submit" onclick="handleForm()">Salvar projeto</button>
     </section>
 
     <section id="editor">
