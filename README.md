@@ -1,20 +1,7 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Challenge 1
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+[Alura's Trello](https://trello.com/b/19ouy4RA/desafio-front-end-semana-1)
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+[Facebook Project Post](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqblcxRXpwRE52cm1Wc2ozZW1MXy1PemxmUlFjQXxBQ3Jtc0tuT0RVQTJYWFgtcU1EMm93bng4UjBwYXk4dWlsRUk0WXlpelZmbldiS0doNVRSOXJ1N3cycHUwZklqejFzNkIzbG1tZWJHaUFKeVRzWm1MRDAySjZ0cHkwd2tkWndIVEtfVEZ0RmlpYXplOG5lOWpwOA&q=https%3A%2F%2Fwww.facebook.com%2FAluraCursosOnline&v=Yk2gRJtkQpM)
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+[Figma Project](https://www.figma.com/file/Ve4hpTfmMa7yAFneoGtGKD/Projects?node-id=17%3A3367&viewport=86%2C-1148%2C0.3736729025840759)
