@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+    margin: 0px;
+    font-family: 'Inter', sans-serif;
+}
+
+text, p, h1, h2, h3, h4, h5, h6, input, div, button, select, textarea {
+    color: #FFF;
+}
+
+body {
+    background-color: #051D3B;
+    font-family: 'Inter', sans-serif;
+    padding: 10px;
+}
+
+.title {
+    letter-spacing: 4px;
+    margin: 0 0 0.25em 0;
+}
