@@ -1,0 +1,44 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#searchbar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.16);
+    color: #FFF;
+    width: 50%;
+    padding: 0.5em;
+    border-radius: 8px;
+    border: none rgba(255, 255, 255, 0.16) 2px;
+}
+
+#logo-container {
+    justify-content: flex-start;
+}
+
+#logo-img {
+    height: 40px;
+    width: 40px;
+    margin: 0 0 0 0.75em;
+    border-radius: 8px;
+}
+
+#user-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1em;
+    margin: 0 0.75em 0 0;
+}
+
+#user-image {
+    width: 40px;
+    height: 40px;
+}
