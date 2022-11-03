@@ -10,6 +10,11 @@ text, p, h1, h2, h3, h4, h5, h6, input, div, button, select, textarea {
     color: #FFF;
 }
 
+textarea {
+    resize: none;
+
+}
+
 body {
     background-color: #051D3B;
     font-family: 'Inter', sans-serif;
