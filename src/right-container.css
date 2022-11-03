@@ -1,0 +1,40 @@
+#right-container {
+    position: absolute;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    padding: 40px 2em 0 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#right-container textarea{
+    background: rgba(255, 255, 255, 0.16);
+    padding: 0.5em;
+    border-radius: 8px;
+    border: none rgba(255, 255, 255, 0.16) 2px;
+    width: 100%;
+}
+
+#right-container select {
+    background: rgba(255, 255, 255, 0.16);
+    padding: 0.5em;
+    border-radius: 8px;
+    border: solid rgba(255, 255, 255, 0.16) 2px;
+    width: 100%;
+}
+
+#right-container select > option {
+    background: skyblue;
+}
+
+#right-container button {
+    border-radius: 8px;
+    border: solid transparent;
+    background-color: #5081FB;
+    width: 100%;
+    height: 30px;
+    color: #000;
+}
