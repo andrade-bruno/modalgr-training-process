@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Desafio 1</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <nav>
+        <div id="logo-container">
+            <img id="logo-img" alt="modalgr" src="../assets/modal.png" />
+        </div>
+
+        <input id="searchbar" type="text" placeholder="Busque por algo" />
+
+        <div id="user-container">
+            <img id="user-img" alt='user' src="../assets/user.png">
+            <p id="user-text">Harry</p>
+        </div>
+    </nav>
+
+    <section id="left-container">
+        <p class="title">MENU</p>
+        <div><img src="../assets/editor-de-codigo.svg"> Editor de código</div>
+        <div><img src="../assets/comunidade.svg"> Comunidade</div>
+    </section>
+
+    <section id="right-container">
+        <p class="title">SEU PROJETO</p>
+
+        <textarea type="text" placeholder="Nome do seu projeto" style="padding-bottom: 20px;"></textarea>
+        <textarea placeholder="Descrição do seu projeto" style="padding-bottom: 40px;"></textarea>
+
+        <p class="title">PERSONALIZAÇÃO</p>
+
+        <select id="languageSelect">
+            <option value="1">Javascript</option>
+            <option value="2">Python</option>
+            <option value="3">C#</option>
+        </select>
+
+        <button onclick="handleForm()">Salvar projeto</button>
+    </section>
+
+    <section id="editor">
+        <div>
+            <textarea placeholder=""></textarea>
+        </div>
+
+        <button>Visualizar com o highlight</button>
+    </section>
+
+    <footer>
+
+    </footer>
+</body>
+
+<script type="text/javascript">
+    function handleForm() {
+        return alert('Projeto salvo com sucesso!')
+    }
+</script>
+
+</html>
