@@ -35,27 +35,6 @@
         <div><img src="../assets/comunidade.svg"> Comunidade</div>
     </section>
 
-    <section id="right-container">
-        <p class="title">SEU PROJETO</p>
-
-        <textarea placeholder="Nome do seu projeto" style="padding-bottom: 20px;"></textarea>
-        <textarea placeholder="Descrição do seu projeto" style="padding-bottom: 40px;"></textarea>
-
-        <p class="title">PERSONALIZAÇÃO</p>
-
-        <select id="languageSelect">
-            <option value="1">Javascript</option>
-            <option value="2">Python</option>
-            <option value="3">C#</option>
-        </select>
-
-        <div id="color-changer">
-            <button></button>
-        </div>
-
-        <button id="submit" type="submit" onclick="handleForm()">Salvar projeto</button>
-    </section>
-
     <section id="editor">
         <div id="texteditor">
             <div id="buttons">
@@ -80,9 +59,26 @@ const unfold = (f, seed) => {
         <button>Visualizar com o highlight</button>
     </section>
 
-    <footer>
+    <section id="right-container">
+        <p class="title">SEU PROJETO</p>
 
-    </footer>
+        <textarea placeholder="Nome do seu projeto" style="padding-bottom: 2em;"></textarea>
+        <textarea placeholder="Descrição do seu projeto" style="padding-bottom: 4em;"></textarea>
+
+        <p class="title">PERSONALIZAÇÃO</p>
+
+        <select id="languageSelect">
+            <option value="1">Javascript</option>
+            <option value="2">Python</option>
+            <option value="3">C#</option>
+        </select>
+
+        <div id="color-changer">
+            <button></button>
+        </div>
+
+        <button id="submit" type="submit" onclick="handleForm()">Salvar projeto</button>
+    </section>
 </body>
 
 <script type="text/javascript">

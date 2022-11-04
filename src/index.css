@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+@media (min-width: 1000px) {
+    /* 
+        ...
+    */
+}
+
+@media (max-width: 1000px) {
+    #right-container, #left-container, #editor {
+        position: relative;
+        width: 100%;
+    }
+}
+
 * {
-    margin: 0px;
     font-family: 'Inter', sans-serif;
-    overflow: hidden;
+    font-size: 100%;
 }
 
 text, p, h1, h2, h3, h4, h5, h6, input, div, button, select, textarea {
@@ -12,16 +24,15 @@ text, p, h1, h2, h3, h4, h5, h6, input, div, button, select, textarea {
 
 textarea {
     resize: none;
-
 }
 
 body {
     background-color: #051D3B;
     font-family: 'Inter', sans-serif;
-    padding: 10px;
+    padding: 1rem;
 }
 
 .title {
-    letter-spacing: 4px;
+    letter-spacing: 0.4rem;
     margin: 0 0 0.25em 0;
 }

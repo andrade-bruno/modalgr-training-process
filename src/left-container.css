@@ -1,20 +1,40 @@
-#left-container {
-    position: absolute;
-    left: 0;
-    width: 20%;
-    height: 100%;
-    padding: 40px 1em 0 2em;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+@media (min-width:1000px) {
+    #left-container {
+        position: absolute;
+        left: 0;
+        width: 20%;
+        height: 100%;
+        padding: 4rem 1rem 0 2rem; 
+    }
+    
+    #left-container div {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+    }
+}
+
+@media (max-width:1000px) {
+    #left-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 4rem 0;
+    }
+
+    #left-container div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 14rem;
+    }
 }
 
 #left-container div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 16px;
+    gap: 1.6rem;
+    margin: 0.5rem 0rem;
 }
 
 #left-container div img {
