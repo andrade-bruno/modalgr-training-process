@@ -11,6 +11,12 @@
     }
 }
 
+@media (max-width:1000px) {
+    #editor button {
+        margin-bottom: 0.75rem
+    }
+}
+
 #editor * {
     border-radius: 8px;
 }
@@ -22,7 +28,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 0 12px 0;
+    margin: 0 0 0.75rem 0;
 }
 
 #editor div #buttons {
@@ -84,4 +90,10 @@
     background: rgba(80, 129, 251, 0.08);
     border: none;
     height: 30px;
+    width: 100%;
+}
+
+#editor button:hover {
+    background: rgba(80, 129, 251, 0.18);
+    cursor: pointer;
 }
