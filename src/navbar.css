@@ -1,9 +1,14 @@
-nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+@media (min-width: 600px) {
+    #searchbar {
+        width: 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    #searchbar {
+        top: 5rem;
+        width: 80%;
+    }
 }
 
 #searchbar {
@@ -12,10 +17,17 @@ nav {
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.16);
     color: #FFF;
-    width: 50%;
     padding: 0.5em;
     border-radius: 8px;
     border: none rgba(255, 255, 255, 0.16) 2px;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 #logo-container {
@@ -38,7 +50,7 @@ nav {
     margin: 0 0.75em 0 0;
 }
 
-#user-image {
+#user-img {
     width: 2.5rem;
     height: 2.5rem;
 }
