@@ -10,16 +10,13 @@
 
     <title>Desafio 2</title>
 
+    <link rel="stylesheet" href="dracula.css">
+
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="left-container.css">
     <link rel="stylesheet" href="right-container.css">
     <link rel="stylesheet" href="editor.css">
-
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
-    <!-- <link rel="stylesheet" href="/path/to/styles/default.min.css"> -->
 </head>
 
 <body>
@@ -49,11 +46,12 @@
                 <div id="btnyellow"></div>
                 <div id="btngreen"></div>
             </div>
-            <textarea></textarea>
-            <pre class="precode" style="display: none !important"><code class="language-javascript"></code></pre>
+            <div class="code-wrapper">
+                <code class="preview hljs language-javascript" contenteditable="true"></code>
+            </div>
         </div>
 
-        <button id="highlightBtn"> Visualizar com o highlight</button>
+        <button id="hljsSubmit"> Visualizar com o highlight</button>
     </section>
 
     <section id="right-container">
@@ -65,9 +63,9 @@
         <p class="title">PERSONALIZAÇÃO</p>
 
         <select id="languageSelect">
-            <option value="language-javascript">Javascript</option>
-            <option value="language-python">Python</option>
-            <option value="language-xml">HTML</option>
+            <option value="javascript">Javascript</option>
+            <option value="css">CSS</option>
+            <option value="html">HTML</option>
         </select>
 
         <div id="color-changer">
@@ -77,8 +75,7 @@
         <button id="submit" type="submit" onclick="handleForm()">Salvar projeto</button>
     </section>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
-    <!-- <script src="/path/to/highlight.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
     <script src="main.js"></script>
 </body>
 

@@ -29,11 +29,29 @@
     align-items: center;
     justify-content: center;
     margin: 0 0 0.75rem 0;
+    padding: 20px;
+}
+
+.code-wrapper {
+    height: 100%;
+    width: 100%;
+    background: skyblue;
+}
+
+.preview {
+    display: block;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 0 0 8px 8px !important;
+    border: none transparent;
+    height: 100%;
+    white-space: pre-wrap;
+    /* background: skyblue; */
 }
 
 #editor div #buttons {
     height: 10%;
-    width: 90%;
+    width: 100%;
     padding: 0 10px;
     border-radius: 8px 8px 0 0;
     background: rgba(0,0,0,0.92);
@@ -59,35 +77,6 @@
 
 #btngreen {
     background: #27C93F;
-}
-
-#texteditor textarea {
-    border: none transparent;
-    background: #000;
-    height: 70%;
-    width: 90%;
-    padding: 10px;
-    border-radius: 0 0 8px 8px;
-    margin: 0px;
-}
-
-#texteditor .hljs {
-    background: #000;
-    height: 100%;
-    width: 100%;
-    padding: 10px;
-    border-radius: 0 0 8px 8px;
-}
-
-#texteditor .precode {
-    height: 70%;
-    width: 90%;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin: 0px !important;
-    /* background-color: red; */
 }
 
 #editor button {

@@ -1,33 +1,18 @@
-const target = document.querySelector('code')
-const precode = document.querySelector('#texteditor .precode')
-const code = document.querySelector('#texteditor textarea')
-
-document.querySelector('#highlightBtn').addEventListener("click", function() {
-    if (this.innerText != 'Editar') {
-        target.innerText = code.value
-
-        code.style.display = 'none'
-        precode.style.display = 'block'
-        target.style.display = 'block'
-        this.innerHTML = '<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar'
-
-        hljs.highlightAll();
-    } else {
-        code.style.display = 'block'
-        precode.style = 'display: none !important;'
-        target.style.display = 'none'
-        this.innerText = 'Visualizar com o highlight'
-    }
-})
-
-const languageSelector = document.querySelector('#languageSelect')
-
-languageSelector.addEventListener("change", function() {
-    target.classList.remove(target.classList[1])
-    target.classList.remove(target.classList[0])
-    target.classList.add(languageSelector.value, 'hljs')
-})
-
 function handleForm() {
     return alert('Projeto salvo com sucesso!')
 }
+
+const language = document.querySelector('#languageSelect')
+const codeArea = document.querySelector('.code-wrapper')
+const button = document.querySelector('#hljsSubmit')
+
+function doHighlight() {
+    const previousCode = codeArea.innerText
+    codeArea.innerHTML = `<code class='preview hljs language-${language.value}' contenteditable='true'></code>`
+    codeArea.querySelector('code').textContent = previousCode
+    hljs.highlightElement(codeArea.querySelector('code'))
+}
+
+button.addEventListener('click', () => {
+    doHighlight()
+})
