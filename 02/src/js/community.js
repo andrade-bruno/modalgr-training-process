@@ -15,4 +15,10 @@ function handleForm() {
 
     const currentProject = new project(name, description, color, code)
     console.log(currentProject)
+    appendProjectCard(color)
+}
+
+
+function appendProjectCard(color) {
+    $("#community").append(`<div class='card' style='background: ${color}'></div>`)
 }
