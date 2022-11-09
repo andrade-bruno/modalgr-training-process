@@ -1,0 +1,99 @@
+@media (min-width:1000px) {
+    #editor {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50%;
+        padding: 4rem 0 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width:1000px) {
+    #editor button {
+        margin-bottom: 0.75rem
+    }
+}
+
+#editor * {
+    border-radius: 8px;
+}
+
+#editor div#texteditor {
+    background: rgba(107, 209, 255, 1);
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0.75rem 0;
+}
+
+#editor div #buttons {
+    background: red;
+    height: 10%;
+    width: 90%;
+    padding: 0 10px;
+    border-radius: 8px 8px 0 0;
+    background: rgba(0,0,0,0.92);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+#btnred, #btnyellow, #btngreen {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+#btnred {
+    background: #FF5F56;
+}
+
+#btnyellow {
+    background: #FFBD2E;
+}
+
+#btngreen {
+    background: #27C93F;
+}
+
+#editor div textarea {
+    border: none transparent;
+    background: #000;
+    height: 70%;
+    width: 90%;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+}
+#editor div textarea::-webkit-input-placeholder {
+    color: #FFF;
+}
+#editor div textarea:-moz-placeholder { /* Firefox 18- */
+    color: #FFF; 
+}
+#editor div textarea::-moz-placeholder {  /* Firefox 19+ */
+    color: #FFF;
+}
+#editor div textarea:-ms-input-placeholder {
+    color: #FFF;
+}
+#editor div textarea::placeholder {
+    color: #FFF;
+}
+  
+#editor button {
+    background: rgba(80, 129, 251, 0.08);
+    border: none;
+    height: 30px;
+    width: 100%;
+}
+
+#editor button:hover {
+    background: rgba(80, 129, 251, 0.18);
+    cursor: pointer;
+}

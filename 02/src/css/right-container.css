@@ -1,0 +1,81 @@
+@media (min-width: 1000px) {
+    #right-container {
+        position: absolute;
+        width: 20%;
+        right: 0;
+        height: 100%;
+        padding: 4rem 2rem 0 1rem;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 1000px) {
+    #right-container {
+        padding: 0;
+        gap: 1rem;
+        align-items: center;
+    }
+}
+
+#right-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#right-container textarea{
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    border: none rgba(255, 255, 255, 0.16) 2px;
+    width: 100%;
+    padding: 0.5em;
+}
+
+#right-container select {
+    background: rgba(255, 255, 255, 0.16);
+    padding: 0.5em;
+    border-radius: 8px;
+    border: solid rgba(255, 255, 255, 0.16) 2px;
+    width: 100%;
+    height: 2.5rem;
+}
+
+#right-container select > option {
+    background: skyblue;
+}
+
+#color-changer {
+    width: 100%;
+    height: 2.25rem;
+    background: transparent;
+    border: 0.1em #FFF solid;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0.625rem 0;
+    padding: 0.25rem;
+}
+
+#color-changer input {
+    border-radius: 4px;
+    background: rgba(107, 209, 255, 1);
+    width: 100%;
+    height: 100%;
+    border: transparent;
+}
+
+#right-container button#submit {
+    border-radius: 8px;
+    border: solid transparent;
+    background-color: #5081FB;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0.125rem;
+    color: #000;
+}
+
+#right-container button#submit:hover {
+    background: rgba(107, 209, 255, 1);
+    cursor: pointer;
+}
