@@ -10,6 +10,7 @@
 
     <title>Desafio 2</title>
 
+    <link rel="stylesheet" href="https://unpkg.com/huebee@2/dist/huebee.min.css">
     <link rel="stylesheet" href="dracula.css">
 
     <link rel="stylesheet" href="index.css">
@@ -69,13 +70,14 @@
         </select>
 
         <div id="color-changer">
-            <button></button>
+            <input class="color-input" data-huebee='{ "className": "dark-picker" }' />
         </div>
 
         <button id="submit" type="submit" onclick="handleForm()">Salvar projeto</button>
     </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script src="https://unpkg.com/huebee@2/dist/huebee.pkgd.min.js"></script>
     <script src="main.js"></script>
 </body>
 

@@ -57,7 +57,7 @@
     padding: 0.25rem;
 }
 
-#color-changer button {
+#color-changer input {
     border-radius: 4px;
     background: rgba(107, 209, 255, 1);
     width: 100%;
