@@ -5,8 +5,6 @@ const editorSection = document.querySelector('#editor')
 const rightContainerSection = document.querySelector('#right-container')
 const communitySection = document.querySelector('#community')
 
-communitySection.style.display = 'none'
-
 editorToggler.addEventListener('click', () => {
     editorSection.style.display = 'inline-block'
     rightContainerSection.style.display = 'flex'

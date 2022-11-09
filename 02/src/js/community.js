@@ -21,4 +21,7 @@ function handleForm() {
 
 function appendProjectCard(color) {
     $("#community").append(`<div class='card' style='background: ${color}'></div>`)
+    hljs.highlightElement(document.querySelector('.cardCodeWrapper'))
 }
+
+appendProjectCard('#FFF')

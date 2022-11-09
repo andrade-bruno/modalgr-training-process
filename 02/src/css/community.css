@@ -2,14 +2,47 @@
     position: absolute;
     right: 0;
     display: grid;
+    grid-column: 2; 
     width: 75%;
     height: 100%;
     margin: 4rem 0 0 0;
-    padding: 0 2rem;
-    /* background: rgba(80, 129, 251, 0.25); */
+    padding: 0;
+    gap: 1rem;
 }
 
 .card {
-    height: 100px;
-    width: 200px;
+    height: 340px;
+    width: 460px;
+    border-radius: 8px;
+    padding: 20px !important;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardDetails, .cardCode {
+    color: #000;
+}
+
+.cardDetails {
+    width: 100%;
+    height: 20%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.cardCodeWrapper {
+    width: 100%;
+    height: 80%;
+}
+
+.cardCode {
+    display: block;
+    border-radius: 8px;
+    padding: 20px;
+    border: none transparent;
+    height: 100%;
+    white-space: pre-wrap;
 }
