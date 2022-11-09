@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./css/left-container.css">
     <link rel="stylesheet" href="./css/right-container.css">
     <link rel="stylesheet" href="./css/editor.css">
-</head>
+    <link rel="stylesheet" href="./css/community.css" </head>
 
 <body>
     <nav>
@@ -36,8 +36,8 @@
 
     <section id="left-container">
         <p class="title">MENU</p>
-        <div><img src="../assets/editor-de-codigo.svg"> Editor de código</div>
-        <div><img src="../assets/comunidade.svg"> Comunidade</div>
+        <button id="editorToggler"><img src="../assets/editor-de-codigo.svg"> Editor de código</button>
+        <button id="communityToggler"><img src="../assets/comunidade.svg"> Comunidade</button>
     </section>
 
     <section id="editor">
@@ -76,9 +76,13 @@
         <button id="submit" type="submit" onclick="handleForm()">Salvar projeto</button>
     </section>
 
+    <section id="community">
+    </section>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
     <script src="https://unpkg.com/huebee@2/dist/huebee.pkgd.min.js"></script>
     <script src="main.js"></script>
+    <script src="menu.js"></script>
 </body>
 
 </html>
