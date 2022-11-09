@@ -32,7 +32,6 @@
 }
 
 #editor div #buttons {
-    background: red;
     height: 10%;
     width: 90%;
     padding: 0 10px;
@@ -62,30 +61,35 @@
     background: #27C93F;
 }
 
-#editor div textarea {
+#texteditor textarea {
     border: none transparent;
     background: #000;
     height: 70%;
     width: 90%;
     padding: 10px;
     border-radius: 0 0 8px 8px;
+    margin: 0px;
 }
-#editor div textarea::-webkit-input-placeholder {
-    color: #FFF;
+
+#texteditor .hljs {
+    background: #000;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
 }
-#editor div textarea:-moz-placeholder { /* Firefox 18- */
-    color: #FFF; 
+
+#texteditor .precode {
+    height: 70%;
+    width: 90%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0px !important;
+    /* background-color: red; */
 }
-#editor div textarea::-moz-placeholder {  /* Firefox 19+ */
-    color: #FFF;
-}
-#editor div textarea:-ms-input-placeholder {
-    color: #FFF;
-}
-#editor div textarea::placeholder {
-    color: #FFF;
-}
-  
+
 #editor button {
     background: rgba(80, 129, 251, 0.08);
     border: none;

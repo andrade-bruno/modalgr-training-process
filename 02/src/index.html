@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+
     <title>Desafio 2</title>
 
     <link rel="stylesheet" href="index.css">
@@ -14,7 +16,10 @@
     <link rel="stylesheet" href="right-container.css">
     <link rel="stylesheet" href="editor.css">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <!-- <link rel="stylesheet" href="/path/to/styles/default.min.css"> -->
 </head>
 
 <body>
@@ -45,9 +50,10 @@
                 <div id="btngreen"></div>
             </div>
             <textarea></textarea>
+            <pre class="precode" style="display: none !important"><code class="language-javascript"></code></pre>
         </div>
 
-        <button>Visualizar com o highlight</button>
+        <button id="highlightBtn"> Visualizar com o highlight</button>
     </section>
 
     <section id="right-container">
@@ -59,9 +65,9 @@
         <p class="title">PERSONALIZAÇÃO</p>
 
         <select id="languageSelect">
-            <option value="1">Javascript</option>
-            <option value="2">Python</option>
-            <option value="3">C#</option>
+            <option value="language-javascript">Javascript</option>
+            <option value="language-python">Python</option>
+            <option value="language-xml">HTML</option>
         </select>
 
         <div id="color-changer">
@@ -70,14 +76,10 @@
 
         <button id="submit" type="submit" onclick="handleForm()">Salvar projeto</button>
     </section>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <!-- <script src="/path/to/highlight.min.js"></script> -->
+    <script src="main.js"></script>
 </body>
-
-<script type="text/javascript">
-    function handleForm() {
-        return alert('Projeto salvo com sucesso!')
-    }
-</script>
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
 
 </html>
