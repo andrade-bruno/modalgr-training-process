@@ -30,6 +30,7 @@
     justify-content: flex-start;
     width: 14rem;
     gap: 10px;
+    transition: 0.3s;
 }
 
 #left-container button:hover {
