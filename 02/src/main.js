@@ -1,10 +1,6 @@
-function handleForm() {
-    return alert('Projeto salvo com sucesso!')
-}
-
 const language = document.querySelector('#languageSelect')
 const codeArea = document.querySelector('.code-wrapper')
-const button = document.querySelector('#hljsSubmit')
+const hljsSubmit = document.querySelector('#hljsSubmit')
 
 function doHighlight() {
     const previousCode = codeArea.innerText
@@ -13,7 +9,7 @@ function doHighlight() {
     hljs.highlightElement(codeArea.querySelector('code'))
 }
 
-button.addEventListener('click', () => {
+hljsSubmit.addEventListener('click', () => {
     doHighlight()
 })
 
