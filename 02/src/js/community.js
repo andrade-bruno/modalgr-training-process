@@ -9,17 +9,28 @@ class project {
 }
 
 async function handleForm() {
-    const name = document.querySelector('#projectName').value
-    const description = document.querySelector('#projectDescription').value
+    let name = document.querySelector('#projectName').value
+    let description = document.querySelector('#projectDescription').value
     let color = document.querySelector('#texteditor').style.backgroundColor
-    const code = document.querySelector('.code-wrapper').innerText
+    let code = document.querySelector('.code-wrapper').innerText
     const language = document.querySelector('#languageSelect').value
 
     !color ? color = '#6BD1FF' : null
     const currentProject = new project(name, description, color, code, language)
     await appendProjectCard(name, description, color, code, language)
+
+    if (name == '') {
+        alert('Informe o nome do projeto.')
+        return false
+    } else if (description == '') {
+        alert('Por favor descreva o seu projeto.')
+        return false
+    } else if (code == '') {
+        alert('Desculpe, não encontramos código no seu projeto.')
+        return false
+    }
     
-    alert("Projeto criado com sucesso! Verifique na comunidade e, opcionalmente também o log do objeto no console!")
+    alert("Projeto criado com sucesso, verifique na comunidade!")
     console.log("Novo projeto:")
     console.log(currentProject)
 }
