@@ -73,6 +73,7 @@
     height: 2.5rem;
     padding: 0.125rem;
     color: #000;
+    transition: 0.3s;
 }
 
 #right-container button#submit:hover {

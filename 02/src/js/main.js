@@ -5,7 +5,7 @@ const hljsSubmit = document.querySelector('#hljsSubmit')
 function doHighlight() {
     const previousCode = codeArea.innerText
     codeArea.innerHTML = `<code class='preview hljs language-${language.value}' contenteditable='true'></code>`
-    codeArea.querySelector('code').textContent = previousCode
+    codeArea.querySelector('.preview').textContent = previousCode
     hljs.highlightElement(codeArea.querySelector('code'))
 }
 

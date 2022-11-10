@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
 @media (min-width: 1000px) {
     /* 
@@ -31,6 +32,10 @@ body {
     font-family: 'Inter', sans-serif;
     padding: 1rem;
 }
+
+/* code {
+    font-family: 'JetBrains Mono', monospace;
+} */
 
 .title {
     letter-spacing: 0.4rem;
