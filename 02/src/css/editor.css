@@ -9,11 +9,21 @@
         flex-direction: column;
         justify-content: flex-start;
     }
+
+    #btnred, #btnyellow, #btngreen {
+        width: 0.63rem;
+        height: 0.63rem;
+    }
 }
 
 @media (max-width:1000px) {
     #editor button {
         margin-bottom: 0.75rem
+    }
+
+    #btnred, #btnyellow, #btngreen {
+        width: 0.5rem;
+        height: 0.5rem;
     }
 }
 
@@ -21,8 +31,11 @@
     border-radius: 8px;
 }
 
+#editor div#texteditor, .color-input {
+    background-color: rgb(107, 209, 255);
+}
+
 #editor div#texteditor {
-    background: rgba(107, 209, 255, 1);
     height: 340px;
     display: flex;
     flex-direction: column;
@@ -61,8 +74,6 @@
 }
 
 #btnred, #btnyellow, #btngreen {
-    width: 10px;
-    height: 10px;
     border-radius: 100%;
 }
 

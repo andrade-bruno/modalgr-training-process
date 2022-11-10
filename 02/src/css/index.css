@@ -2,20 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
 @media (min-width: 1000px) {
-    /* 
-        ...
-    */
+    * {
+        font-size: 100%;
+    }
 }
 
 @media (max-width: 1000px) {
     #right-container, #left-container, #editor {
         width: 100%;
     }
+
+    * {
+        font-size: 92%;
+    }
 }
 
 * {
     font-family: 'Inter', sans-serif;
-    font-size: 100%;
     box-sizing: border-box;
 }
 
