@@ -11,10 +11,11 @@ class project {
 async function handleForm() {
     const name = document.querySelector('#projectName').value
     const description = document.querySelector('#projectDescription').value
-    const color = document.querySelector('#texteditor').style.backgroundColor
+    let color = document.querySelector('#texteditor').style.backgroundColor
     const code = document.querySelector('.code-wrapper').innerText
     const language = document.querySelector('#languageSelect').value
 
+    !color ? color = '#6BD1FF' : null
     const currentProject = new project(name, description, color, code, language)
     await appendProjectCard(name, description, color, code, language)
     

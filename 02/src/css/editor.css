@@ -21,8 +21,11 @@
     border-radius: 8px;
 }
 
+#editor div#texteditor, .color-input {
+    background-color: rgb(107, 209, 255);
+}
+
 #editor div#texteditor {
-    background: rgba(107, 209, 255, 1);
     height: 340px;
     display: flex;
     flex-direction: column;
