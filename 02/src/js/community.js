@@ -11,7 +11,7 @@ class project {
 async function handleForm() {
     const name = document.querySelector('#projectName').value
     const description = document.querySelector('#projectDescription').value
-    const color = document.getElementById('texteditor').style.backgroundColor
+    const color = document.querySelector('#texteditor').style.backgroundColor
     const code = document.querySelector('.code-wrapper').innerText
     const language = document.querySelector('#languageSelect').value
 
@@ -25,10 +25,10 @@ async function handleForm() {
 
 let countProjects = 0
 
-async function appendProjectCard(name, description, color, code, language) {
+function appendProjectCard(name, description, color, code, language) {
     countProjects += 1
 
-    $("#community").append(`
+    $("#communityGrid").append(`
         <div class="card" style="background: ${color}" id="card${countProjects}">
             <div class="cardDetails">${name}<br>${description}</div>
             <div id="buttons">
