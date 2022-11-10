@@ -33,9 +33,9 @@ body {
     padding: 1rem;
 }
 
-code, .hljs {
+/* code {
     font-family: 'JetBrains Mono', monospace;
-}
+} */
 
 .title {
     letter-spacing: 0.4rem;
