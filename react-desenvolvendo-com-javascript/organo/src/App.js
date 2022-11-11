@@ -8,6 +8,7 @@ function App() {
 
     const handleSubmit = teammate => {
         setTeammates([...teammates, teammate]);
+        console.log('Colaboradores:', teammates);
     };
 
     return (

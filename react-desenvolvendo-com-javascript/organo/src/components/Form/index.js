@@ -6,12 +6,12 @@ import './index.css';
 
 export default function Form(props) {
     const nameList = [
-        { key: 1, value: 'Programação' },
-        { key: 2, value: 'Front-end' },
-        { key: 3, value: 'Data Science' },
-        { key: 4, value: 'DevOps' },
-        { key: 5, value: 'Mobile' },
-        { key: 6, value: 'Inovação e Gestão' },
+        'Programação',
+        'Front-end',
+        'Data Science',
+        'DevOps',
+        'Mobile',
+        'Inovação e Gestão',
     ];
 
     const handleForm = e => {

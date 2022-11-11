@@ -14,9 +14,9 @@ export default function Dropdown(props) {
                 <option key='default' value=''>
                     Selecione
                 </option>
-                {data.map(item => (
-                    <option key={item.key} value={item.value}>
-                        {item.value}
+                {data.map((value, idx) => (
+                    <option key={idx} value={value}>
+                        {value}
                     </option>
                 ))}
             </select>
