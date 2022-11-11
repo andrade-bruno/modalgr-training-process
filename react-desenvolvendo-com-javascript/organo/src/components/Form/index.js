@@ -4,7 +4,7 @@ import Dropdown from '../Dropdown';
 import Input from '../Input';
 import './index.css';
 
-export default function Form() {
+export default function Form(props) {
     const nameList = [
         { key: 1, value: 'Programação' },
         { key: 2, value: 'Front-end' },
@@ -16,7 +16,12 @@ export default function Form() {
 
     const handleForm = e => {
         e.preventDefault();
-        console.log('submit success');
+        props.onSubmit({
+            name,
+            role,
+            imageUrl,
+            team,
+        });
     };
 
     const [name, setName] = useState('');
@@ -52,7 +57,7 @@ export default function Form() {
                 value={imageUrl}
             />
             <Dropdown
-                name='Times'
+                name='Time'
                 data={nameList}
                 required={true}
                 value={team}
