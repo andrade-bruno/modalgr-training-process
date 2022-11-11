@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button';
 import Dropdown from '../Dropdown';
 import Input from '../Input';
 import './index.css';
@@ -13,29 +14,34 @@ export default function Form() {
         { key: 6, value: 'Inovação e Gestão' },
     ];
 
+    const handleForm = e => {
+        e.preventDefault();
+        console.log('submit success');
+    };
+
     return (
-        <>
-            <div className='form'>
-                <form>
-                    <h1>Prencha os dados para criar o card do colaborador</h1>
-                    <Input
-                        name='Nome'
-                        type='text'
-                        placeholder='Digite seu nome'
-                    />
-                    <Input
-                        name='Cargo'
-                        type='text'
-                        placeholder='Digite seu cargo'
-                    />
-                    <Input
-                        name='Imagem'
-                        type='text'
-                        placeholder='Informe o endereço de imagem'
-                    />
-                    <Dropdown name='Times' data={nameList} />
-                </form>
-            </div>
-        </>
+        <form className='form' onSubmit={handleForm}>
+            <h1>Prencha os dados para criar o card do colaborador</h1>
+            <Input
+                name='Nome'
+                type='text'
+                placeholder='Digite seu nome'
+                required={true}
+            />
+            <Input
+                name='Cargo'
+                type='text'
+                placeholder='Digite seu cargo'
+                required={true}
+            />
+            <Input
+                name='Imagem'
+                type='text'
+                placeholder='Informe o endereço de imagem'
+                required={true}
+            />
+            <Dropdown name='Times' data={nameList} />
+            <Button>Finalizar</Button>
+        </form>
     );
 }

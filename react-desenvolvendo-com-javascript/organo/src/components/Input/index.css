@@ -1,11 +1,10 @@
 .field {
-    margin: 24px 0;
     width: 100%;
 }
 
 .field label {
     display: block;
-    margin: 0 0 8px 0;
+    margin-bottom: 8px;
 }
 
 .field input {
@@ -15,4 +14,5 @@
     border: none;
     padding: 24px;
     box-sizing: border-box;
+    border-radius: 16px;
 }

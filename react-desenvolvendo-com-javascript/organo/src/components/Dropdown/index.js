@@ -7,9 +7,13 @@ export default function Dropdown(props) {
         <div className='list'>
             <label>{name}</label>
             <select>
-                <option value=''>Selecione</option>
+                <option key='default' value=''>
+                    Selecione
+                </option>
                 {data.map(item => (
-                    <option value={item.id}>{item.value}</option>
+                    <option key={item.key} value={item.value}>
+                        {item.value}
+                    </option>
                 ))}
             </select>
         </div>

@@ -1,8 +1,5 @@
-.banner {
-    background-color: #5868EE;
-}
-
-.banner img {
+img {
+    background-color: #5868ee;
     width: 100%;
     height: 100%;
 }
