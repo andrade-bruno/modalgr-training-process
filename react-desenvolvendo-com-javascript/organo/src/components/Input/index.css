@@ -1,5 +1,6 @@
 .field {
-    margin: 24px;
+    margin: 24px 0;
+    width: 100%;
 }
 
 .field label {
