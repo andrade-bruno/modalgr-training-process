@@ -22,6 +22,7 @@ export default function Form() {
     const [name, setName] = useState('');
     const [role, setRole] = useState('');
     const [imageUrl, setImage] = useState('');
+    const [team, setTeam] = useState('');
 
     return (
         <form className='form' onSubmit={handleForm}>
@@ -50,7 +51,13 @@ export default function Form() {
                 onChange={val => setImage(val)}
                 value={imageUrl}
             />
-            <Dropdown name='Times' data={nameList} required={true} />
+            <Dropdown
+                name='Times'
+                data={nameList}
+                required={true}
+                value={team}
+                onChange={val => setTeam(val)}
+            />
             <Button>Finalizar</Button>
         </form>
     );

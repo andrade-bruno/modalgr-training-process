@@ -9,18 +9,16 @@ export default function Input(props) {
     };
 
     return (
-        <>
-            <div className='field'>
-                <label>{name}</label>
-                <input
-                    name={name}
-                    type={type}
-                    placeholder={placeholder}
-                    required={required}
-                    onChange={handleValue}
-                    value={value}
-                />
-            </div>
-        </>
+        <div className='field'>
+            <label>{name}</label>
+            <input
+                name={name}
+                type={type}
+                placeholder={placeholder}
+                required={required}
+                onChange={handleValue}
+                value={value}
+            />
+        </div>
     );
 }
