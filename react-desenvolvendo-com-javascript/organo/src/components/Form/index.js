@@ -3,17 +3,9 @@ import Button from '../Button';
 import Dropdown from '../Dropdown';
 import Input from '../Input';
 import './index.css';
+import { teamList } from '../../App';
 
 export default function Form(props) {
-    const nameList = [
-        'Programação',
-        'Front-end',
-        'Data Science',
-        'DevOps',
-        'Mobile',
-        'Inovação e Gestão',
-    ];
-
     const handleForm = e => {
         e.preventDefault();
         props.onSubmit({
@@ -58,7 +50,7 @@ export default function Form(props) {
             />
             <Dropdown
                 name='Time'
-                data={nameList}
+                data={teamList}
                 required={true}
                 value={team}
                 onChange={val => setTeam(val)}
