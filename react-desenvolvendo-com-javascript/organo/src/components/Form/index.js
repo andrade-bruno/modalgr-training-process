@@ -16,10 +16,10 @@ export default function Form(props) {
         });
     };
 
-    const [name, setName] = useState('');
-    const [role, setRole] = useState('');
-    const [imageUrl, setImage] = useState('');
-    const [team, setTeam] = useState('');
+    const [name, setName] = useState('Bruno');
+    const [role, setRole] = useState('Dev');
+    const [imageUrl, setImage] = useState('http...');
+    const [team, setTeam] = useState('React');
 
     return (
         <form className='form' onSubmit={handleForm}>

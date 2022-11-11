@@ -37,7 +37,7 @@ function App() {
     const [teammates, setTeammates] = useState([]);
 
     const handleSubmit = teammate => {
-        setTeammates([teammate]);
+        setTeammates([...teammates, teammate]);
         toast(`${teammate.name} cadastrado`);
     };
 
@@ -46,8 +46,7 @@ function App() {
             <div className='app'>
                 <Banner />
                 <Form onSubmit={handleSubmit} />
-                <Team name='Front-end' />
-                <Team name='Back-end' />
+                <Team name='Front-end' teammates={teammates} />
                 <ToastContainer
                     position='top-center'
                     autoClose={2500}
