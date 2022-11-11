@@ -1,12 +1,12 @@
 import './index.css';
 
 export default function Dropdown(props) {
-    const { name, data } = props;
+    const { name, data, required } = props;
 
     return (
         <div className='list'>
             <label>{name}</label>
-            <select>
+            <select required={required}>
                 <option key='default' value=''>
                     Selecione
                 </option>

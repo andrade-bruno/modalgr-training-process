@@ -40,7 +40,7 @@ export default function Form() {
                 placeholder='Informe o endereço de imagem'
                 required={true}
             />
-            <Dropdown name='Times' data={nameList} />
+            <Dropdown name='Times' data={nameList} required={true} />
             <Button>Finalizar</Button>
         </form>
     );
