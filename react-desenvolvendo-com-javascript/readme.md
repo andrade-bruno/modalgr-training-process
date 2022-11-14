@@ -17,6 +17,16 @@ a) Desenvolvendo em Javascript utilizando React
 
 [Vercel](https://bruno-andrade-organo.vercel.app/)
 
+### Resultados
+
+![734x1010-1](734x1010-1.png)
+
+![734x1010-2](734x1010-2.png)
+
+![734x1010-3](734x1010-3.png)
+
+![734x1010-4](734x1010-4.png)
+
 ### Fotos: Devix Github
 
 [Bruno Andrade](https://github.com/andrade-bruno.png)
