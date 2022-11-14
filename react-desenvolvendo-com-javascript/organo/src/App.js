@@ -6,6 +6,7 @@ import './main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Team from './components/Team';
+import Footer from './components/Footer';
 
 export const teamList = [
     { value: 'React', primaryColor: '#57C278', secondaryColor: '#D9F7E9' },
@@ -57,6 +58,8 @@ function App() {
                         )}
                     />
                 ))}
+
+                <Footer />
 
                 <ToastContainer
                     position='top-center'

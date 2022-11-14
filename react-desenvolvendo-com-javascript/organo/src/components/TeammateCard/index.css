@@ -1,4 +1,10 @@
 .mate {
+    width: 280px;
+}
+
+.mate .header {
+    background-color: #f0f0f0;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .mate img {
@@ -25,4 +31,5 @@
 
 .mate .footer h5 {
     line-height: 22px;
+    padding: 0 16px;
 }
