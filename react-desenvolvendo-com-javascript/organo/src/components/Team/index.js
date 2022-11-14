@@ -13,11 +13,13 @@ export default function Team(props) {
                 </h3>
 
                 <div className='teammates'>
-                    {props.teammates.map(teammate => (
+                    {props.teammates.map((teammate, index) => (
                         <TeammateCard
+                            key={index}
                             name={teammate.name}
                             role={teammate.role}
                             imageUrl={teammate.imageUrl}
+                            bgColor={props.primaryColor}
                         />
                     ))}
                 </div>
