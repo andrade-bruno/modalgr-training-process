@@ -17,17 +17,29 @@ const Logo = styled.img`
   width: 50px;
 `
 
+const BtnHeader = styled.a`
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px 20px;
+    margin: 0 10px;
+    font-weight: 600;
+    border: 2px solid white;
+
+    background-color: ${(props) => (props.primary ? '#FFF' : theme.colors.primary )};
+    color: ${(props) => (props.primary ? theme.colors.primary : '#FFF' )};
+`
+
 const Cabecalho = () => {
   return (
     <Header>
       <Logo src={bank_logo} alt="Logo Smart Bank" />
       <div>
-        <a className="btn-secundario" href="https://google.com">
+        <BtnHeader primary href="https://google.com">
           Ajuda
-        </a>
-        <a className="btn-primario" href="https://google.com">
+        </BtnHeader>
+        <BtnHeader href="https://google.com">
           Sair
-        </a>
+        </BtnHeader>
       </div>
     </Header>
   );
