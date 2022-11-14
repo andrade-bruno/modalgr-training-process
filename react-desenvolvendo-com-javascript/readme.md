@@ -19,13 +19,13 @@ a) Desenvolvendo em Javascript utilizando React
 
 ### Resultados
 
-![734x1010-1](/assets/734x1010-1.png)
+![734x1010-1](public/assets/734x1010-1.png)
 
-![734x1010-2](/assets/734x1010-2.png)
+![734x1010-2](public/assets/734x1010-2.png)
 
-![734x1010-3](/assets/734x1010-3.png)
+![734x1010-3](public/assets/734x1010-3.png)
 
-![734x1010-4](/assets/734x1010-4.png)
+![734x1010-4](public/assets/734x1010-4.png)
 
 ### Fotos: Devix Github
 
