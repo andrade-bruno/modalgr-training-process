@@ -46,7 +46,18 @@ function App() {
             <div className='app'>
                 <Banner />
                 <Form onSubmit={handleSubmit} />
-                <Team name='Front-end' teammates={teammates} />
+
+                {teamList.map(team => (
+                    <Team
+                        name={team.value}
+                        primaryColor={team.primaryColor}
+                        secondaryColor={team.secondaryColor}
+                        teammates={teammates.filter(
+                            teammate => teammate.team === team.value
+                        )}
+                    />
+                ))}
+
                 <ToastContainer
                     position='top-center'
                     autoClose={2500}
