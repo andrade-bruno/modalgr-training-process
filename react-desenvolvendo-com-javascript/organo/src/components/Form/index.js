@@ -14,6 +14,10 @@ export default function Form(props) {
             imageUrl,
             team,
         });
+        setName('');
+        setRole('');
+        setImage('');
+        setTeam('');
     };
 
     const [name, setName] = useState('Bruno');
