@@ -27,6 +27,10 @@ a) Desenvolvendo em Javascript utilizando React
 
 ![734x1010-4](public/assets/734x1010-4.png)
 
+### Certificado
+
+![Certificado](public/assets/certificate.png)
+
 ### Fotos: Devix Github
 
 [Bruno Andrade](https://github.com/andrade-bruno.png)
