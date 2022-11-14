@@ -9,7 +9,7 @@ import Team from './components/Team';
 import Footer from './components/Footer';
 
 export const teamList = [
-    { value: 'React', primaryColor: '#57C278', secondaryColor: '#D9F7E9' },
+    { value: 'React.js', primaryColor: '#57C278', secondaryColor: '#D9F7E9' },
     {
         value: 'React Native',
         primaryColor: '#DB6EBF',
@@ -19,7 +19,7 @@ export const teamList = [
     { value: 'C#', primaryColor: '#FFBA05', secondaryColor: '#FFF5D9' },
     { value: '.NET', primaryColor: '#82CFFA', secondaryColor: '#E8F8FF' },
     {
-        value: 'Data Science',
+        value: 'Node.js',
         primaryColor: '#A6D157',
         secondaryColor: '#F0F8E2',
     },

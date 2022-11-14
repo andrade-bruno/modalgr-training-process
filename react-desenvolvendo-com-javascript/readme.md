@@ -11,11 +11,17 @@ a) Desenvolvendo em Javascript utilizando React
 
 Fotos: Devix Github
 
-https://github.com/andrade-bruno.png
-https://github.com/isabellacoliveira.png
-https://github.com/anthonyclint.png
-https://github.com/cleane2003.png
-https://github.com/rod-lopes.png
-https://github.com/laarissagoncalves.png
-https://github.com/alberth-pastorello.png
-https://github.com/luizmateuss.png
+[Bruno Andrade](https://github.com/andrade-bruno.png)
+
+[Isabella Oliveira](https://github.com/isabellacoliveira.png)
+[Anthony Clint](https://github.com/anthonyclint.png)
+[Cleane Batista](https://github.com/cleane2003.png)
+[Rodrigo Lopes](https://github.com/rod-lopes.png)
+[Larissa Gonçalves](https://github.com/laarissagoncalves.png)
+[Alberth Clint](https://github.com/alberth-pastorello.png)
+[Luiz Mateus](https://github.com/luizmateuss.png)
+
+
+
+
+
