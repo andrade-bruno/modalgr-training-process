@@ -1,15 +1,23 @@
-TRILHA 02
+# TRILHA 02
 
 a) Desenvolvendo em Javascript utilizando React
 (CURSO: React: desenvolvendo com JavaScript - Carga Horária: 14h – FONTE: ALURA)
 
 ▪ Uma biblioteca reativa
+
 ▪ Trabalhando com props
+
 ▪ Interagindo com o usuário
+
 ▪ Montando os times
+
 ▪ Caça aos bugs
 
-Fotos: Devix Github
+### Deploy
+
+[Vercel](https://bruno-andrade-organo.vercel.app/)
+
+### Fotos: Devix Github
 
 [Bruno Andrade](https://github.com/andrade-bruno.png)
 
