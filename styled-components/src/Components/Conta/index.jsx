@@ -5,7 +5,7 @@ import privado from "../../assets/images/privado.svg";
 import olho_Icon from "../../assets/images/olho.svg";
 import dinheiro from "../../assets/images/dinheiro.svg";
 
-import { Icon, Box, Button } from "../UI";
+import { Icon, Box, Button, Balance, Detail } from "../UI";
 
 const IconMargin = styled(Icon)`
   margin-top: 2px;
@@ -27,9 +27,9 @@ const Conta = () => {
           <Icon src={dinheiro} alt="Ícone Saldo" />
         </span>
         {toggleState ? (
-          <div className="saldo">
-            <span className="detalhe">R$</span> 0,00{" "}
-          </div>
+          <Balance>
+            <Detail>R$</Detail> 0,00{" "}
+          </Balance>
         ) : null}
       </div>
 
