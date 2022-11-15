@@ -3,7 +3,7 @@ import bank_logo from "../../assets/images/bank_logo.svg";
 import styled from 'styled-components'
 import theme from "../UI/theme";
 
-const Header = styled.nav`
+const HeaderStyles = styled.nav`
   background-color: ${theme.colors.primary};
   display: flex;
   justify-content: space-between;
@@ -29,9 +29,9 @@ const BtnHeader = styled.a`
     color: ${(props) => (props.primary ? theme.colors.primary : '#FFF' )};
 `
 
-const Cabecalho = () => {
+const Header = () => {
   return (
-    <Header>
+    <HeaderStyles>
       <Logo src={bank_logo} alt="Logo Smart Bank" />
       <div>
         <BtnHeader primary href="https://google.com">
@@ -41,8 +41,8 @@ const Cabecalho = () => {
           Sair
         </BtnHeader>
       </div>
-    </Header>
+    </HeaderStyles>
   );
 };
 
-export default Cabecalho;
+export default Header;
