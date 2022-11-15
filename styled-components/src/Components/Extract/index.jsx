@@ -1,15 +1,13 @@
 import React from "react";
 import { Box } from '../UI'
 import { extractsList } from "../../info";
+import Itens from "../Itens";
 
 export default function Extract() {
   return (
     <Box>
-      {extractsList.map(({id, type, from, value, date}) => (
-        <div key={id}>
-          <div>{type}</div>
-          <div>{from}</div>
-        </div>
+      {extractsList.map((item) => (
+        <Itens key={item.id} item={item}/>
       ))}
     </Box>
   )
