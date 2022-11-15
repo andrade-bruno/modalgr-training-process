@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components'
 
 import Titulo from "../Titulo";
-import Conta from "../Conta";
+import Account from "../Account";
 
 const ContainerDiv = styled.div`
     background-color: #F1F1F1;
@@ -25,7 +25,7 @@ export default function Container() {
         <ContainerDiv>
             <Titulo>Olá Fulano!</Titulo>
             <ContentContainer>
-                <Conta />
+                <Account />
             </ContentContainer>
         </ContainerDiv>
     );

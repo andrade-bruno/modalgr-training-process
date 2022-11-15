@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from 'styled-components'
 
-import privado from "../../assets/images/privado.svg";
-import olho_Icon from "../../assets/images/olho.svg";
-import dinheiro from "../../assets/images/dinheiro.svg";
+import privateIcon from "../../assets/images/privado.svg";
+import eyeIcon from "../../assets/images/olho.svg";
+import moneyIcon from "../../assets/images/dinheiro.svg";
 
 import { Icon, Box, Button, Balance, Detail } from "../UI";
 
@@ -11,7 +11,7 @@ const IconMargin = styled(Icon)`
   margin-top: 2px;
 `
 
-const Conta = () => {
+const Account = () => {
   const [toggleState, untoggle] = useState(true);
 
   const toggleHandler = () => {
@@ -24,7 +24,7 @@ const Conta = () => {
       <div style={{ fontSize: "26px", padding: "20px 0" }}>
         Saldo disponível{" "}
         <span>
-          <Icon src={dinheiro} alt="Ícone Saldo" />
+          <Icon src={moneyIcon} alt="Ícone Saldo" />
         </span>
         {toggleState ? (
           <Balance>
@@ -35,7 +35,7 @@ const Conta = () => {
 
       <Button onClick={toggleHandler}>
         <IconMargin
-          src={toggleState ? privado : olho_Icon}
+          src={toggleState ? privateIcon : eyeIcon}
           alt="Privacidade do Saldo"
         />
       </Button>
@@ -43,4 +43,4 @@ const Conta = () => {
   );
 };
 
-export default Conta;
+export default Account;
