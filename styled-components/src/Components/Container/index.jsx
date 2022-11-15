@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components'
 
-import Titulo from "../Titulo";
+import Title from "../Title";
 import Account from "../Account";
 
 const ContainerDiv = styled.div`
@@ -23,7 +23,7 @@ const ContentContainer = styled.section`
 export default function Container() {
     return (
         <ContainerDiv>
-            <Titulo>Olá Fulano!</Titulo>
+            <Title>Olá Fulano!</Title>
             <ContentContainer>
                 <Account />
             </ContentContainer>
