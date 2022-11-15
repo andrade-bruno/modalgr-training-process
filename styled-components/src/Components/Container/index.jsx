@@ -1,17 +1,28 @@
 import React from "react";
+import styled from 'styled-components'
 
 import Titulo from "../Titulo";
 import Conta from "../Conta";
 
-const Container = () => {
-  return (
-    <div className="container">
-      <Titulo>Olá Fulano!</Titulo>
-      <section className="conteudo">
-        <Conta />
-      </section>
-    </div>
-  );
-};
+const ContainerDiv = styled.div`
+    background-color: #F1F1F1;
+    min-height: 90vh;
+    padding: 0px 15vw;
+`
 
-export default Container;
+const ContentContainer = styled.section`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`
+
+export default function Container() {
+    return (
+        <ContainerDiv>
+            <Titulo>Olá Fulano!</Titulo>
+            <ContentContainer>
+                <Conta />
+            </ContentContainer>
+        </ContainerDiv>
+    );
+};
