@@ -1,4 +1,6 @@
 import React from "react";
+import { ThemeProvider } from "styled-components";
+import { themeDark, themeLight } from "./Components/UI/theme";
 
 import Header from "./Components/Header";
 import Container from "./Components/Container";
@@ -8,9 +10,11 @@ import { GlobalStyle } from "./Components/globalStyle";
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <Header />
-      <Container />
+      <ThemeProvider theme={themeDark}>
+        <GlobalStyle />
+        <Header />
+        <Container />
+      </ThemeProvider>
     </>
   );
 }
