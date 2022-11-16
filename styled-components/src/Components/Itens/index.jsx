@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import IconSwitcher from '../UI/IconSwitcher';
 
 const Container = styled.div`
   box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.1);
@@ -34,6 +35,7 @@ const Item = ({type, from, value}) => {
 const Itens = ({item}) => {
   return (
     <Container>
+      <IconSwitcher type={item.type}/>
       <Item type={item.type} from={item.from} value={item.value} />
       <span>{item.date}</span>
     </Container>
