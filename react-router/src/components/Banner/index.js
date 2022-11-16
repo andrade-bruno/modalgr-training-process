@@ -1,6 +1,6 @@
 import styles from './banner.module.css'
-import paintedCircle from 'assets/painted-circle.png'
-import bruno from 'assets/bruno.jpeg'
+import paintedCircle from '../../assets/painted-circle.png'
+import bruno from '../../assets/bruno.jpeg'
 
 export default function Banner() {
     return (
