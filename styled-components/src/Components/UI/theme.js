@@ -19,13 +19,15 @@ export const theme = {
 export const themeDark = {
   body: theme.background.dark,
   inside: theme.content.dark,
-  text: theme.text.dark
+  text: theme.text.dark,
+  filter: 'invert(100%)'
 }
 
 export const themeLight = {
   body: theme.background.light,
   inside: theme.content.light,
-  text: theme.text.light
+  text: theme.text.light,
+  filter: ''
 }
 
 export default theme;
