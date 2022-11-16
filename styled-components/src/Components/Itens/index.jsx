@@ -6,7 +6,7 @@ const Container = styled.div`
   margin: 2px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 10px;
   font-size: 12px;
 `
@@ -14,13 +14,17 @@ const Container = styled.div`
 const ItemStyle = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
+
+  .text {
+    font-weight: bold;
+  }
 `
 
 const Item = ({type, from, value}) => {
   return (
     <ItemStyle>
-      <span>{type}</span>
+      <span className='text'>{type}</span>
       <span>{from}</span>
       <span>{value}</span>
     </ItemStyle>
@@ -31,6 +35,7 @@ const Itens = ({item}) => {
   return (
     <Container>
       <Item type={item.type} from={item.from} value={item.value} />
+      <span>{item.date}</span>
     </Container>
   )
 }
