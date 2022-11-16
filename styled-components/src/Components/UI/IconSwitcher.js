@@ -9,10 +9,10 @@ import other from '../../assets/images/outros.svg'
 
 const IconSwitcher = ({type}) => {
     const Images = {
-      food: <Icon src={food} alt='Food' />,
-      utilities: <Icon src={utilities} alt='Utilities' />,
-      health: <Icon src={health} alt='Health' />,
-      transport: <Icon src={transport} alt='Transport' />,
+      Food: <Icon src={food} alt='Food' />,
+      Utilities: <Icon src={utilities} alt='Utilities' />,
+      Health: <Icon src={health} alt='Health' />,
+      Transport: <Icon src={transport} alt='Transport' />,
       default: <Icon src={other} alt='Other' />
     }
 
