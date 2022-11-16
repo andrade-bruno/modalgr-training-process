@@ -25,7 +25,7 @@ const ContentContainer = styled.section`
 export default function Container() {
     return (
         <ContainerDiv>
-            <Title>Olá Fulano!</Title>
+            <Title>Olá Bruno!</Title>
             <ContentContainer>
                 <Account />
                 <Extract />

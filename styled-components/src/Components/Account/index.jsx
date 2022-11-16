@@ -28,7 +28,7 @@ const Account = () => {
         </span>
         {toggleState ? (
           <Balance>
-            <Detail>R$</Detail> 0,00{" "}
+            <Detail>R$</Detail> 1.321.002,59{" "}
           </Balance>
         ) : null}
       </div>

@@ -10,7 +10,7 @@ import { BtnThemeSwitcher } from "./Components/UI";
 import IconTheme from "./Components/UI/IconTheme";
 
 function App() {
-  const [isDark, setTheme] = React.useState(true)
+  const [isDark, setTheme] = React.useState(false)
 
   const toggleTheme = () => {
     setTheme((theme) => !theme)
