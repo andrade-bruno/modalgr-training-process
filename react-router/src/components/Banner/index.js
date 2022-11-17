@@ -11,7 +11,7 @@ export default function Banner() {
                 </h1>
 
                 <p className={styles.paragraph}>
-                    Boas vindas ao projeto utilizando a biblioteca React Router Dom
+                    Bem vindo! Neste projeto utilizamos da biblioteca React Router Dom e React Markdown
                 </p>
             </div>
 
@@ -29,7 +29,7 @@ export default function Banner() {
                     alt='Bruno'
                 />
             </div>
-            
+
         </div>
     )
 }
