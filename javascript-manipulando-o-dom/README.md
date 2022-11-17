@@ -1,5 +1,17 @@
-Certificate
+# TRILHA 1
 
-[URL](https://cursos.alura.com.br/user/bruno-andrade18/course/javascript-manipulando-dom/certificate)
+d) Manipulando o DOM com Javascript (CURSO: Javascript: manipulando o DOM - Carga Horária: 6h – FONTE: ALURA)
 
-![Certificate](assets/certificate.png)
+▪ Javascript para Web
+
+▪ Interagindo com uma página
+
+▪ Montando uma peça
+
+▪ Montando um robô
+
+▪ Calculando o poder
+
+### Certificado
+
+![Certificado](assets/certificate.png)
