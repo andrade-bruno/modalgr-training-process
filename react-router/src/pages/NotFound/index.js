@@ -1,8 +1,11 @@
 import styles from './notfound.module.css'
 import error404 from 'assets/404.png'
 import MainButton from 'components/MainButton'
+import { useNavigate } from 'react-router-dom'
 
 export default function NotFound() {
+    const navigate = useNavigate();
+
     return (
         <>
             <div className={styles.content}>
@@ -19,7 +22,7 @@ export default function NotFound() {
                     Aguarde uns instantes e recarregue a página, ou volte para a página inicial.
                 </p>
 
-                <div className={styles.btn}>
+                <div className={styles.btn} onClick={() => navigate(-1)}>
                     <MainButton size='lg'>Voltar</MainButton>
                 </div>
 
