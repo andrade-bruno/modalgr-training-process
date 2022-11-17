@@ -5,7 +5,7 @@ export default function Post({post}) {
         <div key={post.id} className={styles.post}>
             <img
                 className={styles.cover}
-                src={require(`../../assets/posts/${post.id}/capa.png`)}
+                src={require(`../../assets/posts/${post.id}/cover.png`)}
                 alt=''
             />
 
