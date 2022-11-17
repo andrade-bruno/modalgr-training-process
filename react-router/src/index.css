@@ -5,15 +5,15 @@
 }
 
 :root {
-  --azul-escuro: #041833;
-  --azul-medio: #1875E8;
-  --cor-fonte-principal: #041833;
-  --cor-fonte-post: #444444;
-  --branco: #FFF;
-  --fonte-principal: 'Raleway', sans-serif;
-  --fonte-secundaria: 'Playfair Display', sans-serif;
+  --dark-blue: #041833;
+  --medium-blue: #1875E8;
+  --main-font-color: #041833;
+  --post-font-color: #444444;
+  --white: #FFF;
+  --main-font-family: 'Raleway', sans-serif;
+  --secondary-font-family: 'Playfair Display', sans-serif;
 
-  font-family: var(--fonte-principal);
+  font-family: var(--main-font-family);
 }
 
 #root {

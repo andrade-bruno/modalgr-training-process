@@ -1,5 +1,5 @@
 .container {
-    color: var(--cor-fonte-post);
+    color: var(--post-font-color);
     position: relative;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .title {
-    font-family: var(--fonte-secundaria);
+    font-family: var(--secondary-font-family);
     padding: 0 7.5rem;
     font-size: 4rem;
     display: flex;
