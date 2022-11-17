@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+@media (min-width: 1000px) {
+    * {
+        font-size: 100%;
+    }
+}
+
+@media (max-width: 1000px) {
+    #right-container, #left-container, #editor {
+        width: 100%;
+    }
+
+    * {
+        font-size: 92%;
+    }
+}
+
+* {
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+text, p, h1, h2, h3, h4, h5, h6, input, div, button, select, textarea {
+    color: #FFF;
+}
+
+textarea {
+    resize: none;
+}
+
+body {
+    background-color: #051D3B;
+    font-family: 'Inter', sans-serif;
+    padding: 1rem;
+}
+
+/* code {
+    font-family: 'JetBrains Mono', monospace;
+} */
+
+.title {
+    letter-spacing: 0.4rem;
+    margin: 0 0 0.25em 0;
+    overflow-wrap: break-word;
+}
