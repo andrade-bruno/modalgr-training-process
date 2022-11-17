@@ -1,5 +1,6 @@
 import styles from './notfound.module.css'
 import error404 from 'assets/404.png'
+import MainButton from 'components/MainButton'
 
 export default function NotFound() {
     return (
@@ -19,7 +20,7 @@ export default function NotFound() {
                 </p>
 
                 <div className={styles.btn}>
-                    <button>Voltar</button>
+                    <MainButton size='lg'>Voltar</MainButton>
                 </div>
 
                 <img
