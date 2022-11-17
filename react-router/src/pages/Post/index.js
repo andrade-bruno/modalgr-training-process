@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import posts from 'assets/json/posts.json'
 import PostModel from "components/PostModel"
+import ReactMarkdown from "react-markdown"
 
 export default function Post() {
     const params = useParams()
@@ -14,7 +15,9 @@ export default function Post() {
             coverPhoto={require(`../../assets/posts/${currentPost.id}/cover.png`)}
             title={currentPost.title}
         >
-            {currentPost.content}
+            <ReactMarkdown>
+                {currentPost.content}
+            </ReactMarkdown>
         </PostModel>
     )
 }
