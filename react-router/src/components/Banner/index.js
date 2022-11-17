@@ -11,7 +11,7 @@ export default function Banner() {
                 </h1>
 
                 <p className={styles.paragraph}>
-                    Bem vindo! Neste projeto utilizamos da biblioteca React Router Dom e React Markdown
+                    Bem vindo! Neste projeto crio uma SPA - Single Page Application, utilizando bibliotecas como o React Router Dom e React Markdown
                 </p>
             </div>
 

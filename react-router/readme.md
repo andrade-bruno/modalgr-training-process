@@ -17,4 +17,26 @@ c) Navegação em uma aplicação SPA (CURSO: React Router: navegação em uma S
 
 ### Resultados
 
+#### Desktop - Home
+
+![Desktop Home](./src/assets/screenshots/desktop-home-1.png)
+
+![Desktop Home 2](./src/assets/screenshots/desktop-home-2.png)
+
+#### Desktop - Post
+
+![Desktop Post](./src/assets/screenshots/desktop-post-1.png)
+
+![Desktop Post 2](./src/assets/screenshots/desktop-post-2.png)
+
+![Desktop Post 3](./src/assets/screenshots/desktop-post-3.png)
+
+#### Desktop - Sobre
+
+![Desktop Sobre](./src/assets/screenshots/desktop-sobre-1.png)
+
+![Desktop Sobre 2](./src/assets/screenshots/desktop-sobre-2.png)
+
 ### Certificado
+
+![Certificado](./src/assets/screenshots/certificate.png)
