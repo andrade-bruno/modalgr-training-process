@@ -12,6 +12,14 @@ export default function Post() {
         return post.id === Number(params.id)
     })
 
+    if (!currentPost) {
+        return (
+            <div className="post-not-found">
+                <p>Post not found</p>
+            </div>
+        )
+    }
+
     return (
         <PostModel
             coverPhoto={require(`../../assets/posts/${currentPost.id}/cover.png`)}
