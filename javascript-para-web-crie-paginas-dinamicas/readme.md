@@ -1,5 +1,17 @@
-Certificate
+# TRILHA 01
 
-[URL](https://cursos.alura.com.br/user/bruno-andrade18/course/javascript-web-paginas-dinamicas/certificate)
+c) Crie páginas dinâmicas com Javascript (CURSO: Javascript para Web: Crie páginas dinâmicas - Carga Horária: 10h – FONTE: ALURA)
 
-![Certificate](assets/certificate.png)
+▪ Conhecendo o Javascript
+
+▪ Funções
+
+▪ Listas
+
+▪ Iterando em listas
+
+▪ Eventos e lógicas
+
+### Certificado
+
+![Certificado](assets/certificate.png)

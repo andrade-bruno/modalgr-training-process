@@ -1,4 +1,4 @@
-# TRILHA 1
+# TRILHA 01
 
 d) Manipulando o DOM com Javascript (CURSO: Javascript: manipulando o DOM - Carga Horária: 6h – FONTE: ALURA)
 
