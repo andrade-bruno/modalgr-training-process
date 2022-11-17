@@ -12,9 +12,9 @@ export default function Post() {
     return (
         <PostModel
             coverPhoto={require(`../../assets/posts/${currentPost.id}/cover.png`)}
-            title={currentPost.titulo}
+            title={currentPost.title}
         >
-            {currentPost.texto}
+            {currentPost.content}
         </PostModel>
     )
 }

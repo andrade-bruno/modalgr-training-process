@@ -12,7 +12,7 @@ export default function PostCard({post}) {
                 />
 
                 <h2 className={styles.title}>
-                    {post.titulo}
+                    {post.title}
                 </h2>
 
                 <button className={styles.btnRead}>
