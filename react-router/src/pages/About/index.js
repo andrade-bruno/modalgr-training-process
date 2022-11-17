@@ -7,7 +7,7 @@ export default function About() {
     return (
         <PostModel
             coverPhoto={coverPhoto}
-            title='Sobre Mim'
+            title='Sobre'
         >
             <h3 className={styles.subtitle}>
                 Olá, vai um cafézinho?
