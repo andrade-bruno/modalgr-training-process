@@ -24,23 +24,26 @@ export const useCartContext = () => {
             return setCart(prevCart => [...prevCart, newProduct])
         }
 
-        return setCart(prevCart => prevCart.map(item => {
-            if (item.id === newProduct.id) item.quantity += 1;
-            return item
-        }))
+        setCart(handleQuantity(newProduct.id, 1))
     }
 
     function removeProduct(id) {
         const product = cart.find(item => item.id === id)
 
+        if (!product) return null;
+
         const isLastOne = product.quantity === 1;
 
         if (isLastOne) return setCart(previous => previous.filter(item => item.id !== id))
 
-        return setCart(prevCart => prevCart.map(item => {
-            if (item.id === id) item.quantity -= 1;
+        setCart(handleQuantity(id, -1))
+    }
+
+    function handleQuantity(id, quantity) {
+        return cart => cart.map(item => {
+            if (item.id === id) item.quantity += quantity;
             return item
-        }))
+        })
     }
 
     return { cart, setCart, addProduct, removeProduct }
