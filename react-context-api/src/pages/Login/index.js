@@ -10,7 +10,11 @@ import {
   InputAdornment
 } from '@material-ui/core';
 
-function Login({ name, setName, balance, setBalance }) {
+import { useNavigate } from 'react-router-dom'
+
+export default function Login({ name, setName, balance, setBalance }) {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Titulo>
@@ -44,11 +48,10 @@ function Login({ name, setName, balance, setBalance }) {
       <Button
         variant="contained"
         color="primary"
+        onClick={() => { navigate('/feira') }}
       >
         Avançar
       </Button>
     </Container>
   )
 };
-
-export default Login;
