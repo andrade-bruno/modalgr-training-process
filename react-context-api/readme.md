@@ -14,4 +14,26 @@ d) Gerenciando estado globais com Context API (CURSO: React: gerenciamento de es
 
 ### Resultados
 
+#### Login
+
+![Login](./public/assets/screenshots/login-1.png)
+
+#### Selecionando itens na feira e manipulando o Cart context
+
+![Feira](./public/assets/screenshots/market-1.png)
+
+#### Visualizando o carrinho
+
+![Carrinho 1](./public/assets/screenshots/cart-1.png)
+
+#### Manipulando o Cart context diretamente na tela do carrinho, alterando a forma de pagamento e aplicando juros
+
+![Carrinho 2](./public/assets/screenshots/cart-2.png)
+
+#### Finalizando a compra, manipulando todos os Contexts APIs
+
+![Carrinho 3](./public/assets/screenshots/cart-3.png)
+
 ### Certificado
+
+ ![Certificado](./public/assets/screenshots/certificate.png)
