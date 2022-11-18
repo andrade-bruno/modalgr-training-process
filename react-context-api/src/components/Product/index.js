@@ -4,23 +4,16 @@ import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
-
-function Product({
-  nome,
-  foto,
-  id,
-  valor,
-  unidade
-}) {
+function Product({ name, photo, price }) {
   return (
     <Container>
       <div>
         <img
-          src={`/assets/${foto}.png`}
-          alt={`foto de ${nome}`}
+          src={`/assets/${photo}.png`}
+          alt={`Foto de ${name}`}
         />
         <p>
-          {nome} - R$ {valor?.toFixed(2)} <span>Kg</span>
+          {name} - R$ {price?.toFixed(2)} <span>Kg</span>
         </p>
       </div>
       <div>
