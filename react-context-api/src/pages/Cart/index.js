@@ -18,6 +18,8 @@ function Cart() {
   const { paymentMethod, paymentTypes, handlePaymentMethod } = usePaymentContext()
   const { balance = 0 } = React.useContext(UserContext)
 
+  const finalBalance = React.useMemo(() => (balance - totalPrice), [balance, totalPrice])
+
   return (
     <Container>
       <Voltar onClick={() => navigate(-1)} />
@@ -56,7 +58,7 @@ function Cart() {
         </div>
         <div>
           <h2> Saldo Total: </h2>
-          <span> R$ {(balance - totalPrice).toFixed(2)}</span>
+          <span> R$ {finalBalance.toFixed(2)}</span>
         </div>
       </TotalContainer>
       <Button
@@ -65,6 +67,7 @@ function Cart() {
         }}
         color="primary"
         variant="contained"
+        disabled={finalBalance < 0}
       >
         Comprar
       </Button>
