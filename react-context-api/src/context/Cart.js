@@ -13,3 +13,22 @@ export const CartProvider = ({ children }) => {
     )
 }
 
+export const useCartContext = () => {
+    const { cart, setCart } = React.useContext(CartContext)
+
+    function addProduct(newProduct) {
+        const hasProduct = cart.some(item => item.id === newProduct.id)
+
+        if (!hasProduct) {
+            newProduct.quantity = 1;
+            return setCart(prevCart => [...prevCart, newProduct])
+        }
+
+        return setCart(prevCart => prevCart.map(item => {
+            if (item.id === newProduct.id) item.quantity += 1;
+            return item
+        }))
+    }
+
+    return { cart, setCart, addProduct }
+}
