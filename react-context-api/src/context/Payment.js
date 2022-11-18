@@ -35,3 +35,15 @@ export const PaymentProvider = ({ children }) => {
         </PaymentContext.Provider>
     )
 }
+
+export const usePaymentContext = () => {
+    const { paymentTypes, paymentMethod, setPaymentMethod } = React.useContext(PaymentContext)
+
+    function handlePaymentMethod(id) {
+        const selectedMethod = paymentTypes.find(item => item.id === id)
+
+        setPaymentMethod(selectedMethod)
+    }
+
+    return { paymentTypes, paymentMethod, handlePaymentMethod }
+}

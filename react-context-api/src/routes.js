@@ -15,12 +15,12 @@ function Router() {
                 <BrowserRouter>
                     <Routes>
                         <Route path='/' exact element={<Login />} />
-                        <Route path='/market' element={
-                            <Market />
+                        <Route path='/market' element={<Market />} />
+                        <Route path='/cart' element={
+                            <PaymentProvider>
+                                <Cart />
+                            </PaymentProvider>
                         } />
-
-                        <Route path='/cart' element={<PaymentProvider><Cart /></PaymentProvider>} />
-
                     </Routes>
                 </BrowserRouter>
             </CartProvider>
