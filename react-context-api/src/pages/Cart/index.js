@@ -53,11 +53,11 @@ function Cart() {
           <span>R$ {totalPrice.toFixed(2)}</span>
         </div>
         <div>
-          <h2> Saldo: </h2>
-          <span> R$ {balance.toFixed(2)}</span>
+          <h2>Saldo: </h2>
+          <span> R$ {Number(balance).toFixed(2)}</span>
         </div>
         <div>
-          <h2> Saldo Total: </h2>
+          <h2>Saldo Final: </h2>
           <span> R$ {finalBalance.toFixed(2)}</span>
         </div>
       </TotalContainer>
@@ -67,7 +67,7 @@ function Cart() {
         }}
         color="primary"
         variant="contained"
-        disabled={finalBalance < 0}
+        disabled={finalBalance < 0 || cart.length <= 0}
       >
         Comprar
       </Button>
