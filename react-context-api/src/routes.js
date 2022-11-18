@@ -1,4 +1,4 @@
-import Carrinho from 'pages/Carrinho'
+import Cart from 'pages/Cart'
 import Feira from 'pages/Feira'
 import Login from 'pages/Login'
 import React from 'react'
@@ -13,7 +13,7 @@ function Router() {
                 <Routes>
                     <Route path='/' exact element={<Login />} />
                     <Route path='/feira' element={<Feira />} />
-                    <Route path='/carrinho' element={<Carrinho />} />
+                    <Route path='/cart' element={<Cart />} />
                 </Routes>
             </BrowserRouter>
         </UserProvider>
