@@ -7,10 +7,10 @@ import {
 import {
   Input,
   InputLabel,
-  InputAdornment 
+  InputAdornment
 } from '@material-ui/core';
 
-function Login() {
+function Login({ name, setName, balance, setBalance }) {
   return (
     <Container>
       <Titulo>
@@ -22,6 +22,8 @@ function Login() {
         </InputLabel>
         <Input
           type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </InputContainer>
       <InputContainer>
@@ -29,13 +31,15 @@ function Login() {
           Saldo
         </InputLabel>
         <Input
-        type="number"
-        startAdornment={
-          <InputAdornment position="start">
-            R$
-          </InputAdornment>
-        }
-      />
+          type="number"
+          value={balance}
+          onChange={(e) => setBalance(e.target.value)}
+          startAdornment={
+            <InputAdornment position="start">
+              R$
+            </InputAdornment>
+          }
+        />
       </InputContainer>
       <Button
         variant="contained"
