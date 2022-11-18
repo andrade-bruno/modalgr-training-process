@@ -1,5 +1,5 @@
 import Cart from 'pages/Cart'
-import Feira from 'pages/Feira'
+import Market from 'pages/Market'
 import Login from 'pages/Login'
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -12,7 +12,7 @@ function Router() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' exact element={<Login />} />
-                    <Route path='/feira' element={<Feira />} />
+                    <Route path='/market' element={<Market />} />
                     <Route path='/cart' element={<Cart />} />
                 </Routes>
             </BrowserRouter>

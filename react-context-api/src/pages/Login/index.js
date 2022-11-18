@@ -51,7 +51,7 @@ export default function Login() {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => { navigate('/feira') }}
+        onClick={() => { navigate('/market') }}
       >
         Avançar
       </Button>

@@ -4,13 +4,13 @@ import {
   Header,
   Lista,
 } from './styles';
-import feira from './feira.json';
+import marketJson from './market.json';
 import Product from 'components/Product';
 import NavBar from './NavBar';
 
 import { UserContext } from 'context/User';
 
-function Feira() {
+function Market() {
   const { name, balance } = React.useContext(UserContext)
 
   return (
@@ -27,7 +27,7 @@ function Feira() {
         <h2>
           Produtos:
         </h2>
-        {feira.map(product => (
+        {marketJson.map(product => (
           <Product
             {...product}
             key={product.id}
@@ -38,4 +38,4 @@ function Feira() {
   )
 }
 
-export default Feira;
+export default Market;
