@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { UserProvider } from 'context/User'
 import { CartProvider } from 'context/Cart'
+import { PaymentProvider } from 'context/Payment'
 
 function Router() {
     return (
@@ -17,7 +18,9 @@ function Router() {
                         <Route path='/market' element={
                             <Market />
                         } />
-                        <Route path='/cart' element={<Cart />} />
+
+                        <Route path='/cart' element={<PaymentProvider><Cart /></PaymentProvider>} />
+
                     </Routes>
                 </BrowserRouter>
             </CartProvider>

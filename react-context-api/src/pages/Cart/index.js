@@ -1,21 +1,24 @@
+import React from 'react';
+
 import { Button, Snackbar, InputLabel } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useState } from 'react';
 import { Container, Voltar, TotalContainer, PagamentoContainer } from './styles';
 import { useCartContext } from 'context/Cart';
 import Product from 'components/Product';
 import { useNavigate } from 'react-router-dom';
+import { PaymentContext } from 'context/Payment';
 
 function Cart() {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const { cart } = useCartContext()
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const navigate = useNavigate()
+
+  const { cart } = useCartContext()
+  const { paymentMethod } = React.useContext(PaymentContext)
 
   return (
     <Container>
-      <Voltar
-        onClick={() => navigate(-1)}
-      />
+      <Voltar onClick={() => navigate(-1)} />
+      {paymentMethod.name}
       <h2>
         Carrinho
       </h2>
