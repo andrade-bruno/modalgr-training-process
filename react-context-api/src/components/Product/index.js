@@ -26,6 +26,7 @@ function Product({ name, photo, price, id }) {
         <IconButton
           color="secondary"
           onClick={() => removeProduct(id)}
+          disabled={!currentProduct}
         >
           <RemoveIcon />
         </IconButton>

@@ -51,6 +51,7 @@ export default function Login() {
       <Button
         variant="contained"
         color="primary"
+        disabled={name.length < 3 || balance <= 0}
         onClick={() => { navigate('/market') }}
       >
         Avançar
