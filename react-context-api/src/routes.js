@@ -10,17 +10,17 @@ import { CartProvider } from 'context/Cart'
 function Router() {
     return (
         <UserProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path='/' exact element={<Login />} />
-                    <Route path='/market' element={
-                        <CartProvider>
+            <CartProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path='/' exact element={<Login />} />
+                        <Route path='/market' element={
                             <Market />
-                        </CartProvider>
-                    } />
-                    <Route path='/cart' element={<Cart />} />
-                </Routes>
-            </BrowserRouter>
+                        } />
+                        <Route path='/cart' element={<Cart />} />
+                    </Routes>
+                </BrowserRouter>
+            </CartProvider>
         </UserProvider>
     )
 }
