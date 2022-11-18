@@ -12,17 +12,15 @@ function Router() {
     return (
         <UserProvider>
             <CartProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path='/' exact element={<Login />} />
-                        <Route path='/market' element={<Market />} />
-                        <Route path='/cart' element={
-                            <PaymentProvider>
-                                <Cart />
-                            </PaymentProvider>
-                        } />
-                    </Routes>
-                </BrowserRouter>
+                <PaymentProvider>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path='/' exact element={<Login />} />
+                            <Route path='/market' element={<Market />} />
+                            <Route path='/cart' element={<Cart />} />
+                        </Routes>
+                    </BrowserRouter>
+                </PaymentProvider>
             </CartProvider>
         </UserProvider>
     )

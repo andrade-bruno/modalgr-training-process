@@ -1,4 +1,5 @@
 import React from 'react'
+import { usePaymentContext } from './Payment';
 
 export const CartContext = React.createContext()
 CartContext.displayName = 'Cart'
@@ -31,6 +32,10 @@ export const useCartContext = () => {
         totalPrice,
         setTotalPrice
     } = React.useContext(CartContext)
+
+    const {
+        paymentMethod
+    } = usePaymentContext()
 
     function addProduct(newProduct) {
         const hasProduct = cart.some(item => item.id === newProduct.id)
@@ -71,8 +76,8 @@ export const useCartContext = () => {
             newTotalPrice: 0
         })
         setProductsAmount(newQtd)
-        setTotalPrice(newTotalPrice)
-    }, [cart, setProductsAmount, setTotalPrice])
+        setTotalPrice(newTotalPrice * paymentMethod.fee)
+    }, [cart, setProductsAmount, setTotalPrice, paymentMethod])
 
     return { cart, setCart, addProduct, removeProduct, productsAmount, totalPrice }
 }
