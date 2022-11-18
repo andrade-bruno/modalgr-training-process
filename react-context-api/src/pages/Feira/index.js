@@ -5,7 +5,7 @@ import {
   Lista,
 } from './styles';
 import feira from './feira.json';
-import Produto from 'components/Produto';
+import Product from 'components/Product';
 import NavBar from './NavBar';
 
 import { UserContext } from 'context/User';
@@ -27,10 +27,10 @@ function Feira() {
         <h2>
           Produtos:
         </h2>
-        {feira.map(produto => (
-          <Produto
-            {...produto}
-            key={produto.id}
+        {feira.map(product => (
+          <Product
+            {...product}
+            key={product.id}
           />
         ))}
       </Lista>
