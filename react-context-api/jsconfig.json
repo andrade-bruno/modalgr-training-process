@@ -2,11 +2,24 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "components": ["components"],
-      "pages": ["pages"],
-      "common": ["common"]
+      "components": [
+        "components"
+      ],
+      "pages": [
+        "pages"
+      ],
+      "common": [
+        "common"
+      ],
+      "context": [
+        "context"
+      ]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["src"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src"
+  ]
 }
