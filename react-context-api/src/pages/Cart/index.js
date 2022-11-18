@@ -1,19 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Snackbar, InputLabel, Select, MenuItem } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Container, Voltar, TotalContainer, PagamentoContainer } from './styles';
+
 import { useCartContext } from 'context/Cart';
-import Product from 'components/Product';
-import { useNavigate } from 'react-router-dom';
 import { usePaymentContext } from 'context/Payment';
+import { UserContext } from 'context/User';
+import Product from 'components/Product';
 
 function Cart() {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const navigate = useNavigate()
 
-  const { cart } = useCartContext()
+  const { cart, totalPrice } = useCartContext()
   const { paymentMethod, paymentTypes, handlePaymentMethod } = usePaymentContext()
+  const { balance = 0 } = React.useContext(UserContext)
 
   return (
     <Container>
@@ -45,15 +48,15 @@ function Cart() {
       <TotalContainer>
         <div>
           <h2>Total no Carrinho: </h2>
-          <span>R$ </span>
+          <span>R$ {totalPrice.toFixed(2)}</span>
         </div>
         <div>
           <h2> Saldo: </h2>
-          <span> R$ </span>
+          <span> R$ {balance.toFixed(2)}</span>
         </div>
         <div>
           <h2> Saldo Total: </h2>
-          <span> R$ </span>
+          <span> R$ {(balance - totalPrice).toFixed(2)}</span>
         </div>
       </TotalContainer>
       <Button
