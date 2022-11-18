@@ -3,7 +3,7 @@ import { StylesProvider } from '@material-ui/core/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Login from 'pages/Login';
+import Router from 'routes';
 
 const theme = createTheme({
   palette: {
@@ -17,12 +17,12 @@ const theme = createTheme({
 })
 
 ReactDOM.render(
-  <React.StrictMode>
-    <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <Login />
-      </ThemeProvider>
-    </StylesProvider>
-  </React.StrictMode>,
+  <StylesProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      <Router />
+    </ThemeProvider>
+  </StylesProvider>,
   document.getElementById('root')
 );
+
+// injectFirst: Injeta inicialmente o css do material ui, evitando o override do user css
