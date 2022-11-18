@@ -30,5 +30,18 @@ export const useCartContext = () => {
         }))
     }
 
-    return { cart, setCart, addProduct }
+    function removeProduct(id) {
+        const product = cart.find(item => item.id === id)
+
+        const isLastOne = product.quantity === 1;
+
+        if (isLastOne) return setCart(previous => previous.filter(item => item.id !== id))
+
+        return setCart(prevCart => prevCart.map(item => {
+            if (item.id === id) item.quantity -= 1;
+            return item
+        }))
+    }
+
+    return { cart, setCart, addProduct, removeProduct }
 }
