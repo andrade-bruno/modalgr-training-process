@@ -1,5 +1,6 @@
 import React from 'react'
 import { usePaymentContext } from './Payment';
+import { UserContext } from 'context/User';
 
 export const CartContext = React.createContext()
 CartContext.displayName = 'Cart'
@@ -37,6 +38,10 @@ export const useCartContext = () => {
         paymentMethod
     } = usePaymentContext()
 
+    const {
+        setBalance
+    } = React.useContext(UserContext)
+
     function addProduct(newProduct) {
         const hasProduct = cart.some(item => item.id === newProduct.id)
 
@@ -67,6 +72,11 @@ export const useCartContext = () => {
         })
     }
 
+    function finishPayment() {
+        setCart([])
+        setBalance(previous => previous - totalPrice)
+    }
+
     React.useEffect(() => {
         const { newQtd, newTotalPrice } = cart.reduce((counter, product) => ({
             newQtd: counter.newQtd + product.quantity,
@@ -79,5 +89,5 @@ export const useCartContext = () => {
         setTotalPrice(newTotalPrice * paymentMethod.fee)
     }, [cart, setProductsAmount, setTotalPrice, paymentMethod])
 
-    return { cart, setCart, addProduct, removeProduct, productsAmount, totalPrice }
+    return { cart, setCart, addProduct, removeProduct, productsAmount, totalPrice, finishPayment }
 }

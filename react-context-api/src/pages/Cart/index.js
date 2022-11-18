@@ -14,7 +14,7 @@ function Cart() {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const navigate = useNavigate()
 
-  const { cart, totalPrice } = useCartContext()
+  const { cart, totalPrice, finishPayment } = useCartContext()
   const { paymentMethod, paymentTypes, handlePaymentMethod } = usePaymentContext()
   const { balance = 0 } = React.useContext(UserContext)
 
@@ -64,6 +64,7 @@ function Cart() {
       <Button
         onClick={() => {
           setOpenSnackbar(true);
+          finishPayment()
         }}
         color="primary"
         variant="contained"
