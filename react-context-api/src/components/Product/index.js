@@ -1,10 +1,15 @@
+import React from 'react';
+
 import { Container } from './styles';
-import { memo } from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
+import { CartContext } from './../../context/Cart';
+
 function Product({ name, photo, price }) {
+  const { cart, setCart } = React.useContext(CartContext)
+
   return (
     <Container>
       <div>
@@ -30,4 +35,4 @@ function Product({ name, photo, price }) {
   )
 }
 
-export default memo(Product)
+export default React.memo(Product)
