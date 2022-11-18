@@ -5,16 +5,17 @@ CartContext.displayName = 'Cart'
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = React.useState([])
+    const [productsAmount, setProductsAmount] = React.useState(0)
 
     return (
-        <CartContext.Provider value={{ cart, setCart }}>
+        <CartContext.Provider value={{ cart, setCart, productsAmount, setProductsAmount }}>
             {children}
         </CartContext.Provider>
     )
 }
 
 export const useCartContext = () => {
-    const { cart, setCart } = React.useContext(CartContext)
+    const { cart, setCart, productsAmount, setProductsAmount } = React.useContext(CartContext)
 
     function addProduct(newProduct) {
         const hasProduct = cart.some(item => item.id === newProduct.id)
@@ -46,5 +47,10 @@ export const useCartContext = () => {
         })
     }
 
-    return { cart, setCart, addProduct, removeProduct }
+    React.useEffect(() => {
+        const newQtd = cart.reduce((counter, product) => counter + product.quantity, 0)
+        setProductsAmount(newQtd)
+    }, [cart, setProductsAmount])
+
+    return { cart, setCart, addProduct, removeProduct, productsAmount }
 }
