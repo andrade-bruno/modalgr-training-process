@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Mini Yoda",
+      "price": 10.5,
+      "imageUrl": "https://s2.glbimg.com/QqEDyJyWVPTI9tU-5izKpJls6UE=/620x520/smart/e.glbimg.com/og/ed/f/original/2020/11/30/baby-yoda.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Stormtrooper Hat",
+      "price": 20,
+      "imageUrl": "https://m.media-amazon.com/images/I/81YNIGDPx7L.__AC_SX300_SY300_QL70_FMwebp_.jpg"
+    },
+    {
+      "title": "Dart Vader Jacket",
+      "price": 39,
+      "imageUrl": "https://m.media-amazon.com/images/I/61GNyS+WJqL._AC_UX522_.jpg",
+      "id": 3
+    },
+    {
+      "title": "Dart Vader Benie Hat",
+      "price": 20,
+      "imageUrl": "https://m.media-amazon.com/images/I/81NNkU-MRHL._AC_UX522_.jpg",
+      "id": 4
+    }
+  ]
+}
