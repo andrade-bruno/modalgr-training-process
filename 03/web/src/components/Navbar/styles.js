@@ -19,7 +19,7 @@ export const Img = styled.img`
 
 export const SearchBar = styled.div`
     background-color: ${theme.background.lightgray};
-    width: 20%;
+    width: 27.29%;
     height: ${navHeight / 2};
     display: flex;
     flex-direction: row;
