@@ -15,6 +15,7 @@
     Login
     Home
     Todos os produtos
+    Visualizar produto
     Adicionar produto
 
 - Components
