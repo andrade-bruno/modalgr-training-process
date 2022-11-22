@@ -6,5 +6,15 @@ export const InputStyles = styled.input`
     border: none;
     border-bottom: solid 1px #C8C8C8;
     color: ${theme.fontColor.gray};
-    padding: 10px 10px 20px 10px;
+    padding: 12px;
+
+    @media (min-width: 768px) {
+        width: ${(props) => props?.desktopW}
+    }
+    @media (max-width: 768px) {
+        width: ${(props) => props?.tabletW}
+    }
+    @media (max-width: 360px) {
+        width: ${(props) => props?.mobileW}
+    }
 `
