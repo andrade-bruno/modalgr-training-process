@@ -9,9 +9,9 @@ export default function Navbar(params) {
             <Img src='/images/logo.png' alt='Alura Geek' />
             <SearchBar>
                 <SearchInput placeholder='O que deseja encontrar?' />
-                <FontAwesomeIcon icon="search" color={theme.fontColor.gray} size='17px' />
+                <FontAwesomeIcon icon="search" color={theme.fontColor.gray} size='lg' />
             </SearchBar>
-            <SearchIconMobile icon="search" color={theme.fontColor.gray} size='17px' />
+            <SearchIconMobile icon="search" color={theme.fontColor.gray} size='lg' />
         </NavbarStyle>
     )
 };

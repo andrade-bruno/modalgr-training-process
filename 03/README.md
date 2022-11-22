@@ -4,7 +4,7 @@
 
 [Trello](https://trello.com/b/bjoXSYMN/challenge-front-end-semana-1)
 
-# To-do
+### To-do
 
 - Tamanhos
     Desktop
@@ -35,3 +35,13 @@
     Rodape
     Section de categoria
     Card de produto
+
+### Comandos
+
+    Servidor
+    cd server/
+    json-server src/db.json (porta 3000)
+
+    Web
+    cd web/
+    yarn add && npm start (porta 4000)

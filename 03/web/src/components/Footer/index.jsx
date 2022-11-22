@@ -30,7 +30,7 @@ export default function Footer(props) {
             </FooterStyle>
             <CopyrightSection>
                 <p>Desenvolvido por Bruno Andrade</p>
-                <p>2022</p>
+                <p>© 2022</p>
             </CopyrightSection>
         </>
     )
