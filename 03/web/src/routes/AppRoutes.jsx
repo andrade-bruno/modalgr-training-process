@@ -1,6 +1,7 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 
 import Login from "pages/Login";
+import Home from "pages/Home";
 
 import Footer from "components/Footer";
 import Navbar from 'components/Navbar';
@@ -12,7 +13,7 @@ export default function AppRoutes() {
 
             <Routes>
                 <Route path='/login' element={<Login />} />
-                <Route path='/' exact element={<p>Home</p>} />
+                <Route path='/' exact element={<Home />} />
             </Routes>
 
             <Footer />

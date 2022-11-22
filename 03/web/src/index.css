@@ -4,6 +4,7 @@
   margin: 0px;
   padding: 0px;
   font-family: 'Raleway', sans-serif;
+  font-size: 100%; 
   transition: all 0.3s ease 0s;
   box-sizing: border-box;
 }
