@@ -8,6 +8,7 @@ const theme = {
         white: '#FFFFFF',
         lightgray: '#F1F1F1',
         blue: '#2A7AE4',
+        lightblue: '#EAF2FD',
     }
 }
 

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import theme from "theme";
 
-export const InputStyles = styled.input`
+export const TextareaStyle = styled.textarea`
     background: ${theme.background.white};
     border: none;
     border-bottom: solid 1px #C8C8C8;
     color: ${theme.fontColor.gray};
     padding: 12px;
+    height: 82px;
     max-width: 560px;
 
     @media (min-width: 768px) {
