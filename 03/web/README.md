@@ -11,6 +11,17 @@
     Tablet
     Mobile
 
+- Media queries
+    @media (min-width: 768px) {
+
+    }
+    @media (max-width: 768px) {
+
+    }
+    @media (max-width: 360px) {
+
+    }
+
 - Páginas
     Login
     Home
