@@ -1,13 +1,11 @@
 import React from 'react';
 
-import Login from "./pages/Login";
-import Footer from "components/Footer";
+import AppRoutes from 'routes/AppRoutes';
 
 function App() {
   return (
     <>
-      <Login />
-      <Footer />
+      <AppRoutes />
     </>
   );
 }
