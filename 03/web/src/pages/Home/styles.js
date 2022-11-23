@@ -9,10 +9,19 @@ export const Container = styled.main`
 `
 
 export const Products = styled.div`
-    padding: 64px 152px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 64px;
+
+    @media (min-width: 768px) {
+        padding: 64px 152px;
+    }
+    @media (max-width: 768px) {
+        padding: 32px 32px;
+    }
+    @media (max-width: 360px) {
+        padding: 16px 16px;
+    }
 `

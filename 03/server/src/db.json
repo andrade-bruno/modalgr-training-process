@@ -48,6 +48,48 @@
       "imageUrl": "https://assets.b9.com.br/wp-content/uploads/2015/12/swtoys18.jpg",
       "category": "Star Wars",
       "id": 7
+    },
+    {
+      "title": "Nitendo Switch",
+      "price": 3000,
+      "imageUrl": "https://t2.tudocdn.net/580581?w=646&h=284",
+      "category": "Consoles",
+      "id": 8
+    },
+    {
+      "title": "Playstation 5",
+      "price": 4890,
+      "imageUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTA0VKR0M6-jcjWewxw7U2anPcjwE_WGs-KWEYEOfM-6OWvuj_B81m3y8l6blxJ3dLSkRcThFsBAI7DTT31P8Ij8gJPoKT2-w",
+      "category": "Consoles",
+      "id": 9
+    },
+    {
+      "title": "Nintendo Entertainment",
+      "price": 260,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_747042-MLB50415759013_062022-O.jpg",
+      "category": "Consoles",
+      "id": 10
+    },
+    {
+      "title": "Xbox Series X",
+      "price": 4080.4,
+      "imageUrl": "https://images.kabum.com.br/produtos/fotos/128560/console-microsoft-xbox-series-x-1tb-preto-rrt-00006_1601067024_g.jpg",
+      "category": "Consoles",
+      "id": 11
+    },
+    {
+      "title": "Game Boy",
+      "price": 670,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Original_Game_Boy.jpg/1200px-Original_Game_Boy.jpg",
+      "category": "Consoles",
+      "id": 12
+    },
+    {
+      "title": "Controle Playstation 4",
+      "price": 240,
+      "imageUrl": "https://i.zst.com.br/thumbs/12/17/38/22822649.jpg",
+      "category": "Consoles",
+      "id": 13
     }
   ],
   "categories": [

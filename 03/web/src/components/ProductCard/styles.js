@@ -6,13 +6,25 @@ export const ProductCardStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 8px;
-    width: 176px;
     max-height: 252px;
 
-    img {
+    @media (min-width: 768px) {
         width: 176px;
+        font-size: 1rem;
+    }
+    @media (max-width: 768px) {
+        width: 164px;
+        font-size: 0.875rem;
+    }
+    @media (max-width: 360px) {
+        width: 156px;
+        font-size: 0.75rem;
+    }
+
+    img {
+        width: 100%;
         height: 176px;
     }
 
