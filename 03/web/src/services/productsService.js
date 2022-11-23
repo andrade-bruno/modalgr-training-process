@@ -7,17 +7,35 @@ const config = {
 }
 
 function getProducts() {
-    return httpService.get('/products/', config)
-        .then((response) => {
-            console.log(response.data)
-        }).catch((error) => {
-            console.log('getProducts error:')
-            console.log(error)
-        })
+    return new Promise((resolve, reject) => {
+        httpService.get('/products/', config)
+            .then((response) => {
+                resolve({ data: response.data })
+            }).catch((error) => {
+                reject({ data: error.message })
+                console.log('getProducts error:')
+                console.log(error)
+            })
+
+    })
+}
+
+function getCategories() {
+    return new Promise((resolve, reject) => {
+        httpService.get('/categories/', config)
+            .then((res) => {
+                resolve({ data: res.data })
+            }).catch((error) => {
+                reject({ data: error.data })
+                console.log('getCategories error:')
+                console.log(error)
+            })
+    })
 }
 
 const productsService = {
-    getProducts
+    getProducts,
+    getCategories
 }
 
 export default productsService

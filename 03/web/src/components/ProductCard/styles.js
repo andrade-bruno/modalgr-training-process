@@ -9,10 +9,11 @@ export const ProductCardStyle = styled.div`
     justify-content: center;
     gap: 8px;
     width: 176px;
-    height: 252px;
+    max-height: 252px;
 
     img {
-        width: 100%;
+        width: 176px;
+        height: 176px;
     }
 
     .price {

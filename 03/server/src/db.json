@@ -8,25 +8,60 @@
       "category": "Star Wars"
     },
     {
-      "title": "Stormtrooper Hat",
+      "title": "Capacete Stormtrooper",
       "price": 20,
       "imageUrl": "https://m.media-amazon.com/images/I/81YNIGDPx7L.__AC_SX300_SY300_QL70_FMwebp_.jpg",
       "id": 2,
       "category": "Star Wars"
     },
     {
-      "title": "Dart Vader Jacket",
+      "title": "Jaqueta Dart Vader",
       "price": 39,
       "imageUrl": "https://m.media-amazon.com/images/I/61GNyS+WJqL._AC_UX522_.jpg",
       "id": 3,
       "category": "Star Wars"
     },
     {
-      "title": "Dart Vader Benie Hat",
+      "title": "Touca Dart Vader",
       "price": 20,
       "imageUrl": "https://m.media-amazon.com/images/I/81NNkU-MRHL._AC_UX522_.jpg",
       "id": 4,
       "category": "Star Wars"
+    },
+    {
+      "title": "Capacete Rogue One",
+      "price": 30,
+      "imageUrl": "https://www.amazing-collectibles.pt/wp-content/uploads/catalog/product/x_ano01173010.jpg",
+      "category": "Star Wars",
+      "id": 5
+    },
+    {
+      "title": "Funko Luke Skywalker",
+      "price": 14,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP5UC039KZtpdIHPFHjnIuj7AfWirwOwXze1atobFC_lhzvj_AKDZxzNI3FweC5g1JDKE&usqp=CAU",
+      "category": "Star Wars",
+      "id": 6
+    },
+    {
+      "title": "Obi Wan Sabre",
+      "price": 14,
+      "imageUrl": "https://assets.b9.com.br/wp-content/uploads/2015/12/swtoys18.jpg",
+      "category": "Star Wars",
+      "id": 7
+    }
+  ],
+  "categories": [
+    {
+      "title": "Star Wars",
+      "id": 1
+    },
+    {
+      "title": "Consoles",
+      "id": 2
+    },
+    {
+      "title": "Diversos",
+      "id": 3
     }
   ]
 }

@@ -3,26 +3,36 @@ import React from 'react';
 import { Container, Products } from './styles';
 import productsService from 'services/productsService';
 import Banner from 'components/Banner';
-import ProductCard from 'components/ProductCard';
+import CategorySection from 'components/CategorySection';
 
 export default function Home() {
     const [products, setProducts] = React.useState([])
+    const [categories, setCategories] = React.useState([])
 
     async function getProducts() {
-        const { data } = productsService.getProducts()
+        const { data } = await productsService.getProducts()
         setProducts(data)
-        console.log(data)
+    }
+
+    async function getCategories() {
+        const { data } = await productsService.getCategories()
+        setCategories(data)
     }
 
     React.useEffect(() => {
         getProducts()
+        getCategories()
     }, [])
 
     return (
         <Container>
             <Banner />
             <Products>
-                <ProductCard product={{ id: 1, title: 'Title 1', price: 10, imageUrl: 'https://github.com/andrade-bruno.png', category: 'Star Wars' }} />
+                {categories.map(category => (
+                    <CategorySection key={category.id} title={category.title} products={
+                        products.filter(product => product.category === category.title)
+                    } />
+                ))}
             </Products>
         </Container>
     )
