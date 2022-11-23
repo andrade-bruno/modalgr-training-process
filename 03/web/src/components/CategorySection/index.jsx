@@ -13,7 +13,7 @@ export default function CategorySection(props) {
                     .sort((a, b) => b.id - a.id)
                     .slice(0, 6)
                     .map(product => (
-                        <ProductCard product={product} />
+                        <ProductCard key={product.id} product={product} />
                     ))}
                 {/* Sort decrescent, picks first 6 items */}
             </List>

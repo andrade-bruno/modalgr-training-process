@@ -9,7 +9,6 @@ import { useProductsContext } from 'contexts/products';
 export default function Home() {
     const { products } = useProductsContext()
     const { categories } = useCategoriesContext()
-    console.log('products', products)
 
     return (
         <Container>
