@@ -8,7 +8,7 @@ export const Container = styled.main`
     justify-content: flex-start;
 `
 
-export const Products = styled.div`
+export const ContainerContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;

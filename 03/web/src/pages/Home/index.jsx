@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Products } from './styles';
+import { Container, ContainerContent } from 'theme/common';
 import productsService from 'services/productsService';
 import Banner from 'components/Banner';
 import CategorySection from 'components/CategorySection';
@@ -15,8 +15,12 @@ export default function Home() {
     }
 
     async function getCategories() {
-        const { data } = await productsService.getCategories()
-        setCategories(data)
+        try {
+            const { data } = await productsService.getCategories()
+            setCategories(data)
+        } catch (error) {
+            alert(error?.message)
+        }
     }
 
     React.useEffect(() => {
@@ -27,13 +31,13 @@ export default function Home() {
     return (
         <Container>
             <Banner />
-            <Products>
+            <ContainerContent>
                 {categories.map(category => (
                     <CategorySection key={category.id} title={category.title} products={
                         products.filter(product => product.category === category.title)
                     } />
                 ))}
-            </Products>
+            </ContainerContent>
         </Container>
     )
 }
