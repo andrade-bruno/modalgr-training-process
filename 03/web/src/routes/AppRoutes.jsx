@@ -6,6 +6,7 @@ import Products from "pages/Products";
 
 import Footer from "components/Footer";
 import Navbar from 'components/Navbar';
+
 import { CategoriesProvider } from "contexts/categories";
 import { ProductsProvider } from "contexts/products";
 

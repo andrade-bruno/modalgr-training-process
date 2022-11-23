@@ -2,7 +2,7 @@ import React from 'react';
 import { Hyperlink, ProductCardStyle } from './styles';
 
 export default function ProductCard(props) {
-    const { id, title, price, imageUrl, category } = props.product
+    const { id, title, price, imageUrl } = props.product
     return (
         <ProductCardStyle>
             <img src={imageUrl} alt={title} />
