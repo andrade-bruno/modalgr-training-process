@@ -1,23 +1,15 @@
 import React from 'react';
 
 import { Container, ContainerContent } from 'theme/common';
-import productsService from 'services/productsService';
 import Banner from 'components/Banner';
 import CategorySection from 'components/CategorySection';
 import { useCategoriesContext } from 'contexts/categories';
+import { useProductsContext } from 'contexts/products';
 
 export default function Home() {
-    const [products, setProducts] = React.useState([])
+    const { products } = useProductsContext()
     const { categories } = useCategoriesContext()
-
-    async function getProducts() {
-        const { data } = await productsService.getProducts()
-        setProducts(data)
-    }
-
-    React.useEffect(() => {
-        getProducts()
-    }, [])
+    console.log('products', products)
 
     return (
         <Container>
