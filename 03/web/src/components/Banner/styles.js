@@ -13,8 +13,6 @@ export const BannerStyle = styled.div`
 
     ul {
         position: absolute;
-        bottom: 20px;
-        left: 152px;
         color: white;
         text-align: left;
         display: flex;
@@ -22,6 +20,19 @@ export const BannerStyle = styled.div`
         gap: 16px;
 
         list-style-type: none;
+
+        @media (min-width: 768px) {
+            bottom: 20px;
+            left: 152px;
+        }
+        @media (max-width: 768px) {
+            bottom: 32px;
+            left: 32px;
+        }
+        @media (max-width: 360px) {
+            bottom: 16px;
+            left: 16px;
+        }
     }
 
     ul li:first-child {
