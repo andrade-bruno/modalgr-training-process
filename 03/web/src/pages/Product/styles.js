@@ -1,23 +1,41 @@
 import styled from "styled-components";
+import CategorySection from 'components/CategorySection';
 
 const imgPercentageSizeTablet = 33.08
 
 export const Container = styled.main`
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 
     @media (min-width: 768px) {
         padding: 64px 152px;
+        gap: 64px;
+    }
+    @media (max-width: 768px) {
+        padding: 32px 32px;
+        gap: 64px;
+    }
+    @media (max-width: 360px) {
+        padding: 0px;
+        gap: 32px;
+    }
+`
+
+export const ProductContainer = styled.div`
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: 768px) {
         flex-direction: row;
         align-items: flex-start;
     }
     @media (max-width: 768px) {
-        padding: 32px 32px;
         flex-direction: row;
         align-items: flex-start;
     }
     @media (max-width: 360px) {
-        padding: 0px;
         flex-direction: column;
         align-items: center;
     }
@@ -78,4 +96,10 @@ export const Price = styled.p`
 
 export const Description = styled.p`
     text-align: justify;
+`
+
+export const SimilarProducts = styled(CategorySection)`
+    @media (max-width: 360px) {
+        padding: 0 16px;
+    }
 `

@@ -14,7 +14,7 @@ export default function CategorySection(props) {
 
     return (
         props.products.length > 0 &&
-        <CategorySectionStyle>
+        <CategorySectionStyle {...props}>
             <h1>{props.title}</h1>
             <List>
                 {products.map(product => (
