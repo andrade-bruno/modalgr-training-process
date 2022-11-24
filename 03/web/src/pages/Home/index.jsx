@@ -16,7 +16,7 @@ export default function Home() {
             <ContainerContent>
                 {categories.map(category => (
                     <CategorySection key={category.id} title={category.title} products={
-                        products.filter(product => product.category === category.title)
+                        products.filter(product => product.categoryId === category.id)
                     } />
                 ))}
             </ContainerContent>
