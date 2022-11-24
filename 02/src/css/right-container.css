@@ -41,7 +41,7 @@
 }
 
 #right-container select > option {
-    background: skyblue;
+    background: #000;
 }
 
 #color-changer {
