@@ -8,7 +8,7 @@ export default function ProductCard(props) {
             <img src={imageUrl} alt={title} />
             <p>{title}</p>
             <p className='price'>R$ {price.toFixed(2)}</p>
-            <Hyperlink to={`/products/${id}`}>Ver produto</Hyperlink>
+            <Hyperlink to={`/product/${id}`}>Ver produto</Hyperlink>
         </ProductCardStyle>
     )
 }

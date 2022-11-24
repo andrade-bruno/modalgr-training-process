@@ -33,9 +33,24 @@ function getCategories() {
     })
 }
 
+function getProduct(id) {
+    return new Promise((resolve, reject) => {
+        httpService.get(`/products/${id}`, config)
+            .then((response) => {
+                resolve({ data: response.data })
+            }).catch((error) => {
+                reject({ data: error.message })
+                console.log('getProduct error:')
+                console.log(error)
+            })
+
+    })
+}
+
 const productsService = {
     getProducts,
-    getCategories
+    getCategories,
+    getProduct
 }
 
 export default productsService

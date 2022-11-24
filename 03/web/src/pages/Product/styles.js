@@ -4,25 +4,28 @@ const imgPercentageSizeTablet = 33.08
 
 export const Container = styled.main`
     display: flex;
-    align-items: flex-start;
     justify-content: center;
 
     @media (min-width: 768px) {
         padding: 64px 152px;
         flex-direction: row;
+        align-items: flex-start;
     }
     @media (max-width: 768px) {
         padding: 32px 32px;
         flex-direction: row;
+        align-items: flex-start;
     }
     @media (max-width: 360px) {
         padding: 0px;
         flex-direction: column;
+        align-items: center;
     }
 `
 
 export const ProductImage = styled.img`
     object-fit: contain;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.25);
 
     @media (min-width: 768px) {
         width: 50%;
