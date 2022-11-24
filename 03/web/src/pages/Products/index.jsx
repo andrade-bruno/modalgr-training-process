@@ -5,6 +5,7 @@ import CategorySection from 'components/CategorySection';
 import { useProductsContext } from 'contexts/products';
 
 import { Container, ContainerContent } from 'theme/common';
+import { Spinner } from 'react-activity';
 
 export default function Products(props) {
     const { products } = useProductsContext()
@@ -12,7 +13,10 @@ export default function Products(props) {
         <Container>
             <Banner />
             <ContainerContent>
-                <CategorySection key={1} title={'Todos os produtos'} products={products} />
+                {
+                    products.length <= 0 ? <Spinner size={50} /> :
+                        <CategorySection key={1} title={'Todos os produtos'} products={products} />
+                }
             </ContainerContent>
         </Container>
     )
