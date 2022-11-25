@@ -8,15 +8,14 @@ export const TextareaStyle = styled.textarea`
     color: ${theme.fontColor.gray};
     padding: 12px;
     height: 82px;
-    max-width: 560px;
 
     @media (min-width: 768px) {
-        width: ${(props) => props?.desktopW}
+        width: ${(props) => props.desktopW ? props.desktopW : ''}
     }
     @media (max-width: 768px) {
-        width: ${(props) => props?.tabletW}
+        width: ${(props) => props.tabletW ? props.tabletW : ''}
     }
     @media (max-width: 360px) {
-        width: ${(props) => props?.mobileW}
+        width: ${(props) => props.mobileW ? props.mobileW : ''}
     }
 `

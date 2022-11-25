@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import theme from "theme";
 
+import Input from "components/Input";
+import Textarea from "components/Textarea";
+
 export const FooterStyle = styled.footer`
     bottom: 0;
     background: ${theme.background.lightblue};
@@ -97,8 +100,16 @@ export const TalkWithUs = styled.div`
     @media (max-width: 360px) {
         width: 100%;
     }
-
 `
+
+export const InputTalkWithUs = styled(Input)`
+    max-width: 560px;
+`
+
+export const TextareaTalkWithUs = styled(Textarea)`
+    max-width: 560px;
+`
+
 export const CopyrightSection = styled.div`
     bottom: 0;
     background: ${theme.background.white};

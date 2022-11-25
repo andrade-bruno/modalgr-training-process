@@ -11,13 +11,13 @@ export const ButtonStyle = styled.button`
     outline: none;
 
     @media (min-width: 768px) {
-        width: ${(props) => props?.desktopW}
+        width: ${(props) => props.desktopW ? props.desktopW : ''}
     }
     @media (max-width: 768px) {
-        width: ${(props) => props?.tabletW}
+        width: ${(props) => props.tabletW ? props.tabletW : ''}
     }
     @media (max-width: 360px) {
-        width: ${(props) => props?.mobileW}
+        width: ${(props) => props.mobileW ? props.mobileW : ''}
     }
 
     &:hover {

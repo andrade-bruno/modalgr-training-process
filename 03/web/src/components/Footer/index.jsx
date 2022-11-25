@@ -1,10 +1,8 @@
 import React from 'react';
 
 import Button from 'components/Button';
-import Input from 'components/Input';
-import Textarea from 'components/Textarea';
 
-import { CopyrightSection, FooterStyle, FooterNav, TalkWithUs } from './styles';
+import { CopyrightSection, FooterStyle, FooterNav, TalkWithUs, InputTalkWithUs, TextareaTalkWithUs } from './styles';
 import { useNavigate } from 'react-router-dom';
 
 export default function Footer(props) {
@@ -25,8 +23,8 @@ export default function Footer(props) {
                 </FooterNav>
                 <TalkWithUs>
                     <p><b>Fale conosco</b></p>
-                    <Input type='text' placeholder='Nome' mobileW='100%' tabletW='100%' desktopW='100%' />
-                    <Textarea placeholder='Escreva sua mensagem' mobileW='100%' tabletW='100%' desktopW='100%' />
+                    <InputTalkWithUs type='text' placeholder='Nome' mobileW='100%' tabletW='100%' desktopW='100%' />
+                    <TextareaTalkWithUs placeholder='Escreva sua mensagem' mobileW='100%' tabletW='100%' desktopW='100%' />
                     <Button>Enviar mensagem</Button>
                 </TalkWithUs>
             </FooterStyle>

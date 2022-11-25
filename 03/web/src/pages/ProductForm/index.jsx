@@ -11,7 +11,7 @@ export default function ProductForm(props) {
     const [imgUrl, setImgUrl] = React.useState('')
     const [category, setCategory] = React.useState('')
     const [name, setName] = React.useState('')
-    const [price, setPrice] = React.useState(null)
+    const [price, setPrice] = React.useState('')
     const [description, setDescription] = React.useState('')
 
     const { categories } = useCategoriesContext()
