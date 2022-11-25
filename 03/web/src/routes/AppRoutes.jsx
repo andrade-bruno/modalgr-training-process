@@ -4,6 +4,7 @@ import Login from "pages/Login";
 import Home from "pages/Home";
 import Products from "pages/Products";
 import Product from "pages/Product";
+import ProductForm from "pages/ProductForm";
 
 import Footer from "components/Footer";
 import Navbar from 'components/Navbar';
@@ -25,6 +26,7 @@ export default function AppRoutes() {
                         <Route path='/' exact element={<Home />} />
                         <Route path='/products' element={<Products />} />
                         <Route path='/product/:id' element={<Product />} />
+                        <Route path='/product/new' element={<ProductForm />} />
                     </Routes>
                 </ProductsProvider>
             </CategoriesProvider>

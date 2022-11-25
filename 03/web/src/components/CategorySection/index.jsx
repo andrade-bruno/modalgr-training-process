@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import theme from 'theme';
@@ -9,6 +9,7 @@ import ProductCard from 'components/ProductCard';
 import Button from 'components/Button';
 
 export default function CategorySection(props) {
+    const navigate = useNavigate()
     const location = useLocation()
     let products = props.products.sort((a, b) => b.id - a.id)
     // Sort decrescent
@@ -25,7 +26,7 @@ export default function CategorySection(props) {
                     location.pathname === '/' ?
                         <Link to='/products'>Ver tudo <FontAwesomeIcon icon='arrow-right' size='lg' color={theme.fontColor.primary} /></Link>
                         : location.pathname === '/products' ?
-                            <Button style={{ fontSize: '16px' }}>Adicionar produto</Button>
+                            <Button style={{ fontSize: '16px' }} onClick={() => navigate('/product/new')} >Adicionar produto</Button>
                             : null
                 }
             </CategoryHeader>
