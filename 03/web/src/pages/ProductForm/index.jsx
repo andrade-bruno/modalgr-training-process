@@ -8,6 +8,7 @@ import { Container, AddButton } from './styles';
 import { useCategoriesContext } from 'contexts/categories';
 import { useProductsContext } from 'contexts/products';
 import { useNavigate } from 'react-router-dom';
+import { Windmill } from 'react-activity';
 
 export default function ProductForm(props) {
     const navigate = useNavigate()
@@ -17,18 +18,20 @@ export default function ProductForm(props) {
     const [title, setTitle] = React.useState('')
     const [price, setPrice] = React.useState('')
     const [description, setDescription] = React.useState('')
+    const [isLoading, setIsLoading] = React.useState(false)
 
     const { addProduct } = useProductsContext()
     const { categories } = useCategoriesContext()
 
     const onSubmitForm = async e => {
+        setIsLoading(true)
         e.preventDefault()
         try {
             const product = await addProduct({ title, price, imageUrl, description, categoryId })
             setImageUrl(''); setCategoryId(null); setTitle(''); setPrice(''); setDescription('');
             navigate(`/product/${product.id}`)
-        } catch (error) {
-        }
+        } catch (error) { }
+        setIsLoading(false)
     }
 
     return (
@@ -46,7 +49,9 @@ export default function ProductForm(props) {
 
                 <Textarea value={description} onChange={setDescription} desktopW='100%' tabletW='100%' mobileW='100%' placeholder='Descrição' required />
 
-                <AddButton sty>Adicionar produto</AddButton>
+                <AddButton disabled={isLoading}>
+                    {isLoading ? <Windmill /> : 'Adicionar produto'}
+                </AddButton>
             </form>
         </Container>
     )

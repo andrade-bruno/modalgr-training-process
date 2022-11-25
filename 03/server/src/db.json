@@ -146,6 +146,46 @@
       "description": "75275",
       "categoryId": 1,
       "id": 20
+    },
+    {
+      "title": "Controle Xbox Series X|S",
+      "price": 400,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_749977-MLA44330907675_122020-O.webp",
+      "description": "Controle Xbox Series X|S Wireless",
+      "categoryId": 2,
+      "id": 21
+    },
+    {
+      "title": "Brick Heads Lego",
+      "price": 231,
+      "imageUrl": "https://www.lego.com/cdn/cs/set/assets/blt8137ac926e8df886/40466_alt1.jpg",
+      "description": "3 Baby pandas",
+      "categoryId": 3,
+      "id": 22
+    },
+    {
+      "title": "Máscara Batman",
+      "price": 215,
+      "imageUrl": "https://cf.shopee.com.br/file/4905e96860c2a0bc57799692d747954a",
+      "description": "https://cf.shopee.com.br/file/4905e96860c2a0bc57799692d747954a\n\n₢ Shopee",
+      "categoryId": 3,
+      "id": 23
+    },
+    {
+      "title": "Máscara Coringa",
+      "price": 123.4,
+      "imageUrl": "https://images-americanas.b2w.io/produtos/6378080971/imagens/halloween-joker-mask-cosplay-horror-mascara-de-palhaco-assustador-com-cabelos-verdes/6378080971_1_large.jpg",
+      "description": "₢ Americanas Ltda.",
+      "categoryId": 3,
+      "id": 24
+    },
+    {
+      "title": "Máscara homem de ferro",
+      "price": 323.4,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_944294-MLB51824598892_102022-O.webp",
+      "description": "Fabricado em 2019.\nImagem ilustrativa.\n₢ Americanas Ltda.",
+      "categoryId": 3,
+      "id": 25
     }
   ],
   "categories": [

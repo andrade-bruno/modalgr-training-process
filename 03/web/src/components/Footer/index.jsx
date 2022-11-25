@@ -29,7 +29,7 @@ export default function Footer(props) {
                 </TalkWithUs>
             </FooterStyle>
             <CopyrightSection>
-                <p>Desenvolvido por Bruno Andrade</p>
+                <p>© Modal Gestão e Resultados</p>
                 <p>© 2022</p>
             </CopyrightSection>
         </>

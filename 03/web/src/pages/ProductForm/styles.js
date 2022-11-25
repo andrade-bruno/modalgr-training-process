@@ -52,4 +52,6 @@ export const Container = styled.main`
 
 export const AddButton = styled(Button)`
     width: 100%;
+    display: flex;
+    justify-content: center;
 `

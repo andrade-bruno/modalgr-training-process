@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { toast } from 'react-toastify';
 import productsService from 'services/productsService';
 
 const ProductsContext = React.createContext()
@@ -20,10 +21,10 @@ export const ProductsProvider = ({ children }) => {
         newProduct.price = parseFloat(newProduct.price)
         newProduct.categoryId = parseInt(newProduct.categoryId)
 
-        productsService.addProduct(newProduct)
+        await productsService.addProduct(newProduct)
         newProduct.id = products.length + 1
         setProducts([...products, newProduct])
-        alert(`${newProduct.title} adicionado com sucesso`)
+        toast(`${newProduct.title} adicionado com sucesso`)
         return newProduct
     }
 
