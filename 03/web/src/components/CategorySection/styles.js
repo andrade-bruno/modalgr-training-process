@@ -12,12 +12,20 @@ export const CategorySectionStyle = styled.section`
 export const CategoryHeader = styled.header`
     display: flex;
     justify-content: space-between;
-    flex-wrap: none;
+    align-items: center;
+    flex-wrap: wrap;
     width: 100%;
+    font-size: 32px;
+    gap: 16px;
 
     a, link {
         text-decoration: none;
-        color: ${theme.fontColor.primary}
+        color: ${theme.fontColor.primary};
+        font-size: 16px;
+        
+        &:hover {
+            transform: translateY(-4px);
+        }
     }
 `
 

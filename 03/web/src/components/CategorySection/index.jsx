@@ -1,10 +1,12 @@
 import React from 'react';
-
-import ProductCard from 'components/ProductCard';
-import { CategoryHeader, CategorySectionStyle, List } from './styles';
 import { Link, useLocation } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import theme from 'theme';
+import { CategoryHeader, CategorySectionStyle, List } from './styles';
+
+import ProductCard from 'components/ProductCard';
+import Button from 'components/Button';
 
 export default function CategorySection(props) {
     const location = useLocation()
@@ -23,7 +25,7 @@ export default function CategorySection(props) {
                     location.pathname === '/' ?
                         <Link to='/products'>Ver tudo <FontAwesomeIcon icon='arrow-right' size='lg' color={theme.fontColor.primary} /></Link>
                         : location.pathname === '/products' ?
-                            'Adicionar'
+                            <Button style={{ fontSize: '16px' }}>Adicionar produto</Button>
                             : null
                 }
             </CategoryHeader>

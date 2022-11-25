@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Banner from 'components/Banner';
 import CategorySection from 'components/CategorySection';
 import { useProductsContext } from 'contexts/products';
 
@@ -11,7 +10,6 @@ export default function Products(props) {
     const { products } = useProductsContext()
     return (
         <Container>
-            <Banner />
             <ContainerContent>
                 {
                     products.length <= 0 ? <Spinner size={50} /> :
