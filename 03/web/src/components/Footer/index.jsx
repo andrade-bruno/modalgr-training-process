@@ -5,13 +5,15 @@ import Input from 'components/Input';
 import Textarea from 'components/Textarea';
 
 import { CopyrightSection, FooterStyle, FooterNav, TalkWithUs } from './styles';
+import { useNavigate } from 'react-router-dom';
 
 export default function Footer(props) {
+    const navigate = useNavigate()
     return (
         <>
             <FooterStyle>
                 <FooterNav>
-                    <img src='/images/logo.png' alt='Alura Geek' />
+                    <img src='/images/logo.png' alt='Alura Geek' onClick={() => navigate('/')} />
                     <div id='footerItens'>
                         <p>Quem somos nós</p>
                         <p>Política de privacidade</p>

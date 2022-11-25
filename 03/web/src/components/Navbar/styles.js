@@ -39,6 +39,11 @@ export const Img = styled.img`
         width: 100px;
         height: 28px;
     }
+
+    &:hover {
+        transform: translateY(-4px);
+        cursor: pointer;
+    }
 `
 
 export const SearchBar = styled.div`

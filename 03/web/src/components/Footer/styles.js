@@ -53,6 +53,11 @@ export const FooterNav = styled.div`
         @media (max-width: 768px) {
             max-width: 100%;
         }
+
+        &:hover {
+            transform: translateY(-4px);
+            cursor: pointer;
+        }
     }
     
     div {

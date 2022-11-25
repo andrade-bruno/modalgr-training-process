@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import theme from 'theme'
 
 export const CategorySectionStyle = styled.section`
     display: flex;
@@ -7,6 +8,17 @@ export const CategorySectionStyle = styled.section`
     gap: 16px;
     width: 100%;
     align-items: flex-start;
+`
+export const CategoryHeader = styled.header`
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: none;
+    width: 100%;
+
+    a, link {
+        text-decoration: none;
+        color: ${theme.fontColor.primary}
+    }
 `
 
 export const List = styled.div`
