@@ -9,7 +9,9 @@ import { useProductsContext } from 'contexts/products';
 export default function Product(props) {
     const params = useParams()
     const [product, setProduct] = React.useState([])
+
     const { products } = useProductsContext()
+    let similarProducts = products.filter((item) => item.id !== Number(params.id))
 
     async function getProduct() {
         const { data } = await productsService.getProduct(params.id)
@@ -38,7 +40,7 @@ export default function Product(props) {
                         </>
                 }
             </ProductContainer>
-            <SimilarProducts title='Produtos similares' products={products} />
+            <SimilarProducts title='Produtos similares' products={similarProducts} />
         </Container>
     )
 }

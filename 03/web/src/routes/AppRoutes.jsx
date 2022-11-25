@@ -10,10 +10,12 @@ import Navbar from 'components/Navbar';
 
 import { CategoriesProvider } from "contexts/categories";
 import { ProductsProvider } from "contexts/products";
+import ScrollToTop from "utils/common";
 
 export default function AppRoutes() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Navbar />
 
             <CategoriesProvider>
