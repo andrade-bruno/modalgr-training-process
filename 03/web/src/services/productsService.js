@@ -47,10 +47,25 @@ function getProduct(id) {
     })
 }
 
+function addProduct(newProduct) {
+    return new Promise((resolve, reject) => {
+        httpService.post('/products', newProduct, config)
+            .then((response) => {
+                resolve({ data: response.data })
+            }).catch((error) => {
+                reject({ data: error.message })
+                console.log('addProduct error:')
+                console.log(error)
+            })
+
+    })
+}
+
 const productsService = {
     getProducts,
     getCategories,
-    getProduct
+    getProduct,
+    addProduct
 }
 
 export default productsService

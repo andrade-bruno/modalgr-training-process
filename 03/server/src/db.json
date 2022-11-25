@@ -90,6 +90,62 @@
       "imageUrl": "https://i.zst.com.br/thumbs/12/17/38/22822649.jpg",
       "categoryId": 2,
       "id": 13
+    },
+    {
+      "title": "Mini toca fitas cassete",
+      "price": 100,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_836877-CBT45477578753_042021-O.jpg",
+      "description": "Mini toca fitas cassete dos anos 90",
+      "categoryId": 3,
+      "id": 14
+    },
+    {
+      "title": "Pikachu gigante",
+      "price": 205.8,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRkhRP-EI814qrg_cEbdCdVj9-NqeMx1VGQQ&usqp=CAU",
+      "description": "Medidas: 50cm x 120cm. Fabricado em 2021.\n₢ Geeklandia Inc.",
+      "categoryId": 3,
+      "id": 15
+    },
+    {
+      "title": "Sonic de Pelúcia",
+      "price": 406.76,
+      "imageUrl": "https://a-static.mlcdn.com.br/1500x1500/boneco-sonic-articulado-grande-brinquedo-caixa-original-collection-lancamento-action-figure-23cm-toy/wincolecionaveis/363p/c06fbe38cf2b31cedf96d43cf95d14fa.jpeg",
+      "description": "Sonic de pelúcia 100% algodão.\n₢ Geeklandia Inc.",
+      "categoryId": 3,
+      "id": 16
+    },
+    {
+      "title": "Home Theater Blu-ray 3D",
+      "price": 3860,
+      "imageUrl": "https://www.lg.com/br/images/home-theaters/lhb725w/gallery/LHB725W_O-9_MIC-O_zoom_01.jpg",
+      "description": "LHB725W | LG Brasil",
+      "categoryId": 3,
+      "id": 17
+    },
+    {
+      "title": "Smart TV Samsung 32''",
+      "price": 3209.1,
+      "imageUrl": "https://a-static.mlcdn.com.br/1500x1500/smart-tv-hd-led-32-samsung-t4300-wi-fi-hdr-2-hdmi-1-usb/magazineluiza/225608200/68c09354fe4378c245e4e5ba097eaf4d.jpg",
+      "description": "Smart TV Samsung 32''\n₢ Samsung",
+      "categoryId": 3,
+      "id": 18
+    },
+    {
+      "title": "Desktop i5",
+      "price": 4760.688,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_958465-MLB45991711730_052021-W.jpg",
+      "description": "CPU i5\n8GB Ram\n1TB HDD\nNvida Graphics Gtx 1660\n\n₢ Kabum ltda",
+      "categoryId": 3,
+      "id": 19
+    },
+    {
+      "title": "Millenium Falcon lego",
+      "price": 230.7,
+      "imageUrl": "https://m.media-amazon.com/images/I/810Y6mFu8AL._AC_SL1500_.jpg",
+      "description": "75275",
+      "categoryId": 1,
+      "id": 20
     }
   ],
   "categories": [

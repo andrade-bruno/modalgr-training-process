@@ -13,7 +13,6 @@ export const CategoriesProvider = ({ children }) => {
             const { data } = await productsService.getCategories()
             setCategories(data)
         } catch (error) {
-            alert(error?.message)
         }
     }
 

@@ -6,19 +6,29 @@ import Select from 'components/Select';
 
 import { Container, AddButton } from './styles';
 import { useCategoriesContext } from 'contexts/categories';
+import { useProductsContext } from 'contexts/products';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductForm(props) {
-    const [imgUrl, setImgUrl] = React.useState('')
-    const [category, setCategory] = React.useState('')
-    const [name, setName] = React.useState('')
+    const navigate = useNavigate()
+
+    const [imageUrl, setImageUrl] = React.useState('')
+    const [categoryId, setCategoryId] = React.useState(null)
+    const [title, setTitle] = React.useState('')
     const [price, setPrice] = React.useState('')
     const [description, setDescription] = React.useState('')
 
+    const { addProduct } = useProductsContext()
     const { categories } = useCategoriesContext()
 
-    const onSubmitForm = e => {
+    const onSubmitForm = async e => {
         e.preventDefault()
-        console.log(imgUrl, category, name, price, description)
+        try {
+            const product = await addProduct({ title, price, imageUrl, description, categoryId })
+            setImageUrl(''); setCategoryId(null); setTitle(''); setPrice(''); setDescription('');
+            navigate(`/product/${product.id}`)
+        } catch (error) {
+        }
     }
 
     return (
@@ -26,11 +36,11 @@ export default function ProductForm(props) {
             <form onSubmit={onSubmitForm}>
                 <h1>Adicionar novo produto</h1>
 
-                <Input type='text' value={imgUrl} onChange={setImgUrl} placeholder='Url da imagem' desktopW='100%' tabletW='100%' mobileW='100%' required />
+                <Input type='text' value={imageUrl} onChange={setImageUrl} placeholder='Url da imagem' desktopW='100%' tabletW='100%' mobileW='100%' required />
 
-                <Select data={categories} onChange={setCategory} desktopW='100%' tabletW='100%' mobileW='100%' required />
+                <Select data={categories} onChange={setCategoryId} desktopW='100%' tabletW='100%' mobileW='100%' required />
 
-                <Input type='text' value={name} onChange={setName} placeholder='Nome do produto' desktopW='100%' tabletW='100%' mobileW='100%' required />
+                <Input type='text' value={title} onChange={setTitle} placeholder='Nome do produto' desktopW='100%' tabletW='100%' mobileW='100%' required />
 
                 <Input type='number' value={price} onChange={setPrice} placeholder='Preço' desktopW='100%' tabletW='100%' mobileW='100%' required />
 

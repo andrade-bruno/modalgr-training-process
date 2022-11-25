@@ -9,13 +9,16 @@ import { useProductsContext } from 'contexts/products';
 export default function Product(props) {
     const params = useParams()
     const [product, setProduct] = React.useState([])
+    const [isLoading, setIsLoading] = React.useState(false)
 
     const { products } = useProductsContext()
     let similarProducts = products.filter((item) => item.id !== Number(params.id))
 
     async function getProduct() {
+        setIsLoading(true)
         const { data } = await productsService.getProduct(params.id)
         setProduct(data)
+        setIsLoading(false)
     }
 
     React.useEffect(() => {
@@ -26,7 +29,7 @@ export default function Product(props) {
         <Container>
             <ProductContainer>
                 {
-                    !product.imageUrl && !product.title && !product.price ? <Spinner style={{ margin: '20px' }} size={50} /> :
+                    !product.imageUrl || isLoading ? <Spinner style={{ margin: '20px' }} size={50} /> :
                         <>
                             <ProductImage src={product.imageUrl} alt={product.title} />
 
@@ -34,7 +37,7 @@ export default function Product(props) {
                                 <Title>{product.title}</Title>
                                 <Price>R$ {product.price.toFixed(2)}</Price>
                                 <Description>
-                                    {product.descripton ? product.description : 'O produto ainda não contém descrição'}
+                                    Descrição: {product.description ? product.description : 'O produto ainda não contém descrição'}
                                 </Description>
                             </ProductItens>
                         </>

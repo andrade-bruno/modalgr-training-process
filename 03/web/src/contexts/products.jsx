@@ -13,8 +13,18 @@ export const ProductsProvider = ({ children }) => {
             const { data } = await productsService.getProducts()
             setProducts(data)
         } catch (error) {
-            alert(error?.message)
         }
+    }
+
+    async function addProduct(newProduct) {
+        newProduct.price = parseFloat(newProduct.price)
+        newProduct.categoryId = parseInt(newProduct.categoryId)
+
+        productsService.addProduct(newProduct)
+        newProduct.id = products.length + 1
+        setProducts([...products, newProduct])
+        alert(`${newProduct.title} adicionado com sucesso`)
+        return newProduct
     }
 
     React.useEffect(() => {
@@ -22,7 +32,7 @@ export const ProductsProvider = ({ children }) => {
     }, [])
 
     return (
-        <ProductsContext.Provider value={{ products, setProducts }}>
+        <ProductsContext.Provider value={{ products, setProducts, addProduct }}>
             {children}
         </ProductsContext.Provider>
     )
