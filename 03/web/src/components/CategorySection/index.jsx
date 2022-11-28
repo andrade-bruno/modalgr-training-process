@@ -19,7 +19,7 @@ export default function CategorySection(props) {
 
     return (
         props.products.length > 0 &&
-        <CategorySectionStyle {...props}>
+        <CategorySectionStyle id={`section${props.title}`} {...props}>
             <CategoryHeader>
                 <h1>{props.title}</h1>
                 {
