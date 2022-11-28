@@ -34,17 +34,7 @@ function getCategories() {
 }
 
 function getProduct(id) {
-    return new Promise((resolve, reject) => {
-        httpService.get(`/products/${id}`, config)
-            .then((response) => {
-                resolve({ data: response.data })
-            }).catch((error) => {
-                reject({ status: error.response.status })
-                console.log('getProduct error:')
-                console.log(error)
-            })
-
-    })
+    return httpService.get(`/products/${id}`, config)
 }
 
 function addProduct(newProduct) {

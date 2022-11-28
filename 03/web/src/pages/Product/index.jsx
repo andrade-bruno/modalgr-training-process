@@ -17,8 +17,12 @@ export default function Product(props) {
 
     async function getProduct() {
         setIsLoading(true)
-        const { data } = await productsService.getProduct(params.id)
-        setProduct(data)
+        try {
+            const response = await productsService.getProduct(params.id)
+            if (response.status === 200) {
+                setProduct(response.data)
+            }
+        } catch (error) { }
         setIsLoading(false)
     }
 
@@ -26,26 +30,23 @@ export default function Product(props) {
         getProduct()
     }, [params])
 
-    if (!product) {
-        return (<NotFound />)
-    }
-
     return (
         <Container>
             <ProductContainer>
                 {
-                    !product.imageUrl || isLoading ? <Spinner style={{ margin: '20px' }} size={50} /> :
-                        <>
-                            <ProductImage src={product.imageUrl} alt={product.title} />
+                    isLoading ? <Spinner style={{ margin: '20px' }} size={50} /> :
+                        !product ? <NotFound /> :
+                            <>
+                                <ProductImage src={product.imageUrl} alt={product.title} />
 
-                            <ProductItens>
-                                <Title>{product.title}</Title>
-                                <Price>R$ {product.price.toFixed(2)}</Price>
-                                <Description>
-                                    Descrição: {product.description ? product.description : 'O produto ainda não contém descrição'}
-                                </Description>
-                            </ProductItens>
-                        </>
+                                <ProductItens>
+                                    <Title>{product.title}</Title>
+                                    <Price>R$ {Number(product.price).toFixed(2)}</Price>
+                                    <Description>
+                                        Descrição: {product.description ? product.description : 'O produto ainda não contém descrição'}
+                                    </Description>
+                                </ProductItens>
+                            </>
                 }
             </ProductContainer>
             <SimilarProducts title='Produtos similares' products={similarProducts} />
