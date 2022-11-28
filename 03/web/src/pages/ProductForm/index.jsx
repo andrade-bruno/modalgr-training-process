@@ -13,12 +13,14 @@ import { Windmill } from 'react-activity';
 export default function ProductForm(props) {
     const navigate = useNavigate()
     const location = useLocation()
+    const state = location.state
+    // State: Editing an existing product
 
-    const [imageUrl, setImageUrl] = React.useState(location.state.imageUrl ? location.state.imageUrl : '')
-    const [categoryId, setCategoryId] = React.useState(location.state.categoryId ? location.state.categoryId : null)
-    const [title, setTitle] = React.useState(location.state.title ? location.state.title : '')
-    const [price, setPrice] = React.useState(location.state.price ? location.state.price : '')
-    const [description, setDescription] = React.useState(location.state.description ? location.state.description : '')
+    const [imageUrl, setImageUrl] = React.useState(state.imageUrl ? state.imageUrl : '')
+    const [categoryId, setCategoryId] = React.useState(state.categoryId ? state.categoryId : null)
+    const [title, setTitle] = React.useState(state.title ? state.title : '')
+    const [price, setPrice] = React.useState(state.price ? state.price : '')
+    const [description, setDescription] = React.useState(state.description ? state.description : '')
     const [isLoading, setIsLoading] = React.useState(false)
 
     const { addProduct, updateProduct } = useProductsContext()
@@ -29,8 +31,8 @@ export default function ProductForm(props) {
         e.preventDefault()
         try {
             let product
-            if (location.state) {
-                product = await updateProduct({ title, price, imageUrl, description, categoryId, id: location.state.id })
+            if (state) {
+                product = await updateProduct({ title, price, imageUrl, description, categoryId, id: state.id })
             } else {
                 product = await addProduct({ title, price, imageUrl, description, categoryId })
             }
@@ -44,7 +46,7 @@ export default function ProductForm(props) {
     return (
         <Container>
             <form onSubmit={onSubmitForm}>
-                <h1>{location.state.id ? 'Editar produto' : 'Adicionar novo produto'}</h1>
+                <h1>{state.id ? 'Editar produto' : 'Adicionar novo produto'}</h1>
 
                 <Input type='text' value={imageUrl} onChange={setImageUrl} placeholder='Url da imagem' desktopW='100%' tabletW='100%' mobileW='100%' required />
 
@@ -57,7 +59,7 @@ export default function ProductForm(props) {
                 <Textarea value={description} onChange={setDescription} desktopW='100%' tabletW='100%' mobileW='100%' placeholder='Descrição' required />
 
                 <AddButton disabled={isLoading}>
-                    {isLoading ? <Windmill /> : location.state.id ? 'Editar Produto' : 'Adicionar produto'}
+                    {isLoading ? <Windmill /> : state.id ? 'Editar Produto' : 'Adicionar produto'}
                 </AddButton>
             </form>
         </Container>

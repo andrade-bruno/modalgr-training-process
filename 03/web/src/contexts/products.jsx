@@ -34,6 +34,9 @@ export const ProductsProvider = ({ children }) => {
     }
 
     async function updateProduct(updatedProduct) {
+        updatedProduct.price = parseFloat(updatedProduct.price)
+        updatedProduct.categoryId = parseInt(updatedProduct.categoryId)
+
         await productsService.updateProduct(updatedProduct)
         let filtered = products.filter(product => product.id !== updatedProduct.id)
         setProducts([...filtered, updatedProduct])
