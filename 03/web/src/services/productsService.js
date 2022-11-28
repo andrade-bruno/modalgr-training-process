@@ -1,4 +1,5 @@
 import httpService from "./http"
+import { toast } from "react-toastify"
 
 const config = {
     headers: {
@@ -13,6 +14,7 @@ function getProducts() {
                 resolve({ data: response.data })
             }).catch((error) => {
                 reject({ data: error.message })
+                toast(`Falha ao obter os produtos: ${error.message}`)
                 console.log('getProducts error:')
                 console.log(error)
             })
@@ -27,6 +29,7 @@ function getCategories() {
                 resolve({ data: res.data })
             }).catch((error) => {
                 reject({ data: error.data })
+                toast(`Falha ao obter as categorias: ${error.message}`)
                 console.log('getCategories error:')
                 console.log(error)
             })
@@ -44,6 +47,7 @@ function addProduct(newProduct) {
                 resolve({ data: response.data })
             }).catch((error) => {
                 reject({ data: error.message })
+                toast(`Falha ao adicionar produto: ${error.message}`)
                 console.log('addProduct error:')
                 console.log(error)
             })
