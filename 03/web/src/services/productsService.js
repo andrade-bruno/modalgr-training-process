@@ -51,11 +51,16 @@ function addProduct(newProduct) {
     })
 }
 
+function deleteProduct(id) {
+    httpService.delete(`/products/${id}`, config)
+}
+
 const productsService = {
     getProducts,
     getCategories,
     getProduct,
-    addProduct
+    addProduct,
+    deleteProduct
 }
 
 export default productsService

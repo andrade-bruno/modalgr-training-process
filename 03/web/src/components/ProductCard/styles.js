@@ -15,10 +15,6 @@ export const ProductCardStyle = styled.div`
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    &:first-child {
-        overflow: hidden;
-    }
-
     @media (min-width: 768px) {
         width: 176px;
         font-size: 1rem;
