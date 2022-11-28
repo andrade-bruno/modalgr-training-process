@@ -52,7 +52,11 @@ function addProduct(newProduct) {
 }
 
 function deleteProduct(id) {
-    httpService.delete(`/products/${id}`, config)
+    return httpService.delete(`/products/${id}`, config)
+}
+
+function updateProduct(body) {
+    return httpService.put(`/products/${body.id}`, body, config)
 }
 
 const productsService = {
@@ -60,7 +64,8 @@ const productsService = {
     getCategories,
     getProduct,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 }
 
 export default productsService

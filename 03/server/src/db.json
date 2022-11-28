@@ -2,10 +2,11 @@
   "products": [
     {
       "title": "Mini Yoda",
-      "price": 10.5,
+      "price": "12.5",
       "imageUrl": "https://s2.glbimg.com/QqEDyJyWVPTI9tU-5izKpJls6UE=/620x520/smart/e.glbimg.com/og/ed/f/original/2020/11/30/baby-yoda.jpg",
-      "id": 1,
-      "categoryId": 1
+      "description": "Mini Yoda de pelúcia",
+      "categoryId": "3",
+      "id": 1
     },
     {
       "title": "Capacete Stormtrooper",

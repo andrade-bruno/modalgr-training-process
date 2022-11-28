@@ -8,7 +8,7 @@ export default function Select(props) {
                 Selecione
             </option>
             {props.data.map((item) => (
-                <option key={item.id} value={item.id ? item.id : item.title}>
+                <option key={item.id} value={item.id ? item.id : item.title} selected={props.selected === item.id}>
                     {item.title ? item.title : item.value}
                 </option>
             ))}

@@ -33,12 +33,19 @@ export const ProductsProvider = ({ children }) => {
         setProducts(products.filter(product => product.id !== id))
     }
 
+    async function updateProduct(updatedProduct) {
+        await productsService.updateProduct(updatedProduct)
+        let filtered = products.filter(product => product.id !== updatedProduct.id)
+        setProducts([...filtered, updatedProduct])
+        return updatedProduct
+    }
+
     React.useEffect(() => {
         getProducts()
     }, [])
 
     return (
-        <ProductsContext.Provider value={{ products, setProducts, addProduct, deleteProduct }}>
+        <ProductsContext.Provider value={{ products, setProducts, addProduct, deleteProduct, updateProduct }}>
             {children}
         </ProductsContext.Provider>
     )
