@@ -5,10 +5,11 @@ import { Container, ProductContainer, Description, Price, ProductImage, ProductI
 import productsService from 'services/productsService';
 import { Spinner } from "react-activity";
 import { useProductsContext } from 'contexts/products';
+import NotFound from 'pages/NotFound';
 
 export default function Product(props) {
     const params = useParams()
-    const [product, setProduct] = React.useState([])
+    const [product, setProduct] = React.useState()
     const [isLoading, setIsLoading] = React.useState(false)
 
     const { products } = useProductsContext()
@@ -24,6 +25,10 @@ export default function Product(props) {
     React.useEffect(() => {
         getProduct()
     }, [params])
+
+    if (!product) {
+        return (<NotFound />)
+    }
 
     return (
         <Container>

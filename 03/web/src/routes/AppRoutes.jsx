@@ -12,6 +12,7 @@ import Navbar from 'components/Navbar';
 import { CategoriesProvider } from "contexts/categories";
 import { ProductsProvider } from "contexts/products";
 import ScrollToTop from "utils/common";
+import NotFound from "pages/NotFound";
 
 export default function AppRoutes() {
     return (
@@ -27,6 +28,7 @@ export default function AppRoutes() {
                         <Route path='/products' element={<Products />} />
                         <Route path='/product/:id' element={<Product />} />
                         <Route path='/product/new' element={<ProductForm />} />
+                        <Route path='*' element={<NotFound />} />
                     </Routes>
                 </ProductsProvider>
             </CategoriesProvider>

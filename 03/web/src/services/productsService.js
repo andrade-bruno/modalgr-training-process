@@ -39,7 +39,7 @@ function getProduct(id) {
             .then((response) => {
                 resolve({ data: response.data })
             }).catch((error) => {
-                reject({ data: error.message })
+                reject({ status: error.response.status })
                 console.log('getProduct error:')
                 console.log(error)
             })
