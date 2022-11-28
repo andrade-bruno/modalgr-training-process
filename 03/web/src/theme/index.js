@@ -2,7 +2,8 @@ const theme = {
     fontColor: {
         primary: '#2A7AE4',
         gray: '#A2A2A2',
-        white: '#FFFFFF'
+        white: '#FFFFFF',
+        dark: '#000000'
     },
     background: {
         white: '#FFFFFF',

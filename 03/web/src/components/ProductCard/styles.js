@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import theme from 'theme'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const ProductCardStyle = styled.div`
     display: flex;
@@ -9,6 +10,14 @@ export const ProductCardStyle = styled.div`
     justify-content: flex-start;
     gap: 8px;
     max-height: 252px;
+    position: relative;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &:first-child {
+        overflow: hidden;
+    }
 
     @media (min-width: 768px) {
         width: 176px;
@@ -25,11 +34,30 @@ export const ProductCardStyle = styled.div`
 
     img {
         width: 100%;
-        height: 176px;
+        min-height: 176px;
     }
 
     .price {
         font-weight: 600;
+    }
+`
+
+export const Icons = styled.div`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    display: ${(props) => props.pathname === '/products' ? 'block' : 'none'};
+`
+
+export const Icon = styled(FontAwesomeIcon)`
+    cursor: pointer;
+    color: ${theme.fontColor.white};
+    margin-left: 24px;
+
+    &:hover {
+        transform: translateY(-4px);
+        color: ${theme.fontColor.dark};
     }
 `
 
