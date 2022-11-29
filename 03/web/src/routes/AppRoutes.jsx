@@ -13,27 +13,30 @@ import { CategoriesProvider } from "contexts/categories";
 import { ProductsProvider } from "contexts/products";
 import ScrollToTop from "utils/common";
 import NotFound from "pages/NotFound";
+import { UserProvider } from "contexts/user";
 
 export default function AppRoutes() {
     return (
         <BrowserRouter>
-            <ScrollToTop />
-            <ProductsProvider>
-                <CategoriesProvider>
-                    <Navbar />
+            <UserProvider>
+                <ScrollToTop />
+                <ProductsProvider>
+                    <CategoriesProvider>
+                        <Navbar />
 
-                    <Routes>
-                        <Route path='/login' element={<Login />} />
-                        <Route path='/' exact element={<Home />} />
-                        <Route path='/products' element={<Products />} />
-                        <Route path='/product/:id' element={<Product />} />
-                        <Route path='/product/new' element={<ProductForm />} />
-                        <Route path='*' element={<NotFound />} />
-                    </Routes>
-                </CategoriesProvider>
-            </ProductsProvider>
+                        <Routes>
+                            <Route path='/login' element={<Login />} />
+                            <Route path='/' exact element={<Home />} />
+                            <Route path='/products' element={<Products />} />
+                            <Route path='/product/:id' element={<Product />} />
+                            <Route path='/product/new' element={<ProductForm />} />
+                            <Route path='*' element={<NotFound />} />
+                        </Routes>
+                    </CategoriesProvider>
+                </ProductsProvider>
 
-            <Footer />
+                <Footer />
+            </UserProvider>
         </BrowserRouter>
     )
 }

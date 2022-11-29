@@ -4,52 +4,16 @@
 
 [Trello](https://trello.com/b/bjoXSYMN/challenge-front-end-semana-1)
 
-### To-do
-
-Tamanhos
-
-    Desktop
-    Tablet
-    Mobile
-
-Media queries base
-
-    @media (min-width: 768px) {
-    
-    }
-    @media (max-width: 768px) {
-    
-    }
-    @media (max-width: 360px) {
-    
-    }
-
-Páginas
-
-    Login
-    Home
-    Todos os produtos
-    Visualizar produto
-    Adicionar produto
-
-Components
-
-    Navbar
-    Banner
-    Rodape
-    Section de categoria
-    Card de produto
-
-### Comandos
+### Como utilizar
 
 Servidor (porta 3000)
 
     npm i -g json-server
     cd server
-    json-server src/db.json 
+    json-server --watch src/db.json 
 
 Web (porta 4000)
 
     cd web
-    yarn/npm i/npm install
+    yarn / npm i / npm install
     npm start 

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import theme from 'theme';
 import { useProductsContext } from 'contexts/products';
 import NavbarQueryList from 'components/NavbarQueryList';
+import { useUserContext } from 'contexts/user';
 
 export default function Navbar(props) {
     const location = useLocation()
@@ -13,6 +14,8 @@ export default function Navbar(props) {
     const navigate = useNavigate()
 
     const { products, searchQuery, setSearchQuery } = useProductsContext()
+    const { user } = useUserContext()
+
     const [queriedProducts, setQueriedProducts] = React.useState([])
 
     const handleNavigateNavBar = () => {
@@ -41,9 +44,12 @@ export default function Navbar(props) {
                     </SearchBar>
                     <NavbarQueryList visible={searchQuery.length >= 3} queriedProducts={queriedProducts} />
                 </LeftContent>
-                {pathname === '/' ? <ButtonNavigate onClick={handleNavigateNavBar}>Login</ButtonNavigate> :
-                    pathname === '/product/new' ? <ButtonNavigate onClick={handleNavigateNavBar}>Menu administrador</ButtonNavigate>
-                        : null}
+                {
+                    pathname === '/' && !user ? <ButtonNavigate onClick={handleNavigateNavBar}>Login</ButtonNavigate>
+                        : pathname === '/' && user ? <label><FontAwesomeIcon icon='user' size='lg' color={theme.background.dark} /> {user.firstName}</label>
+                            : pathname === '/product/new' && user ? <ButtonNavigate onClick={handleNavigateNavBar}>Menu administrador</ButtonNavigate>
+                                : null
+                }
                 <SearchIconMobile icon="search" color={theme.fontColor.gray} size='lg' />
             </NavbarStyle>
         </>

@@ -1,4 +1,13 @@
 {
+  "users": [
+    {
+      "firstName": "Bruno",
+      "surname": "Andrade",
+      "email": "bruno.andrade@modalgr.com.br",
+      "password": "1234",
+      "id": 1
+    }
+  ],
   "products": [
     {
       "title": "Mini Yoda",
