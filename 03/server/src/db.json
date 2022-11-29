@@ -187,6 +187,14 @@
       "description": "Fabricado em 2019.\nImagem ilustrativa.\n₢ Americanas Ltda.",
       "categoryId": 3,
       "id": 25
+    },
+    {
+      "title": "Playstation 2",
+      "price": 200,
+      "imageUrl": "https://1.bp.blogspot.com/-ux4qTMKiYv4/Xmuhw7Y4MhI/AAAAAAAAUiE/5cEHjsnCoLYRMoe4IPvptMVwpRHMozOtgCLcBGAsYHQ/s1600/CAPA.jpg",
+      "description": "@ Sony Entertainment",
+      "categoryId": 2,
+      "id": 26
     }
   ],
   "categories": [

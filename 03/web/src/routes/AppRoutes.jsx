@@ -18,10 +18,10 @@ export default function AppRoutes() {
     return (
         <BrowserRouter>
             <ScrollToTop />
-            <Navbar />
+            <ProductsProvider>
+                <CategoriesProvider>
+                    <Navbar />
 
-            <CategoriesProvider>
-                <ProductsProvider>
                     <Routes>
                         <Route path='/login' element={<Login />} />
                         <Route path='/' exact element={<Home />} />
@@ -30,8 +30,8 @@ export default function AppRoutes() {
                         <Route path='/product/new' element={<ProductForm />} />
                         <Route path='*' element={<NotFound />} />
                     </Routes>
-                </ProductsProvider>
-            </CategoriesProvider>
+                </CategoriesProvider>
+            </ProductsProvider>
 
             <Footer />
         </BrowserRouter>

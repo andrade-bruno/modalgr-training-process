@@ -16,11 +16,11 @@ export default function ProductForm(props) {
     const state = location.state
     // State: Editing an existing product
 
-    const [imageUrl, setImageUrl] = React.useState(state.imageUrl ? state.imageUrl : '')
-    const [categoryId, setCategoryId] = React.useState(state.categoryId ? state.categoryId : null)
-    const [title, setTitle] = React.useState(state.title ? state.title : '')
-    const [price, setPrice] = React.useState(state.price ? state.price : '')
-    const [description, setDescription] = React.useState(state.description ? state.description : '')
+    const [imageUrl, setImageUrl] = React.useState(state?.imageUrl ? state.imageUrl : '')
+    const [categoryId, setCategoryId] = React.useState(state?.categoryId ? state.categoryId : null)
+    const [title, setTitle] = React.useState(state?.title ? state.title : '')
+    const [price, setPrice] = React.useState(state?.price ? state.price : '')
+    const [description, setDescription] = React.useState(state?.description ? state.description : '')
     const [isLoading, setIsLoading] = React.useState(false)
 
     const { addProduct, updateProduct } = useProductsContext()
@@ -46,7 +46,7 @@ export default function ProductForm(props) {
     return (
         <Container>
             <form onSubmit={onSubmitForm}>
-                <h1>{state.id ? 'Editar produto' : 'Adicionar novo produto'}</h1>
+                <h1>{state?.id ? 'Editar produto' : 'Adicionar novo produto'}</h1>
 
                 <Input type='text' value={imageUrl} onChange={setImageUrl} placeholder='Url da imagem' desktopW='100%' tabletW='100%' mobileW='100%' required />
 
@@ -59,7 +59,7 @@ export default function ProductForm(props) {
                 <Textarea value={description} onChange={setDescription} desktopW='100%' tabletW='100%' mobileW='100%' placeholder='Descrição' required />
 
                 <AddButton disabled={isLoading}>
-                    {isLoading ? <Windmill /> : state.id ? 'Editar Produto' : 'Adicionar produto'}
+                    {isLoading ? <Windmill /> : state?.id ? 'Editar Produto' : 'Adicionar produto'}
                 </AddButton>
             </form>
         </Container>

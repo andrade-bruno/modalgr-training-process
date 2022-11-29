@@ -75,6 +75,7 @@ export const SearchBar = styled.div`
     border-radius: 20px;
     padding: 10px 20px;
     gap: 20px;
+    z-index: 20;
 
     @media (min-width: 768px) {
         max-width: 394px;

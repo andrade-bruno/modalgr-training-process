@@ -67,12 +67,17 @@ export const ProductItens = styled.div`
 
     @media (min-width: 768px) {
         width: 50%;
+        max-width: 560px;
+        max-height: 404px;
     }
     @media (max-width: 768px) {
         width: ${100 - imgPercentageSizeTablet}%;
+        max-width: 254px;
+        max-height: 157px;
     }
     @media (max-width: 360px) {
         width: 100%;
+        max-height: 192px;
     }
 `
 

@@ -8,6 +8,7 @@ ProductsContext.displayName = 'Products'
 
 export const ProductsProvider = ({ children }) => {
     const [products, setProducts] = React.useState([])
+    const [searchQuery, setSearchQuery] = React.useState('')
 
     async function getProducts() {
         try {
@@ -48,7 +49,7 @@ export const ProductsProvider = ({ children }) => {
     }, [])
 
     return (
-        <ProductsContext.Provider value={{ products, setProducts, addProduct, deleteProduct, updateProduct }}>
+        <ProductsContext.Provider value={{ products, setProducts, addProduct, deleteProduct, updateProduct, searchQuery, setSearchQuery }}>
             {children}
         </ProductsContext.Provider>
     )
