@@ -32,11 +32,12 @@ export const ProductsProvider = ({ children }) => {
         return newProduct
     }
 
-    async function deleteProduct(id) {
+    async function deleteProduct({ id, title }) {
         if (!user) {
             toast('Você precisa estar autenticado para realizar essa operação')
             return false
         }
+        toast(`${title} removido com sucesso`)
         await productsService.deleteProduct(id)
         setProducts(products.filter(product => product.id !== id))
     }

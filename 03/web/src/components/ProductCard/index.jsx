@@ -12,7 +12,7 @@ export default function ProductCard(props) {
     return (
         <ProductCardStyle>
             <Icons pathname={location.pathname}>
-                <Icon icon="trash" size='lg' onClick={() => deleteProduct(id)} />
+                <Icon icon="trash" size='lg' onClick={() => deleteProduct({ id, title })} />
                 <Icon icon="pencil" size='lg' onClick={() => navigate('/product/new', { state: props.product })} />
             </Icons>
             <img src={imageUrl} alt={title} />

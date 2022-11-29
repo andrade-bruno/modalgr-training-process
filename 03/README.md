@@ -25,12 +25,36 @@ Web (porta 4000)
 
 # Login
 
+![login](./screenshots/login.png)
+
 # Homepage
+
+![homepage 1](./screenshots/homepage-1.png)
+
+![homepage 2](./screenshots/homepage-2.png)
 
 # Todos os produtos
 
+![produtos](./screenshots/produtos.png)
+
 # Adicionar produto
+
+![adicionar](./screenshots/adicionar-produto.png)
+
+# Visualizar produto
+
+![visualizar 1](./screenshots/visualizar-produto-1.png)
+
+![visualizar 2](./screenshots/visualizar-produto-2.png)
 
 # Editar produto
 
-# Excluir produto
+![editar 1](./screenshots/editar-produto-1.png)
+
+![editar 2](./screenshots/editar-produto-2.png)
+
+# Remover produto
+
+![remover 1](./screenshots/remover-produto-1.png)
+
+![remover 2](./screenshots/remover-produto-2.png)
