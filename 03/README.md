@@ -58,3 +58,7 @@ Web (porta 4000)
 ![remover 1](./screenshots/remover-produto-1.png)
 
 ![remover 2](./screenshots/remover-produto-2.png)
+
+# Pesquisar produto
+
+![pesquisar](./screenshots/pesquisar-produto.png)
