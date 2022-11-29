@@ -3,13 +3,11 @@ import React from 'react';
 import Input from 'components/Input';
 
 import { Container, LoginButton } from './styles';
-import { useNavigate } from 'react-router-dom';
 import { useUserContext } from 'contexts/user';
 import { toast } from 'react-toastify';
 import { Windmill } from 'react-activity';
 
 export default function Login(params) {
-    const navigate = useNavigate()
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [isLoading, setIsLoading] = React.useState(false)

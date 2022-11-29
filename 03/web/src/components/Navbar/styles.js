@@ -131,3 +131,8 @@ export const SearchIconMobile = styled(FontAwesomeIcon)`
         display: block;
     }
 `
+
+export const SignOutIcon = styled(FontAwesomeIcon)`
+    cursor: pointer;
+    color: ${theme.background.dark}
+`

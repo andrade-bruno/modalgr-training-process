@@ -28,8 +28,13 @@ export const UserProvider = ({ children }) => {
         }
     }
 
+    function handleLogout() {
+        setUser(undefined)
+        navigate('/login')
+    }
+
     return (
-        <UserContext.Provider value={{ user, login }}>
+        <UserContext.Provider value={{ user, login, handleLogout }}>
             {children}
         </UserContext.Provider>
     )

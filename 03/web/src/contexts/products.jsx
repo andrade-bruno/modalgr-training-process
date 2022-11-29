@@ -2,6 +2,7 @@ import React from 'react';
 
 import { toast } from 'react-toastify';
 import productsService from 'services/productsService';
+import { useUserContext } from 'contexts/user';
 
 const ProductsContext = React.createContext()
 ProductsContext.displayName = 'Products'
@@ -9,6 +10,8 @@ ProductsContext.displayName = 'Products'
 export const ProductsProvider = ({ children }) => {
     const [products, setProducts] = React.useState([])
     const [searchQuery, setSearchQuery] = React.useState('')
+
+    const { user } = useUserContext()
 
     async function getProducts() {
         try {
@@ -30,11 +33,19 @@ export const ProductsProvider = ({ children }) => {
     }
 
     async function deleteProduct(id) {
+        if (!user) {
+            toast('Você precisa estar autenticado para realizar essa operação')
+            return false
+        }
         await productsService.deleteProduct(id)
         setProducts(products.filter(product => product.id !== id))
     }
 
     async function updateProduct(updatedProduct) {
+        if (!user) {
+            toast('Você precisa estar autenticado para realizar essa operação')
+            return false
+        }
         updatedProduct.price = parseFloat(updatedProduct.price)
         updatedProduct.categoryId = parseInt(updatedProduct.categoryId)
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { NavbarStyle, SearchBar, SearchInput, Img, SearchIconMobile, LeftContent, ButtonNavigate } from './styles';
+import { NavbarStyle, SearchBar, SearchInput, Img, SearchIconMobile, LeftContent, ButtonNavigate, SignOutIcon } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import theme from 'theme';
 import { useProductsContext } from 'contexts/products';
@@ -14,15 +14,9 @@ export default function Navbar(props) {
     const navigate = useNavigate()
 
     const { products, searchQuery, setSearchQuery } = useProductsContext()
-    const { user } = useUserContext()
+    const { user, handleLogout } = useUserContext()
 
     const [queriedProducts, setQueriedProducts] = React.useState([])
-
-    const handleNavigateNavBar = () => {
-        return pathname === '/' ? navigate('/login') :
-            pathname === '/product/new' ? navigate('/products')
-                : null
-    }
 
     React.useEffect(() => {
         if (searchQuery.length >= 3) {
@@ -45,9 +39,12 @@ export default function Navbar(props) {
                     <NavbarQueryList visible={searchQuery.length >= 3} queriedProducts={queriedProducts} />
                 </LeftContent>
                 {
-                    pathname === '/' && !user ? <ButtonNavigate onClick={handleNavigateNavBar}>Login</ButtonNavigate>
-                        : pathname === '/' && user ? <label><FontAwesomeIcon icon='user' size='lg' color={theme.background.dark} /> {user.firstName}</label>
-                            : pathname === '/product/new' && user ? <ButtonNavigate onClick={handleNavigateNavBar}>Menu administrador</ButtonNavigate>
+                    !user && pathname !== '/login' ? <ButtonNavigate onClick={() => navigate('/login')}>Login</ButtonNavigate>
+                        : user && pathname !== '/product/new' ?
+                            <label>
+                                {user.firstName} <SignOutIcon icon='sign-out' size='lg' onClick={handleLogout} />
+                            </label>
+                            : user && pathname === '/product/new' ? <ButtonNavigate onClick={() => navigate('/products')}>Menu administrador</ButtonNavigate>
                                 : null
                 }
                 <SearchIconMobile icon="search" color={theme.fontColor.gray} size='lg' />

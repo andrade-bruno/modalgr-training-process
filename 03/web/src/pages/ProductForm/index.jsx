@@ -9,6 +9,7 @@ import { useCategoriesContext } from 'contexts/categories';
 import { useProductsContext } from 'contexts/products';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Windmill } from 'react-activity';
+import { useUserContext } from 'contexts/user';
 
 export default function ProductForm(props) {
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ export default function ProductForm(props) {
 
     const { addProduct, updateProduct } = useProductsContext()
     const { categories } = useCategoriesContext()
+    const { user } = useUserContext()
 
     const onSubmitForm = async e => {
         setIsLoading(true)
@@ -37,8 +39,10 @@ export default function ProductForm(props) {
                 product = await addProduct({ title, price, imageUrl, description, categoryId })
             }
 
-            navigate(`/product/${product.id}`)
-            setImageUrl(''); setCategoryId(null); setTitle(''); setPrice(''); setDescription('');
+            if (product.id && user) {
+                navigate(`/product/${product.id}`)
+                setImageUrl(''); setCategoryId(null); setTitle(''); setPrice(''); setDescription('');
+            }
         } catch (error) { }
         setIsLoading(false)
     }

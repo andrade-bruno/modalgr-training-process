@@ -17,3 +17,20 @@ Web (porta 4000)
     cd web
     yarn / npm i / npm install
     npm start 
+
+# Usuário default tester
+
+    "email": "bruno.andrade@modalgr.com.br"
+    "password": "1234"
+
+# Login
+
+# Homepage
+
+# Todos os produtos
+
+# Adicionar produto
+
+# Editar produto
+
+# Excluir produto
