@@ -28,7 +28,7 @@ class Form extends React.Component {
                         required
                     />
                 </div>
-                <Button title='Finalizar' onClick={() => alert('finalizado')}/>
+                <Button title='Adicionar' onClick={() => alert('finalizado')}/>
             </form>
         );
     }
