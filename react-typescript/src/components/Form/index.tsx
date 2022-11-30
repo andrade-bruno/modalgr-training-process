@@ -8,9 +8,14 @@ class Form extends React.Component {
         time: ''
     }
 
+    addTask = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        console.log(this.state)
+    }
+
     render() {
         return (
-            <form className={style.newTask}>
+            <form className={style.newTask} onSubmit={this.addTask.bind(this)}>
                 <div className={style.inputContainer}>
                     <label htmlFor='task'>Adicione um novo estudo</label>
                     <input
@@ -37,7 +42,7 @@ class Form extends React.Component {
                         required
                     />
                 </div>
-                <Button onClick={() => alert('finalizado')}>
+                <Button type='submit'>
                     Adicionar
                 </Button>
             </form>
