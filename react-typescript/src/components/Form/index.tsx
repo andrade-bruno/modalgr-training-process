@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from 'components/Button';
 
-class Form extends Component {
+class Form extends React.Component {
     render() {
         return (
             <form>
