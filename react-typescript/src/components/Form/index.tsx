@@ -3,6 +3,11 @@ import Button from 'components/Button';
 import style from './Form.module.scss'
 
 class Form extends React.Component {
+    state = {
+        task: '',
+        time: ''
+    }
+
     render() {
         return (
             <form className={style.newTask}>
@@ -13,6 +18,8 @@ class Form extends React.Component {
                         name='task'
                         id='task'
                         placeholder='O que você quer estudar'
+                        value={this.state.task}
+                        onChange={e => this.setState({...this.state, task: e.target.value})}
                         required
                     />
                 </div>
@@ -25,6 +32,8 @@ class Form extends React.Component {
                         id='time'
                         min='00:00:00'
                         max='01:30:00'
+                        value={this.state.time}
+                        onChange={e => this.setState({...this.state, time: e.target.value})}
                         required
                     />
                 </div>
