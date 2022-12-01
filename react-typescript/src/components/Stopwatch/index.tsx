@@ -1,6 +1,7 @@
 import Button from "components/Button";
 import style from './Stopwatch.module.scss'
 import Watch from "./Watch";
+import { timeToSeconds } from 'common/time';
 
 export default function Stopwatch() {
     return (
