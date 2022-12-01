@@ -12,6 +12,15 @@ interface StopwatchProps {
 
 export default function Stopwatch({selectedTask}: StopwatchProps) {
     const [time, setTime] = React.useState<number>()
+
+    const regressiveCount = (counter: number = 0) => {
+        setTimeout(() => {
+            if (counter > 0) {
+                setTime(counter - 1)
+                return regressiveCount(counter - 1)
+            }
+        }, 1000)
+    }
     
     React.useEffect(() => {
         if (selectedTask?.time) {
@@ -27,7 +36,7 @@ export default function Stopwatch({selectedTask}: StopwatchProps) {
                 <Watch time={time} />
             </div>
 
-            <Button>Começar</Button>
+            <Button onClick={() => regressiveCount(time)}>Começar</Button>
         </div> 
     )
 }
