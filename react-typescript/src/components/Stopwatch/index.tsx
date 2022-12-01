@@ -7,10 +7,11 @@ import { timeToSeconds } from 'common/time';
 import { ITask } from './../../@types/task';
 
 interface StopwatchProps {
-    selectedTask: ITask | undefined
+    selectedTask: ITask | undefined,
+    finishTask: () => void
 }
 
-export default function Stopwatch({selectedTask}: StopwatchProps) {
+export default function Stopwatch({selectedTask, finishTask}: StopwatchProps) {
     const [time, setTime] = React.useState<number>()
 
     const regressiveCount = (counter: number = 0) => {
@@ -19,6 +20,7 @@ export default function Stopwatch({selectedTask}: StopwatchProps) {
                 setTime(counter - 1)
                 return regressiveCount(counter - 1)
             }
+            finishTask()
         }, 1000)
     }
     

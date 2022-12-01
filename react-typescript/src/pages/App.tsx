@@ -18,6 +18,18 @@ const App = () => {
         })))
     }
 
+    const finishTask = () => {
+      if (selectedTask) {
+        setSelectedTask(undefined)
+        setTasks(previous => previous.map(task => {
+          if (task.uuid === selectedTask.uuid) {
+            return {...task, selected: false, completed: true}
+          }
+          return task
+        }))
+      }
+    }
+
     return (
         <div className={style.AppStyle}>
           <Form setTasks={setTasks} />
@@ -25,7 +37,10 @@ const App = () => {
             tasks={tasks}
             selectTask={selectTask}
           />
-          <Stopwatch selectedTask={selectedTask}/>
+          <Stopwatch
+            selectedTask={selectedTask}
+            finishTask={finishTask}
+          />
         </div>
     );
 }
