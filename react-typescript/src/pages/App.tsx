@@ -8,7 +8,7 @@ import { ITask } from './../@types/task';
 
 const App = () => {
     const [tasks, setTasks] = React.useState<ITask[]>([])
-    const [selectedTask, setSelectedTask] = React.useState<ITask>()
+    const [selectedTask, setSelectedTask] = React.useState<ITask >()
 
     const selectTask = (selectedTask: ITask) => {
       setSelectedTask(selectedTask)
@@ -25,7 +25,7 @@ const App = () => {
             tasks={tasks}
             selectTask={selectTask}
           />
-          <Stopwatch />
+          <Stopwatch selectedTask={selectedTask}/>
         </div>
     );
 }
