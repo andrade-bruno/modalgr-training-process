@@ -11,11 +11,11 @@ const App = () => {
     const [selectedTask, setSelectedTask] = React.useState<ITask >()
 
     const selectTask = (selectedTask: ITask) => {
-      setSelectedTask(selectedTask)
-      setTasks(previous => previous.map(task => ({
-        ...task,
-        selected: task.uuid === selectedTask.uuid ? true : false
-      })))
+        setSelectedTask(selectedTask)
+        setTasks(previous => previous.map(task => ({
+          ...task,
+          selected: task.uuid === selectedTask.uuid ? true : false
+        })))
     }
 
     return (
