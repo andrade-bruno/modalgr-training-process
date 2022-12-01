@@ -10,7 +10,7 @@ const List = ({tasks}: {tasks: ITask[]}) => {
             <h2>Estudos do dia</h2>
             <ul>
                 {tasks.map((item, index) => (
-                    <ListItem key={index} item={item} />
+                    <ListItem key={index} {...item} />
                 ))}
             </ul>
         </aside>
