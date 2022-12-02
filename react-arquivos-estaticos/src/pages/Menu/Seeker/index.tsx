@@ -12,6 +12,7 @@ const Seeker = ({search, setSearch}: Props) => {
     return (
         <div className={styles.seeker}>
             <input
+                placeholder='Buscar...'
                 value={search}
                 onChange={e => setSearch(e.target.value)}
             />
