@@ -1,3 +1,22 @@
+@import 'styles/_variables';
+
 .menu {
-    padding: 20px 250px;
+    padding: 20px $padding-horizontal;
+}
+
+.header {
+    height: 200px;
+    background-image: url('/assets/menu/header.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0 $padding-horizontal;
+
+    &__text {
+        color: #FFF;
+        font-size: 5rem;
+        min-width: 400px;
+        width: 40%;
+    }
 }
