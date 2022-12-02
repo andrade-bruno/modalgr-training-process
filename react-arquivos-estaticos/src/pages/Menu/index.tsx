@@ -9,6 +9,7 @@ import Sorter from './Sorter'
 const Menu = () => {
     const [search, setSearch] = React.useState('')
     const [filter, setFilter] = React.useState<number | null>(null)
+    const [sorter, setSorter] = React.useState('')
 
     return (
         <main>
@@ -25,7 +26,7 @@ const Menu = () => {
                 <Seeker search={search} setSearch={setSearch} />
                 <div className={styles.menu__filters}>
                     <Filters filter={filter} setFilter={setFilter} />
-                    <Sorter />
+                    <Sorter sorter={sorter} setSorter={setSorter} />
                 </div>
             </section>
         </main>
