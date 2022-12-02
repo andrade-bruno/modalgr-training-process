@@ -7,6 +7,7 @@ import Filters from './Filters'
 
 const Menu = () => {
     const [search, setSearch] = React.useState('')
+    const [filter, setFilter] = React.useState<number | null>(null)
 
     return (
         <main>
@@ -22,7 +23,7 @@ const Menu = () => {
                 <h3 className={styles.menu__title}>Cardápio</h3>
                 <Seeker search={search} setSearch={setSearch} />
                 <div className={styles.menu__filters}>
-                    <Filters />
+                    <Filters filter={filter} setFilter={setFilter} />
                 </div>
             </section>
         </main>
