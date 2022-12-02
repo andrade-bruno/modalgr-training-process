@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './Menu.module.scss'
 import {ReactComponent as Logo} from 'assets/logo.svg'
 import Seeker from './Seeker'
+import Filters from './Filters'
 
 const Menu = () => {
     const [search, setSearch] = React.useState('')
@@ -20,6 +21,9 @@ const Menu = () => {
             <section className={styles.menu}>
                 <h3 className={styles.menu__title}>Cardápio</h3>
                 <Seeker search={search} setSearch={setSearch} />
+                <div className={styles.menu__filters}>
+                    <Filters />
+                </div>
             </section>
         </main>
     )
