@@ -2,9 +2,11 @@ import React from 'react'
 
 import styles from './Menu.module.scss'
 import {ReactComponent as Logo} from 'assets/logo.svg'
+
 import Seeker from './Seeker'
 import Filters from './Filters'
 import Sorter from './Sorter'
+import Itens from './Itens'
 
 const Menu = () => {
     const [search, setSearch] = React.useState('')
@@ -28,6 +30,7 @@ const Menu = () => {
                     <Filters filter={filter} setFilter={setFilter} />
                     <Sorter sorter={sorter} setSorter={setSorter} />
                 </div>
+                <Itens />
             </section>
         </main>
     )
