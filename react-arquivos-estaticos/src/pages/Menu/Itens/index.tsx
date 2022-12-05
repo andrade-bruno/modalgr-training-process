@@ -1,13 +1,42 @@
+import React from 'react'
+
 import styles from './Itens.module.scss'
 import itensJson from './itens.json'
 import classNames from 'classnames'
 
 type IItem = typeof itensJson[0]
 
-const Itens = () => {
+interface Props {
+    search: string,
+    filter: number | null,
+    sorter: string
+}
+
+const Itens = (props: Props) => {
+    const [list, setList] = React.useState(itensJson)
+    const { search, filter, sorter } = props
+
+    const testQuery = (title: string) => {
+        const regex = new RegExp(search, 'i')
+
+        return regex.test(title)
+    }
+
+    const testFilter = (id: number) => {
+        if (filter !== null) return filter === id
+        return true
+    }
+
+    React.useEffect(() => {
+        const newList = itensJson.filter(
+            (item) => testQuery(item.title) && testFilter(item.category.id)
+        )
+        setList(newList)
+    }, [search, filter])
+
     return (
         <div className={styles.itens}>
-            {itensJson.map((item: IItem) => (
+            {list.map((item: IItem) => (
                 <section
                     key={item.id}
                     className={styles.item}
