@@ -1,18 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import Navbar from 'components/Navbar'
+
 import Home from 'pages/Home'
 import Menu from 'pages/Menu'
-import Navbar from 'components/Navbar'
-import Header from 'components/Header'
+import DefaultPage from 'pages/Default'
 
 const MainRoutes = () => {
     return (
         <BrowserRouter>
             <Navbar />
-            <Header />
             <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/menu' element={<Menu />} />
+                <Route path='/' element={<DefaultPage />}>
+                    <Route index element={<Home />} />
+                    <Route path='menu' element={<Menu />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     )
