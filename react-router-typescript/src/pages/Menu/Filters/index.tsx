@@ -1,9 +1,9 @@
 import React from 'react'
-import FiltersJson from './filters.json'
+import filtersJson from 'data/filters.json'
 import styles from './Filters.module.scss'
 import classNames from 'classnames'
 
-type IOption = typeof FiltersJson[0]
+type IOption = typeof filtersJson[0]
 
 interface Props {
     filter: number | null,
@@ -18,7 +18,7 @@ export default function Filters({filter, setFilter}: Props) {
 
     return (
         <div className={styles.filters}>
-            {FiltersJson.map((option: IOption) => (
+            {filtersJson.map((option: IOption) => (
                 <button
                     className={classNames({
                         [styles.filters__filter]: true,

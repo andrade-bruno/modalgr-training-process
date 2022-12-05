@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './Sorter.module.scss'
-import optionsJson from './options.json'
+import optionsJson from 'data/options.json'
 import classNames from 'classnames'
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 

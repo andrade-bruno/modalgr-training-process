@@ -1,10 +1,10 @@
 import React from 'react'
 
 import styles from './Itens.module.scss'
-import itensJson from './itens.json'
+import menuJson from 'data/menu.json'
 import classNames from 'classnames'
 
-type IItem = typeof itensJson[0]
+type IItem = typeof menuJson[0]
 
 interface Props {
     search: string,
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Itens = (props: Props) => {
-    const [list, setList] = React.useState(itensJson)
+    const [list, setList] = React.useState(menuJson)
     const { search, filter, sorter } = props
 
     const testQuery = (title: string) => {
@@ -27,7 +27,7 @@ const Itens = (props: Props) => {
         return true
     }
 
-    const toSort = (list: typeof itensJson) => {
+    const toSort = (list: typeof menuJson) => {
         switch(sorter) {
         case 'portion':
             return list.sort((a, b) => a.portion > b.portion ? 1 : -1)
@@ -41,7 +41,7 @@ const Itens = (props: Props) => {
     }
 
     React.useEffect(() => {
-        const newList = itensJson.filter(
+        const newList = menuJson.filter(
             (item) => testQuery(item.title) && testFilter(item.category.id)
         )
         setList(toSort(newList))
