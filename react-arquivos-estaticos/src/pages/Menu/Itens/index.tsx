@@ -27,12 +27,25 @@ const Itens = (props: Props) => {
         return true
     }
 
+    const toSort = (list: typeof itensJson) => {
+        switch(sorter) {
+            case 'portion':
+                return list.sort((a, b) => a.portion > b.portion ? 1 : -1)
+            case 'serving':
+                return list.sort((a, b) => a.serving > b.serving ? 1 : -1)
+            case 'price':
+                return list.sort((a, b) => a.price > b.price ? 1 : -1)
+            default:
+                return list
+        }
+    }
+
     React.useEffect(() => {
         const newList = itensJson.filter(
             (item) => testQuery(item.title) && testFilter(item.category.id)
         )
-        setList(newList)
-    }, [search, filter])
+        setList(toSort(newList))
+    }, [search, filter, sorter])
 
     return (
         <div className={styles.itens}>
