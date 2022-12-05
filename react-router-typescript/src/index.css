@@ -9,3 +9,9 @@
 body {
     background-color: #F6F6F6
 }
+
+#root > main.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
