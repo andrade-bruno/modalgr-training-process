@@ -1,6 +1,7 @@
 import menuJson from 'data/menu.json'
 import styles from './Home.module.scss'
 import theme from 'styles/theme.module.scss'
+import nossaCasa from 'assets/nossa_casa.png'
 
 type IItem = typeof menuJson[0]
 
@@ -29,6 +30,13 @@ const Home = () => {
                         </button>
                     </div>
                 ))}
+            </div>
+            <h3 className={theme.title}>Nossa casa</h3>
+            <div className={styles.ourHouse}>
+                <img src={nossaCasa} alt='Casa da Aluroni' />
+                <div className={styles.ourHouse__address}>
+                    Rua vergueiro, 3185 <br /> <br /> Vila Mariana - SP
+                </div>
             </div>
         </section>
     )
