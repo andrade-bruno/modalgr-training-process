@@ -1,7 +1,6 @@
 import React from 'react'
 
 import styles from './Menu.module.scss'
-import {ReactComponent as Logo} from 'assets/logo.svg'
 
 import Seeker from './Seeker'
 import Filters from './Filters'
@@ -15,9 +14,6 @@ const Menu = () => {
 
     return (
         <main>
-            <nav className={styles.nav}>
-                <Logo />
-            </nav>
             <header className={styles.header}>
                 <div className={styles.header__text}>
                     A casa do código e da massa
