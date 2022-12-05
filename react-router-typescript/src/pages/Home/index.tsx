@@ -1,5 +1,6 @@
 import menuJson from 'data/menu.json'
 import styles from './Home.module.scss'
+import theme from 'styles/theme.module.scss'
 
 type IItem = typeof menuJson[0]
 
@@ -9,7 +10,7 @@ const Home = () => {
 
     return (
         <section>
-            <h3 className={styles.title}>
+            <h3 className={theme.title}>
                 Recomendações da cozinha
             </h3>
 

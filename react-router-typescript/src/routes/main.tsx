@@ -12,6 +12,7 @@ const MainRoutes = () => {
             <Navbar />
             <Routes>
                 <Route path='/' element={<DefaultPage />}>
+                    {/* Nested Routes */}
                     <Route index element={<Home />} />
                     <Route path='menu' element={<Menu />} />
                 </Route>

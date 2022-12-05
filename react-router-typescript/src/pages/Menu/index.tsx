@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styles from './Menu.module.scss'
+import theme from 'styles/theme.module.scss'
 
 import Seeker from './Seeker'
 import Filters from './Filters'
@@ -13,8 +14,8 @@ const Menu = () => {
     const [sorter, setSorter] = React.useState('')
 
     return (
-        <section className={styles.menu}>
-            <h3 className={styles.menu__title}>Cardápio</h3>
+        <section>
+            <h3 className={theme.title}>Cardápio</h3>
             <Seeker search={search} setSearch={setSearch} />
             <div className={styles.menu__filters}>
                 <Filters filter={filter} setFilter={setFilter} />
