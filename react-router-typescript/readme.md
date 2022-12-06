@@ -42,6 +42,22 @@ c) Trabalhando com rotas (CURSO: React: conhecendo a biblioteca React Router - C
     Run auto fixes
     npx eslint ./src --fix
 
+### Home
+
+![home](./public/assets/screenshots/home.gif)
+
+### Cardápio
+
+![cardapio](./public/assets/screenshots/cardapio.gif)
+
+### Sobre
+
+![sobre](./public/assets/screenshots/sobre.gif)
+
+### Visualizar prato / Not found
+
+![visualizar prato](./public/assets/screenshots/visualizar-prato.gif)
+
 ### Certificado
 
 ![Certificado](./public/assets/screenshots/certificate.png)
