@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Navbar from 'components/Navbar'
+import Footer from 'components/Footer'
 
 import DefaultPage from 'pages/Default'
 import Home from 'pages/Home'
@@ -12,6 +13,7 @@ const MainRoutes = () => {
     return (
         <BrowserRouter>
             <Navbar />
+
             <Routes>
                 <Route path='/' element={<DefaultPage />}>
                     {/* Nested Routes */}
@@ -21,6 +23,8 @@ const MainRoutes = () => {
                 </Route>
                 <Route path='*' element={<NotFound />} />
             </Routes>
+
+            <Footer />
         </BrowserRouter>
     )
 }
