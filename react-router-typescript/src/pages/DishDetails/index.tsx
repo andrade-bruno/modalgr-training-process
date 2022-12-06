@@ -33,8 +33,8 @@ const DishDetails = () => {
                                 <p className={styles.content__description}>
                                     {dish.description}
                                 </p>
+                                <DishTags {...dish} />
                             </div>
-                            <DishTags {...dish} />
                         </div>
                     </>
                 } />

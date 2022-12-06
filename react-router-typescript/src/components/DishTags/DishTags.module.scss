@@ -1,11 +1,6 @@
 @import "styles/_variables";
 @import "styles/_breakpoints";
 
-$massas: #d73b3b;
-$carnes: #30201e;
-$combos: #e6c864;
-$veganos: #80aa40;
-
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -25,7 +20,7 @@ $veganos: #80aa40;
         margin: 10px;
     }
 
-    &__type {
+    &__category {
         align-items: center;
         border-radius: 2px;
         display: flex;

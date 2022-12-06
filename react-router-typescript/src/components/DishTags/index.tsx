@@ -11,8 +11,8 @@ const DishTags = ({
     return (
         <div className={styles.tags}>
             <div className={classNames({
-                [styles.tags__type]: true,
-                [styles[`tags__type__${category.label.toLowerCase()}`]]: true
+                [styles.tags__category]: true,
+                [styles[`tags__category__${category.label.toLowerCase()}`]]: true
             })}>
                 {category.label}
             </div>

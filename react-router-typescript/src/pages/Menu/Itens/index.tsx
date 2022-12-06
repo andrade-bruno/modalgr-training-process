@@ -2,9 +2,8 @@ import React from 'react'
 
 import styles from './Itens.module.scss'
 import menuJson from 'data/menu.json'
-import classNames from 'classnames'
-
-type IItem = typeof menuJson[0]
+import { Menu, Dish } from 'types/dish'
+import DishTags from 'components/DishTags'
 
 interface Props {
     search: string,
@@ -27,7 +26,7 @@ const Itens = (props: Props) => {
         return true
     }
 
-    const toSort = (list: typeof menuJson) => {
+    const toSort = (list: Menu) => {
         switch(sorter) {
         case 'portion':
             return list.sort((a, b) => a.portion > b.portion ? 1 : -1)
@@ -49,7 +48,7 @@ const Itens = (props: Props) => {
 
     return (
         <div className={styles.itens}>
-            {list.map((item: IItem) => (
+            {list.map((item: Dish) => (
                 <section
                     key={item.id}
                     className={styles.item}
@@ -62,23 +61,7 @@ const Itens = (props: Props) => {
                             <h2>{item.title}</h2>
                             <p>{item.description}</p>
                         </header>
-                        <footer className={styles.item__tags}>
-                            <div className={classNames({
-                                [styles.item__category]: true,
-                                [styles[`item__category__${item.category.label.toLowerCase()}`]]: true
-                            })}>
-                                {item.category.label}
-                            </div>
-                            <div className={styles.item__portion}>
-                                {item.portion}g
-                            </div>
-                            <div className={styles.item__serving}>
-                                {item.serving} pessoa{item.serving > 1 ? 's' : null}
-                            </div>
-                            <div className={styles.item__price}>
-                                R$ {item?.price.toFixed(2)}
-                            </div>
-                        </footer>
+                        <DishTags {...item} />
                     </div>
                 </section>
             ))}
