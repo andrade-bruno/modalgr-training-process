@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom'
+import { Dish } from 'types/dish'
+
 import menuJson from 'data/menu.json'
 import styles from './Home.module.scss'
 import theme from 'styles/theme.module.scss'
@@ -8,6 +11,12 @@ type IItem = typeof menuJson[0]
 const Home = () => {
     let advisedDishes = [...menuJson]
     advisedDishes = advisedDishes.sort(() => 0.5 - Math.random()).splice(0, 3)
+
+    const navigate = useNavigate()
+
+    const openDetails = (dish: Dish) => {
+        navigate(`/dish/${dish.id}`, { state: { dish }})
+    }
 
     return (
         <section>
@@ -25,7 +34,10 @@ const Home = () => {
                             <img src={item.photo} alt={item.title} />
                         </div>
 
-                        <button className={styles.advice__button}>
+                        <button 
+                            className={styles.advice__button}
+                            onClick={() => openDetails(item)}
+                        >
                             Ver mais
                         </button>
                     </div>
