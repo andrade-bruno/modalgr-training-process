@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import styles from './Itens.module.scss'
 import menuJson from 'data/menu.json'
@@ -14,6 +15,7 @@ interface Props {
 const Itens = (props: Props) => {
     const [list, setList] = React.useState(menuJson)
     const { search, filter, sorter } = props
+    const navigate = useNavigate()
 
     const testQuery = (title: string) => {
         const regex = new RegExp(search, 'i')
@@ -52,6 +54,7 @@ const Itens = (props: Props) => {
                 <section
                     key={item.id}
                     className={styles.item}
+                    onClick={() => navigate(`/dish/${item.id}`)}
                 >
                     <header className={styles.item__photo}>
                         <img src={item.photo} alt={item.title} />
