@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import http from '../../../services/http'
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material'
 import IRestaurante from './../../../interfaces/IRestaurante'
@@ -10,7 +10,7 @@ const AdminRestaurantes = () => {
 	const [restaurantes, setRestaurantes] = React.useState<IRestaurante[]>([])
 
 	React.useEffect(() => {
-		axios.get<IRestaurante[]>('http://localhost:8000/api/v2/restaurantes/')
+		http.get<IRestaurante[]>('restaurantes/')
 			.then(res => {
 				setRestaurantes(res.data)
 			})
@@ -20,7 +20,7 @@ const AdminRestaurantes = () => {
 	}, [])
 
 	const handleDelete = (restaurante: IRestaurante) => {
-		axios.delete(`http://localhost:8000/api/v2/restaurantes/${restaurante.id}/`)
+		http.delete(`restaurantes/${restaurante.id}/`)
 			.then(() => {
 				const novaLista = restaurantes.filter(item => item.id !== restaurante.id)
 				setRestaurantes(novaLista)

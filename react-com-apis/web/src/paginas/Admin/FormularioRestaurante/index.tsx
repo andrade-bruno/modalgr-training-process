@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, Typography, Box } from '@mui/material'
 import IRestaurante from '../../../interfaces/IRestaurante'
+import http from '../../../services/http'
 
 const FormularioRestaurante = () => {
 	const params = useParams()
@@ -10,7 +10,7 @@ const FormularioRestaurante = () => {
 
 	React.useEffect(() => {
 		if (params.id) {
-			axios.get<IRestaurante>(`http://localhost:8000/api/v2/restaurantes/${params.id}/`)
+			http.get<IRestaurante>(`restaurantes/${params.id}/`)
 				.then(res => {
 					setNome(res.data.nome)
 				})
@@ -21,7 +21,7 @@ const FormularioRestaurante = () => {
 		event.preventDefault()
 
 		if (params.id) {
-			axios.put(`http://localhost:8000/api/v2/restaurantes/${params.id}/`, { nome })
+			http.put(`restaurantes/${params.id}/`, { nome })
 				.then(() => {
 					alert(`${nome} atualizado com sucesso`)
 				})
@@ -29,7 +29,7 @@ const FormularioRestaurante = () => {
 					console.log(err)
 				})
 		} else {
-			axios.post('http://localhost:8000/api/v2/restaurantes/', { nome })
+			http.post('restaurantes/', { nome })
 				.then(() => {
 					alert(`${nome} cadastrado com sucesso`)
 					setNome('')
@@ -41,15 +41,28 @@ const FormularioRestaurante = () => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<TextField 
-				label="Nome"
-				variant="outlined"
-				value={nome}
-				onChange={e => setNome(e.target.value)}
-			/>
-			<Button variant='outlined' type='submit'>Salvar</Button>
-		</form>
+		<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+			<Typography component='h1' variant='h6'>Formulário de Restaurantes</Typography>
+			<Box component='form' onSubmit={handleSubmit}>
+				<TextField 
+					label="Nome"
+					variant="outlined"
+					value={nome}
+					fullWidth
+					required
+					onChange={e => setNome(e.target.value)}
+					sx={{ marginTop: 4}}
+				/>
+				<Button 
+					variant='outlined'
+					type='submit'
+					fullWidth
+					sx={{ marginTop: 2}}
+				>
+					Salvar
+				</Button>
+			</Box>
+		</Box>
 	)       
 }
 
