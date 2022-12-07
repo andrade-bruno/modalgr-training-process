@@ -1,6 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { TextField, Button, Typography, Box } from '@mui/material'
+
+import { 
+	TextField,
+	Button,
+	Typography,
+	Box
+} from '@mui/material'
+
 import IRestaurante from '../../../interfaces/IRestaurante'
 import http from '../../../services/http'
 
@@ -41,9 +48,13 @@ const FormularioRestaurante = () => {
 	}
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+		<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
 			<Typography component='h1' variant='h6'>Formulário de Restaurantes</Typography>
-			<Box component='form' onSubmit={handleSubmit}>
+			<Box
+				component='form'
+				onSubmit={handleSubmit}
+				sx={{ width: '100%' }}
+			>
 				<TextField 
 					label="Nome"
 					variant="outlined"
@@ -51,13 +62,13 @@ const FormularioRestaurante = () => {
 					fullWidth
 					required
 					onChange={e => setNome(e.target.value)}
-					sx={{ marginTop: 4}}
+					sx={{ marginTop: 4 }}
 				/>
 				<Button 
 					variant='outlined'
 					type='submit'
 					fullWidth
-					sx={{ marginTop: 2}}
+					sx={{ marginTop: 2 }}
 				>
 					Salvar
 				</Button>
