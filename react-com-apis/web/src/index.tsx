@@ -9,6 +9,7 @@ import VitrineRestaurantes from './paginas/VitrineRestaurantes'
 import AdminRestaurantes from './paginas/Admin/Restaurantes'
 import FormularioRestaurante from './paginas/Admin/FormularioRestaurante/index'
 import PaginaBase from './paginas/Admin/PaginaBase'
+import AdminPratos from './paginas/Admin/Pratos'
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -21,6 +22,7 @@ ReactDOM.render(
 				<Route path='restaurantes' element={<AdminRestaurantes />} />
 				<Route path='restaurantes/novo' element={<FormularioRestaurante />} />
 				<Route path='restaurantes/:id' element={<FormularioRestaurante />} />
+				<Route path='pratos' element={<AdminPratos />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>
