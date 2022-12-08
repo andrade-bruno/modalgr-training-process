@@ -9,15 +9,28 @@ import {
 	Paper
 } from '@mui/material'
 
-import { Outlet,Link as RouterLink } from 'react-router-dom'
+import { Outlet,Link as RouterLink, useNavigate } from 'react-router-dom'
+import { IconButton } from '@mui/material'
+import { ArrowBack } from '@mui/icons-material'
 
 const PaginaBase = () => {
+	const navigate = useNavigate()
 	return ( 
 		<>
 			<AppBar position='static'>
 				<Container maxWidth='xl'>
 					<Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
-						<Typography variant='h6'>Administração</Typography>
+						<Box sx={{ display: 'flex', alignItems: 'center' }}>
+							<IconButton
+								color="default"
+								aria-label="voltar"
+								component="button"
+								onClick={() => navigate('/')}
+							>
+								<ArrowBack />
+							</IconButton>
+							<Typography variant='h6'>Administração</Typography>
+						</Box>
 						<Box>
 							<Link component={RouterLink} to='/admin/restaurantes/'>
 								<Button sx={{ my: 2, color: 'white'}}>Restaurantes</Button>
@@ -25,7 +38,7 @@ const PaginaBase = () => {
 							<Link component={RouterLink} to='/admin/restaurantes/novo'>
 								<Button sx={{ my: 2, color: 'white'}}>Adicionar Restaurante</Button>
 							</Link>
-							<Link component={RouterLink} to='/admin/pratos'>
+							<Link component={RouterLink} to='/admin/pratos/'>
 								<Button sx={{ my: 2, color: 'white'}}>Pratos</Button>
 							</Link>
 							<Link component={RouterLink} to='/admin/pratos/novo'>

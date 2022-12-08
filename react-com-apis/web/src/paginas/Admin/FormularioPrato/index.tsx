@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { 
 	TextField,
@@ -9,8 +9,10 @@ import {
 	FormControl,
 	InputLabel,
 	Select,
-	MenuItem
+	MenuItem,
+	IconButton
 } from '@mui/material'
+import { PhotoCamera } from '@mui/icons-material'
 
 import http from '../../../services/http'
 import IPrato from '../../../interfaces/IPrato'
@@ -19,15 +21,17 @@ import IRestaurante from '../../../interfaces/IRestaurante'
 
 const FormularioPrato = () => {
 	const params = useParams()
+	const navigate = useNavigate()
 
 	const [tags, setTags] = React.useState<ITag[]>([])
-	const [tag, setTag] = React.useState('')
 	const [restaurantes, setRestaurantes] = React.useState<IRestaurante[]>([])
-	const [restaurante, setRestaurante] = React.useState('')
-
+	
+	const [tag, setTag] = React.useState('')
+	const [restaurante, setRestaurante] = React.useState<string>('')
 	const [nome, setNome] = React.useState('')
 	const [descricao, setDescricao] = React.useState('')
 	const [imagem, setImagem] = React.useState<File | null>(null)
+	const [imagemUrl, setImagemUrl] = React.useState('') // Url oriunda do servidor, quando editando o prato
 
 	React.useEffect(() => {
 		http.get<{tags: ITag[]}>('tags/')
@@ -42,41 +46,74 @@ const FormularioPrato = () => {
 				.then(res => {
 					setNome(res.data.nome)
 					setDescricao(res.data.descricao)
+					setTag(res.data.tag)
+					setRestaurante(String(res.data.restaurante))
+					setImagemUrl(res.data.imagem)
 				})
 		}
 	}, [params])
 
 	const selecionaArquivo = (e: React.ChangeEvent<HTMLInputElement>) => {
-		return (e.target.files?.length) ? setImagem(e.target.files[0]) : setImagem(null)
+		if (!e.target.files?.length) {
+			return setImagem(null)
+		} else {
+			setImagem(e.target.files[0])
+			setImagemUrl('')
+		}
 	}
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
+		const Form = new FormData()
+		Form.append('nome', nome)
+		Form.append('tag', tag)
+		Form.append('descricao', descricao)
+		Form.append('restaurante', restaurante)
+
+		if (imagem) {
+			Form.append('imagem', imagem)
+		}
+
 		if (params.id) {
-			http.put(`pratos/${params.id}/`, { nome })
-				.then(() => {
-					alert(`${nome} atualizado com sucesso`)
-				})
-				.catch(err => {
-					console.log(err)
-				})
+			http.request({
+				url: `pratos/${params.id}/`,
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				},
+				data: Form
+			}).then(() => {
+				alert(`${nome} atualizado com sucesso`)
+				navigate('/admin/pratos/')
+			}).catch(err => {
+				console.log(err)
+			})
 		} else {
-			http.post('pratos/', { nome })
-				.then(() => {
-					alert(`${nome} cadastrado com sucesso`)
-					setNome('')
-					setDescricao('')
-				})
-				.catch(err => {
-					console.log(err)
-				})
+			http.request({
+				url: 'pratos/',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				},
+				data: Form
+			}).then(() => {
+				alert(`${nome} cadastrado com sucesso`)
+				setNome('')
+				setDescricao('')
+				setTag('')
+				setRestaurante('')
+				setImagem(null)
+				setImagemUrl('')
+			}).catch(err => {
+				console.log(err)
+			})
 		}
 	}
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
-			<Typography component='h1' variant='h6'>Formulário de Pratos</Typography>
+			<Typography component='h1' variant='h6'>Formulário de Prato</Typography>
 			<Box
 				component='form'
 				onSubmit={handleSubmit}
@@ -113,7 +150,7 @@ const FormularioPrato = () => {
 						onChange={e => setTag(e.target.value)}
 					>
 						{tags.map(tag => (
-							<MenuItem key={tag.id} value={tag.id}>
+							<MenuItem key={tag.id} value={tag.value}>
 								{tag.value}
 							</MenuItem>
 						))}
@@ -138,10 +175,17 @@ const FormularioPrato = () => {
 					</Select>
 				</FormControl>
 
-				<input
-					type='file'
-					onChange={e => selecionaArquivo(e)}
-				/>
+				<IconButton color="primary" aria-label="upload de imagem" component="label">
+					<input
+						hidden
+						accept="image/*"
+						type="file"
+						onChange={e => selecionaArquivo(e)}
+					/>
+					<PhotoCamera />
+				</IconButton>
+
+				{imagemUrl ? <b>{imagemUrl}</b> : imagem && <b>{imagem.name}</b>}
 
 				<Button 
 					variant='outlined'

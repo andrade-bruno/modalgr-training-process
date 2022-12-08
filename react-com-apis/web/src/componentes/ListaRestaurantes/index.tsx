@@ -1,36 +1,33 @@
 import React from 'react'
-import axios from 'axios'
+import { httpV1 } from '../../services/http'
 
-import IRestaurante from '../../interfaces/IRestaurante'
 import style from './ListaRestaurantes.module.scss'
 import Restaurante from './Restaurante'
-import { IPaginacao } from './../../interfaces/IPaginacao'
+import IPaginacao from './../../interfaces/IPaginacao'
+import IRestaurante from '../../interfaces/IRestaurante'
+
+import { Button } from '@mui/material'
 
 const ListaRestaurantes = () => {
-
 	const [restaurantes, setRestaurantes] = React.useState<IRestaurante[]>([])
 	const [proximaPagina, setProximaPagina] = React.useState('')
 
 	const verMais = () => {
-		axios.get<IPaginacao<IRestaurante>>(proximaPagina)
+		httpV1.get<IPaginacao<IRestaurante>>(proximaPagina)
 			.then(res => {
 				setRestaurantes([...restaurantes, ...res.data.results])
 				setProximaPagina(res.data.next)
 			})
-			.catch(err => {
-				console.log(err)
-			})
+			.catch(err => console.log(err))
 	}
 
 	React.useEffect(() => {
-		axios.get<IPaginacao<IRestaurante>>('http://localhost:8000/api/v1/restaurantes/')
+		httpV1.get<IPaginacao<IRestaurante>>('restaurantes/')
 			.then(res => {
 				setRestaurantes(res.data.results)
 				setProximaPagina(res.data.next)
 			})
-			.catch(err => {
-				console.log(err)
-			})
+			.catch(err => console.log(err))
 	}, [])
 
 	return (
@@ -38,7 +35,14 @@ const ListaRestaurantes = () => {
 			<h1>Os restaurantes mais <em>bacanas</em>!</h1>
 			{restaurantes?.map(item => <Restaurante restaurante={item} key={item.id} />)}
 			{proximaPagina && 
-				<button onClick={() => verMais()}>Ver mais</button>
+				<Button
+					onClick={() => verMais()}
+					style={{ marginTop: 10 }}
+					color='primary'
+					variant='contained'
+				>
+					Ver mais
+				</Button>
 			}
 		</section>
 	)

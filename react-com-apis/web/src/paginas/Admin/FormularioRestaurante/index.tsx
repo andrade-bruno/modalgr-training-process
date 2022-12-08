@@ -49,7 +49,7 @@ const FormularioRestaurante = () => {
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
-			<Typography component='h1' variant='h6'>Formulário de Restaurantes</Typography>
+			<Typography component='h1' variant='h6'>Formulário de Restaurante</Typography>
 			<Box
 				component='form'
 				onSubmit={handleSubmit}

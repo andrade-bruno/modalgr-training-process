@@ -1,8 +1,13 @@
 import axios from 'axios'
 
-const http = axios.create({
+export const httpV2 = axios.create({
 	baseURL: 'http://localhost:8000/api/v2/',
 	timeout: 100000
 })
 
-export default http
+export const httpV1 = axios.create({
+	baseURL: 'http://localhost:8000/api/v1/',
+	timeout: 100000
+})
+
+export default httpV2
