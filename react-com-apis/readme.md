@@ -26,4 +26,22 @@ e) Integrando seu projeto React com APIs (CURSO: React: integrando seu projeto R
     docker-compose build
     docker-compose up
 
+### Visualizando home e restaurantes
+
+![Visualizando home e restaurantes](./web/public/screenshots/home-restaurantes.gif)
+
+### Criando restaurante
+
+![Criando restaurante](./web/public/screenshots/criando-restaurante.gif)
+
+### Editando e removendo um prato
+
+![Editando e removendo um prato](./web/public/screenshots/editando-e-removendo-prato.gif)
+
+### Criando um prato
+
+![Criando um prato](./web/public/screenshots/criando-prato.gif)
+
 ### Certificado
+
+![Certificado](./web/public/screenshots/certificate.png)
