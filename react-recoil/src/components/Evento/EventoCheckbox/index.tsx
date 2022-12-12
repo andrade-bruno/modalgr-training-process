@@ -7,11 +7,15 @@ const EventoCheckbox: React.FC<{ evento: IEvento }> = ({ evento }) => {
 	const setListaDeEventos = useSetRecoilState<IEvento[]>(listaDeEventosStates)
 
 	const alterarStatus = () => {
-		evento.completo = !evento.completo
+		const eventoAlterado = {
+			...evento
+		}
+
+		eventoAlterado.completo = !eventoAlterado.completo
 
 		setListaDeEventos(prev => {
 			const idx = prev.findIndex(item => item.id === evento.id)
-			return [...prev.slice(0, idx), evento, ...prev.slice(idx + 1)]
+			return [...prev.slice(0, idx), eventoAlterado, ...prev.slice(idx + 1)]
 		})
 	}
 

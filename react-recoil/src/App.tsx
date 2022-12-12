@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import style from './App.module.scss'
 import Card from './components/Card'
 import Formulario from './components/Formulario'
@@ -9,8 +9,8 @@ import { useRecoilValue } from 'recoil'
 import { listaDeEventosStates } from './state/atom'
 
 function App() {
-	const [eventos, setEventos] = React.useState(useRecoilValue(listaDeEventosStates))
-	const [filtro, setFiltro] = React.useState<Date | null>()
+	const [eventos, setEventos] = useState(useRecoilValue(listaDeEventosStates))
+	const [filtro, setFiltro] = useState<Date | null>()
 
 	const adicionarEvento = (evento: IEvento) => {
 		evento.id = Math.round((new Date()).getTime() / 1000)
