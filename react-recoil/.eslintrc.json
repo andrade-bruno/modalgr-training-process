@@ -20,8 +20,9 @@
 	],
 	"rules": {
 		"react/react-in-jsx-scope": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
 		"indent": [
-			"error",
+			"warn",
 			"tab"
 		],
 		"linebreak-style": [
@@ -29,11 +30,11 @@
 			"windows"
 		],
 		"quotes": [
-			"error",
+			"warn",
 			"single"
 		],
 		"semi": [
-			"error",
+			"warn",
 			"never"
 		]
 	}
