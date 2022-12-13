@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import style from './Formulario.module.scss'
-import useAdicionarEvento from './../../state/useAdicionarEvento'
+import useAdicionarEvento from '../../hooks/useAdicionarEvento'
 
 const Formulario: React.FC = () => {
 	const [descricao, setDescricao] = useState('')

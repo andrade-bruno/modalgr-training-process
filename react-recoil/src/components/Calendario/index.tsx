@@ -3,8 +3,8 @@ import style from './Calendario.module.scss'
 import ptBR from './localizacao/ptBR.json'
 import Kalend, { CalendarEvent, CalendarView, OnEventDragFinish } from 'kalend'
 import 'kalend/dist/styles/index.css'
-import useListaDeEventos from './../../state/useListaDeEventos'
-import useAtualizarEvento from './../../state/useAtualizarEvento'
+import useListaDeEventos from './../../hooks/useListaDeEventos'
+import useAtualizarEvento from './../../hooks/useAtualizarEvento'
 
 interface IKalendEvento {
   id?: number

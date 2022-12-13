@@ -2,7 +2,7 @@ import React from 'react'
 import { IEvento } from '../../interfaces/IEvento'
 import style from './Evento.module.scss'
 import EventoCheckbox from './EventoCheckbox'
-import useDeletarEvento from './../../state/useDeletarEvento'
+import useDeletarEvento from './../../hooks/useDeletarEvento'
 
 const Evento: React.FC<{ evento: IEvento }> = ({ evento }) => {
 	const deletarEvento = useDeletarEvento()

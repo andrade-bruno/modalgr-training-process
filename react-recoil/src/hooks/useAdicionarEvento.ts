@@ -1,7 +1,7 @@
 import { useSetRecoilState } from 'recoil'
-import { IEvento } from './../interfaces/IEvento'
-import { listaDeEventosState } from './atom'
-import { obterId } from './../commom/utils'
+import { IEvento } from '../interfaces/IEvento'
+import { listaDeEventosState } from '../state/atom'
+import { obterId } from '../commom/utils'
 
 const useAdicionarEvento = () => {
 	const setListaDeEventos = useSetRecoilState<IEvento[]>(listaDeEventosState)
