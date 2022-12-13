@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
+import { IFiltroDeEventos } from '../../interfaces/IFiltroEventos'
 import style from './Filtro.module.scss'
+import useAtualizarFiltro from './../../hooks/useAtualizarFiltro'
 
-const Filtro: React.FC<{ aoFiltroAplicado: (data: Date | null) => void }> = ({ aoFiltroAplicado }) => {
-  
+const Filtro: React.FC = () => {
 	const [data, setData] = useState('')
+	const atualizarFiltro = useAtualizarFiltro()
   
 	const submeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
 		evento.preventDefault()
-		if (!data) {
-			aoFiltroAplicado(null)
-			return
+		const novoFiltro: IFiltroDeEventos = {}
+		if (data) {
+			novoFiltro.data = new Date(data)
+		} else {
+			novoFiltro.data = null
 		}
-		aoFiltroAplicado(new Date(data))
+		atualizarFiltro(novoFiltro)
 	}
 
 	return (<form className={style.Filtro} onSubmit={submeterForm}>
@@ -22,7 +26,8 @@ const Filtro: React.FC<{ aoFiltroAplicado: (data: Date | null) => void }> = ({ a
 			className={style.input}
 			onChange={evento => setData(evento.target.value)} 
 			placeholder="Por data"
-			value={data} />
+			value={data}
+		/>
 
 		<button className={style.botao}>
       Filtrar

@@ -1,5 +1,6 @@
 import { atom } from 'recoil'
 import { IEvento } from '../interfaces/IEvento'
+import { IFiltroDeEventos } from './../interfaces/IFiltroEventos'
 
 export const listaDeEventosState = atom<IEvento[]>({
 	key: 'listaDeEventosState',
@@ -19,4 +20,9 @@ export const listaDeEventosState = atom<IEvento[]>({
 			id: 1642342959
 		}
 	]
+})
+
+export const filtroDeEventos = atom<IFiltroDeEventos>({
+	key: 'filtroDeEventos',
+	default: {}
 })
