@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
 import { IEvento } from '../interfaces/IEvento'
 
-export const listaDeEventosStates = atom<IEvento[]>({
+export const listaDeEventosState = atom<IEvento[]>({
 	key: 'listaDeEventosState',
 	default: [
 		{

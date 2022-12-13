@@ -4,9 +4,7 @@ import Filtro from '../Filtro'
 import style from './ListaDeEventos.module.scss'
 import useListaDeEventos from '../../state/useListaDeEventos'
 
-const ListaDeEventos: React.FC<{ 
-	aoFiltroAplicado: (data: Date | null) => void
-}> = ({ aoFiltroAplicado }) => {
+const ListaDeEventos: React.FC<{ aoFiltroAplicado: (data: Date | null) => void }> = ({ aoFiltroAplicado }) => {
 	const eventos = useListaDeEventos()
 
 	return (
