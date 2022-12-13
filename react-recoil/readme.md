@@ -18,4 +18,18 @@ g) Gerenciando estado com Recoil (CURSO: React: gerenciando estado com Recoil - 
 
 ### Resultados
 
+### Visualizando Calendário
+
+![visualizando-calendario](./public/screenshots/visualizando-calendario.gif)
+
+### Adicionar evento
+
+![adicionar-evento](./public/screenshots/adicionar-evento.gif)
+
+### Filtrar e excluir eventos
+
+![filtrar-e-excluir](./public/screenshots/filtrar-e-excluir.gif)
+
 ### Certificado
+
+![Certificado](./public/screenshots/certificate.png)

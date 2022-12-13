@@ -5,12 +5,6 @@ import Calendario from './components/Calendario'
 import ListaDeEventos from './components/ListaDeEventos'
 
 function App() {
-	// const filtrados = !filtro
-	// 	? eventos
-	// 	: eventos.filter((evento) =>
-	// 		filtro.toISOString().slice(0, 10) === evento.inicio.toISOString().slice(0, 10)
-	// 	)
-
 	return (
 		<div className={style.App}>
 			<div className={style.Coluna}>
