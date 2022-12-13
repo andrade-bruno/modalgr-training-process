@@ -6,9 +6,7 @@ const EventoCheckbox: React.FC<{ evento: IEvento }> = ({ evento }) => {
 	const atualizarEvento = useAtualizarEvento()
 
 	const alterarStatus = () => {
-		const eventoAlterado = {
-			...evento
-		}
+		const eventoAlterado = {...evento}
 		eventoAlterado.completo = !eventoAlterado.completo
 		atualizarEvento(eventoAlterado)
 	}

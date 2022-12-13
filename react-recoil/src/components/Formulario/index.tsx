@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
-import { IEvento } from '../../interfaces/IEvento'
 import style from './Formulario.module.scss'
-import { useSetRecoilState } from 'recoil'
-import { listaDeEventosStates } from './../../state/atom'
 import useAdicionarEvento from './../../state/useAdicionarEvento'
 
 const Formulario: React.FC = () => {
@@ -11,8 +8,6 @@ const Formulario: React.FC = () => {
 	const [horaInicio, setHoraInicio] = useState('')
 	const [dataFim, setDataFim] = useState('')
 	const [horaFim, setHoraFim] = useState('')
-
-	const setListaDeEventos = useSetRecoilState<IEvento[]>(listaDeEventosStates)
 
 	const adicionarEvento = useAdicionarEvento()
 
@@ -31,7 +26,6 @@ const Formulario: React.FC = () => {
 				completo: false
 			}
 			adicionarEvento(evento)
-			setListaDeEventos(listaAntiga => [...listaAntiga, evento])
 			setDescricao('')
 			setDataInicio('')
 			setHoraInicio('')
@@ -55,7 +49,8 @@ const Formulario: React.FC = () => {
 				onChange={evento => setDescricao(evento.target.value)} 
 				placeholder="Descrição" value={descricao} 
 				autoComplete="off"
-				required />
+				required
+			/>
 
 			<label>Data de início</label>
 			<div className={style.inputContainer}>
@@ -65,14 +60,16 @@ const Formulario: React.FC = () => {
 					className={style.input}
 					onChange={evento => setDataInicio(evento.target.value)} 
 					value={dataInicio}
-					required />
+					required
+				/>
 				<input 
 					type="time" 
 					name="horaInicio"
 					className={style.input}
 					onChange={evento => setHoraInicio(evento.target.value)} 
 					value={horaInicio}
-					required />
+					required
+				/>
 			</div>
 
 			<label>Data de término</label>
@@ -83,14 +80,16 @@ const Formulario: React.FC = () => {
 					className={style.input}
 					onChange={evento => setDataFim(evento.target.value)} 
 					value={dataFim}
-					required />
+					required
+				/>
 				<input 
 					type="time" 
 					name="horaFim"
 					className={style.input}
 					onChange={evento => setHoraFim(evento.target.value)} 
 					value={horaFim}
-					required />
+					required
+				/>
 			</div>
 
 			<button className={style.botao}>
