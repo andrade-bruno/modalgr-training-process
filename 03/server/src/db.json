@@ -1,0 +1,223 @@
+{
+  "users": [
+    {
+      "firstName": "Bruno",
+      "surname": "Andrade",
+      "email": "bruno.andrade@modalgr.com.br",
+      "password": "1234",
+      "id": 1
+    }
+  ],
+  "products": [
+    {
+      "title": "Mini Yoda",
+      "price": "12.5",
+      "imageUrl": "https://s2.glbimg.com/QqEDyJyWVPTI9tU-5izKpJls6UE=/620x520/smart/e.glbimg.com/og/ed/f/original/2020/11/30/baby-yoda.jpg",
+      "description": "Mini Yoda de pelúcia",
+      "categoryId": "3",
+      "id": 1
+    },
+    {
+      "title": "Capacete Stormtrooper",
+      "price": 20,
+      "imageUrl": "https://m.media-amazon.com/images/I/81YNIGDPx7L.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "id": 2,
+      "categoryId": 1
+    },
+    {
+      "title": "Jaqueta Dart Vader",
+      "price": 39,
+      "imageUrl": "https://m.media-amazon.com/images/I/61GNyS+WJqL._AC_UX522_.jpg",
+      "id": 3,
+      "categoryId": 1
+    },
+    {
+      "title": "Touca Dart Vader",
+      "price": 20,
+      "imageUrl": "https://m.media-amazon.com/images/I/81NNkU-MRHL._AC_UX522_.jpg",
+      "id": 4,
+      "categoryId": 1
+    },
+    {
+      "title": "Capacete Rogue One",
+      "price": 30,
+      "imageUrl": "https://www.amazing-collectibles.pt/wp-content/uploads/catalog/product/x_ano01173010.jpg",
+      "categoryId": 1,
+      "id": 5
+    },
+    {
+      "title": "Funko Luke Skywalker",
+      "price": 14,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP5UC039KZtpdIHPFHjnIuj7AfWirwOwXze1atobFC_lhzvj_AKDZxzNI3FweC5g1JDKE&usqp=CAU",
+      "categoryId": 1,
+      "id": 6
+    },
+    {
+      "title": "Obi Wan Sabre",
+      "price": 14,
+      "imageUrl": "https://assets.b9.com.br/wp-content/uploads/2015/12/swtoys18.jpg",
+      "categoryId": 1,
+      "id": 7
+    },
+    {
+      "title": "Nintendo Switch",
+      "price": 3000,
+      "imageUrl": "https://t2.tudocdn.net/580581?w=646&h=284",
+      "categoryId": 2,
+      "id": 8
+    },
+    {
+      "title": "Playstation 5",
+      "price": 4890,
+      "imageUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTA0VKR0M6-jcjWewxw7U2anPcjwE_WGs-KWEYEOfM-6OWvuj_B81m3y8l6blxJ3dLSkRcThFsBAI7DTT31P8Ij8gJPoKT2-w",
+      "categoryId": 2,
+      "id": 9
+    },
+    {
+      "title": "Nintendo Entertainment",
+      "price": 260,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_747042-MLB50415759013_062022-O.jpg",
+      "categoryId": 2,
+      "id": 10
+    },
+    {
+      "title": "Xbox Series X",
+      "price": 4080.4,
+      "imageUrl": "https://images.kabum.com.br/produtos/fotos/128560/console-microsoft-xbox-series-x-1tb-preto-rrt-00006_1601067024_g.jpg",
+      "categoryId": 2,
+      "id": 11
+    },
+    {
+      "title": "Game Boy",
+      "price": 670,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Original_Game_Boy.jpg/1200px-Original_Game_Boy.jpg",
+      "categoryId": 2,
+      "id": 12
+    },
+    {
+      "title": "Controle Playstation 4",
+      "price": 240,
+      "imageUrl": "https://i.zst.com.br/thumbs/12/17/38/22822649.jpg",
+      "categoryId": 2,
+      "id": 13
+    },
+    {
+      "title": "Mini toca fitas cassete",
+      "price": 100,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_836877-CBT45477578753_042021-O.jpg",
+      "description": "Mini toca fitas cassete dos anos 90",
+      "categoryId": 3,
+      "id": 14
+    },
+    {
+      "title": "Pikachu gigante",
+      "price": 205.8,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRkhRP-EI814qrg_cEbdCdVj9-NqeMx1VGQQ&usqp=CAU",
+      "description": "Medidas: 50cm x 120cm. Fabricado em 2021.\n₢ Geeklandia Inc.",
+      "categoryId": 3,
+      "id": 15
+    },
+    {
+      "title": "Sonic de Pelúcia",
+      "price": 406.76,
+      "imageUrl": "https://a-static.mlcdn.com.br/1500x1500/boneco-sonic-articulado-grande-brinquedo-caixa-original-collection-lancamento-action-figure-23cm-toy/wincolecionaveis/363p/c06fbe38cf2b31cedf96d43cf95d14fa.jpeg",
+      "description": "Sonic de pelúcia 100% algodão.\n₢ Geeklandia Inc.",
+      "categoryId": 3,
+      "id": 16
+    },
+    {
+      "title": "Home Theater Blu-ray 3D",
+      "price": 3860,
+      "imageUrl": "https://www.lg.com/br/images/home-theaters/lhb725w/gallery/LHB725W_O-9_MIC-O_zoom_01.jpg",
+      "description": "LHB725W | LG Brasil",
+      "categoryId": 3,
+      "id": 17
+    },
+    {
+      "title": "Smart TV Samsung 32''",
+      "price": 3209.1,
+      "imageUrl": "https://a-static.mlcdn.com.br/1500x1500/smart-tv-hd-led-32-samsung-t4300-wi-fi-hdr-2-hdmi-1-usb/magazineluiza/225608200/68c09354fe4378c245e4e5ba097eaf4d.jpg",
+      "description": "Smart TV Samsung 32''\n₢ Samsung",
+      "categoryId": 3,
+      "id": 18
+    },
+    {
+      "title": "Desktop i5",
+      "price": 4760.688,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_958465-MLB45991711730_052021-W.jpg",
+      "description": "CPU i5\n8GB Ram\n1TB HDD\nNvida Graphics Gtx 1660\n\n₢ Kabum ltda",
+      "categoryId": 3,
+      "id": 19
+    },
+    {
+      "title": "Millenium Falcon lego",
+      "price": 230.7,
+      "imageUrl": "https://m.media-amazon.com/images/I/810Y6mFu8AL._AC_SL1500_.jpg",
+      "description": "75275",
+      "categoryId": 1,
+      "id": 20
+    },
+    {
+      "title": "Controle Xbox Series X",
+      "price": 360.8,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_749977-MLA44330907675_122020-O.webp",
+      "description": "Controle Xbox Series X Wireless",
+      "categoryId": 2,
+      "id": 21
+    },
+    {
+      "title": "Brick Heads Lego",
+      "price": 231,
+      "imageUrl": "https://www.lego.com/cdn/cs/set/assets/blt8137ac926e8df886/40466_alt1.jpg",
+      "description": "3 Baby pandas",
+      "categoryId": 3,
+      "id": 22
+    },
+    {
+      "title": "Máscara Batman",
+      "price": 215,
+      "imageUrl": "https://cf.shopee.com.br/file/4905e96860c2a0bc57799692d747954a",
+      "description": "https://cf.shopee.com.br/file/4905e96860c2a0bc57799692d747954a\n\n₢ Shopee",
+      "categoryId": 3,
+      "id": 23
+    },
+    {
+      "title": "Máscara Coringa",
+      "price": 123.4,
+      "imageUrl": "https://images-americanas.b2w.io/produtos/6378080971/imagens/halloween-joker-mask-cosplay-horror-mascara-de-palhaco-assustador-com-cabelos-verdes/6378080971_1_large.jpg",
+      "description": "₢ Americanas Ltda.",
+      "categoryId": 3,
+      "id": 24
+    },
+    {
+      "title": "Máscara Iron Man",
+      "price": 350.459,
+      "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_944294-MLB51824598892_102022-O.webp",
+      "description": "Fabricado em 2019.\nImagem ilustrativa.\n₢ Americanas Ltda.",
+      "categoryId": 3,
+      "id": 25
+    },
+    {
+      "title": "Playstation 2",
+      "price": 200,
+      "imageUrl": "https://1.bp.blogspot.com/-ux4qTMKiYv4/Xmuhw7Y4MhI/AAAAAAAAUiE/5cEHjsnCoLYRMoe4IPvptMVwpRHMozOtgCLcBGAsYHQ/s1600/CAPA.jpg",
+      "description": "@ Sony Entertainment",
+      "categoryId": 2,
+      "id": 26
+    }
+  ],
+  "categories": [
+    {
+      "title": "Star Wars",
+      "id": 1
+    },
+    {
+      "title": "Consoles",
+      "id": 2
+    },
+    {
+      "title": "Diversos",
+      "id": 3
+    }
+  ]
+}
