@@ -76,7 +76,8 @@ export default function DefaultPage() {
 				anchor="left"
 				open={open}
 			>
-				<DrawerHeader>
+				<DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between' }}>
+					<img src='/assets/logo.png' alt='Logo' />
 					<IconButton onClick={handleDrawerClose}>
 						{theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
 					</IconButton>

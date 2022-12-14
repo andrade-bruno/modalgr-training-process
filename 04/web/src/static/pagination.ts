@@ -4,7 +4,7 @@ export const userPages: IPagination[] = [
 	{
 		id: 1,
 		title: 'Meus lançamentos',
-		path: 'myreleases'
+		path: '/myreleases'
 	}
 ]
 
@@ -13,21 +13,21 @@ export const adminPages: IPagination[] = [
 	{
 		id: 1,
 		title: 'Dashboard',
-		path: 'dashboard'
+		path: '/admin/dashboard'
 	},
 	{
 		id: 2,
 		title: 'Lançamentos',
-		path: 'releases'
+		path: '/admin/releases'
 	},
 	{
 		id: 3,
 		title: 'Usuários',
-		path: 'users'
+		path: '/admin/users'
 	},
 	{
 		id: 4,
 		title: 'Documentação',
-		path: 'docs'
+		path: '/admin/docs'
 	}
 ]
