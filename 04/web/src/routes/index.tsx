@@ -5,6 +5,7 @@ import Default from 'pages/Default'
 import Dashboard from 'pages/Dashboard'
 import Collaborators from 'pages/Collaborators'
 import Releases from 'pages/Releases'
+import MyReleases from 'pages/MyReleases'
 
 const CommomRoutes = () => {
 	return (
@@ -13,7 +14,7 @@ const CommomRoutes = () => {
 				<Route path='/login' element={<h1>Login</h1>} />
 				<Route path='/signup' element={<h1>Cadastro</h1>} />
 				<Route path='/' element={<Default />}>
-					<Route path='myreleases' element={<h1>Meus Lançamentos</h1>} />
+					<Route path='myreleases' element={<MyReleases />} />
 				</Route>
 				<Route path='/admin' element={<Default />}>
 					<Route index element={<h1>Main Admin</h1>} />
