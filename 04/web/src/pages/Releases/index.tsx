@@ -26,33 +26,33 @@ const rows = [
 	{ id: 9, name: 'Roxie', distance: 65, hours: 4 }
 ]
 
-const MyReleases = () => {
+const Releases = () => {
 	return (
 		<>
-			<h1>Meus Lançamentos</h1>
+			<h1>Gerenciar Lançamentos</h1>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label="customized table">
 					<TableHead>
 						<TableRow>
-							<TableCell>ID</TableCell>
-							<TableCell>Nome</TableCell>
-							<TableCell>KM</TableCell>
-							<TableCell>Horas</TableCell>
-							<TableCell>Editar</TableCell>
-							<TableCell>Remover</TableCell>
+							<TableCell align='center'>ID</TableCell>
+							<TableCell align='left'>Nome</TableCell>
+							<TableCell align='center'>KM</TableCell>
+							<TableCell align='center'>Horas</TableCell>
+							<TableCell align='center'>Editar</TableCell>
+							<TableCell align='center'>Remover</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{rows.map((item) => (
 							<TableRow key={item.id}>
-								<TableCell>{item.id}</TableCell>
-								<TableCell>{item.name}</TableCell>
-								<TableCell>{item.distance}</TableCell>
-								<TableCell>{item.hours}</TableCell>
-								<TableCell>
+								<TableCell align='center'>{item.id}</TableCell>
+								<TableCell align='left'>{item.name}</TableCell>
+								<TableCell align='center'>{item.distance}</TableCell>
+								<TableCell align='center'>{item.hours}</TableCell>
+								<TableCell align='center'>
 									<Chip variant="outlined" color="warning" label='Editar' icon={<EditRounded />} />
 								</TableCell>
-								<TableCell>
+								<TableCell align='center'>
 									<Chip variant="outlined" color="error" label='Remover' icon={<DeleteRounded />} />
 								</TableCell>
 							</TableRow>
@@ -64,4 +64,4 @@ const MyReleases = () => {
 	)
 }
 
-export default MyReleases
+export default Releases
