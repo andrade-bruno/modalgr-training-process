@@ -22,8 +22,8 @@ export const adminPages: IPagination[] = [
 	},
 	{
 		id: 3,
-		title: 'Usuários',
-		path: '/admin/users'
+		title: 'Colaboradores',
+		path: '/admin/collaborators'
 	},
 	{
 		id: 4,

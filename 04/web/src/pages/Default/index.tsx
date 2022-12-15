@@ -20,8 +20,12 @@ import {
 	ChevronRight,
 	ChevronLeft,
 	Menu as MenuIcon,
-	Dashboard,
-	DocumentScannerRounded
+	InsertDriveFileSharp,
+	DashboardRounded,
+	BarChartRounded,
+	ReceiptLongRounded,
+	GroupsRounded,
+	TextSnippetRounded
 } from '@mui/icons-material'
 
 import { useTheme } from '@mui/material/styles'
@@ -29,6 +33,7 @@ import { AppBar, DrawerHeader, drawerWidth, Main } from './styles'
 
 import { adminPages as admPages, userPages as usPages } from 'static/pagination'
 import IPagination from 'interfaces/IPagination'
+import { isNullOrUndefined } from 'util'
 
 export default function DefaultPage() {
 	const theme = useTheme()
@@ -88,7 +93,7 @@ export default function DefaultPage() {
 						<ListItem key={item.id} disablePadding>
 							<ListItemButton onClick={() => navigate(item.path)}>
 								<ListItemIcon>
-									{item.id % 2 === 0 ? <Dashboard /> : <DocumentScannerRounded />}
+									{item.id === 1 ? <ReceiptLongRounded /> : null}
 								</ListItemIcon>
 								<ListItemText primary={item.title} />
 							</ListItemButton>
@@ -101,7 +106,11 @@ export default function DefaultPage() {
 						<ListItem key={item.id} disablePadding>
 							<ListItemButton onClick={() => navigate(item.path)}>
 								<ListItemIcon>
-									{item.id % 2 === 0 ? <Dashboard /> : <DocumentScannerRounded />}
+									{item.id === 1 ? <DashboardRounded /> :
+										item.id === 2 ? <BarChartRounded /> :
+											item.id === 3 ? <GroupsRounded /> :
+												item.id === 4 ? <TextSnippetRounded />
+													: null}
 								</ListItemIcon>
 								<ListItemText primary={item.title} />
 							</ListItemButton>
