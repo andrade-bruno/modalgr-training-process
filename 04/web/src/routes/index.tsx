@@ -3,15 +3,16 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import NotFound from 'pages/NotFound'
 import Default from 'pages/Default'
 import Dashboard from 'pages/Dashboard'
+import MyReleases from 'pages/MyReleases'
 
 const CommomRoutes = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path='/login' element={<h1>Login</h1>} />
+				<Route path='/signup' element={<h1>Cadastro</h1>} />
 				<Route path='/' element={<Default />}>
-					<Route path='login' element={<h1>Login</h1>} />
-					<Route path='signup' element={<h1>Cadastro</h1>} />
-					<Route path='myreleases' element={<h1>Meus Lançamentos</h1>} />
+					<Route path='myreleases' element={<MyReleases/>} />
 				</Route>
 				<Route path='/admin' element={<Default />}>
 					<Route index element={<h1>Main Admin</h1>} />

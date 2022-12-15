@@ -20,7 +20,6 @@ import {
 	ChevronRight,
 	ChevronLeft,
 	Menu as MenuIcon,
-	InsertDriveFileSharp,
 	DashboardRounded,
 	BarChartRounded,
 	ReceiptLongRounded,
@@ -33,7 +32,6 @@ import { AppBar, DrawerHeader, drawerWidth, Main } from './styles'
 
 import { adminPages as admPages, userPages as usPages } from 'static/pagination'
 import IPagination from 'interfaces/IPagination'
-import { isNullOrUndefined } from 'util'
 
 export default function DefaultPage() {
 	const theme = useTheme()
