@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
 	Table,
 	TableBody,
@@ -6,12 +8,16 @@ import {
 	TableHead,
 	TableRow,
 	Paper,
-	Chip
+	Chip,
+	Menu,
+	MenuItem,
+	Button
 } from '@mui/material'
 
 import {
 	EditRounded,
-	DeleteRounded
+	DeleteRounded,
+	MoreVertRounded
 } from '@mui/icons-material'
 
 const rows = [
@@ -27,6 +33,16 @@ const rows = [
 ]
 
 const Collaborators = () => {
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+	const open = Boolean(anchorEl)
+
+	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget)
+	}
+	const handleClose = () => {
+		setAnchorEl(null)
+	}
+
 	return (
 		<>
 			<h1>Gerenciar Colaboradores</h1>
@@ -38,8 +54,7 @@ const Collaborators = () => {
 							<TableCell align='left'>Nome</TableCell>
 							<TableCell align='center'>Bicicleta</TableCell>
 							<TableCell align='center'>Status</TableCell>
-							<TableCell align='center'>Editar</TableCell>
-							<TableCell align='center'>Remover</TableCell>
+							<TableCell align='center'>Ações</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -55,16 +70,27 @@ const Collaborators = () => {
 									}
 								</TableCell>
 								<TableCell align='center'>
-									<Chip variant="outlined" color="warning" label='Editar' icon={<EditRounded />} />
-								</TableCell>
-								<TableCell align='center'>
-									<Chip variant="outlined" color="error" label='Remover' icon={<DeleteRounded />} />
+									<Button onClick={handleMenu}><MoreVertRounded /></Button>
 								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
 				</Table>
 			</TableContainer>
+
+			<Menu
+				id='basic-menu'
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+			>
+				<MenuItem onClick={handleClose}>
+					<Chip variant="outlined" color="warning" label='Editar' icon={<EditRounded />} />
+				</MenuItem>
+				<MenuItem onClick={handleClose}>
+					<Chip variant="outlined" color="error" label='Remover' icon={<DeleteRounded />} />
+				</MenuItem>
+			</Menu>
 		</>
 	)
 }
