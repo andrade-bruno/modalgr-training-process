@@ -49,3 +49,9 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 	...theme.mixins.toolbar,
 	justifyContent: 'flex-end',
 }))
+
+export const LogoMenuDrawer = styled('img')`
+	object-fit: contain;
+	max-width: 10rem;
+	max-height: 8rem;
+`

@@ -28,7 +28,7 @@ import {
 } from '@mui/icons-material'
 
 import { useTheme } from '@mui/material/styles'
-import { AppBar, DrawerHeader, drawerWidth, Main } from './styles'
+import { AppBar, DrawerHeader, drawerWidth, LogoMenuDrawer, Main } from './styles'
 
 import { adminPages as admPages, userPages as usPages } from 'static/pagination'
 import IPagination from 'interfaces/IPagination'
@@ -80,7 +80,7 @@ export default function DefaultPage() {
 				open={open}
 			>
 				<DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between' }}>
-					<img src='/assets/logo.png' alt='Logo' />
+					<LogoMenuDrawer src='/assets/logo.png' alt='Logo' />
 					<IconButton onClick={handleDrawerClose}>
 						{theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
 					</IconButton>
