@@ -6,6 +6,8 @@ import Dashboard from 'pages/Dashboard'
 import Collaborators from 'pages/Collaborators'
 import Releases from 'pages/Releases'
 import MyReleases from 'pages/MyReleases'
+import SignUp from 'pages/SignUp'
+
 import { UserProvider } from 'contexts/UserContext'
 
 const CommomRoutes = () => {
@@ -14,7 +16,7 @@ const CommomRoutes = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/login' element={<h1>Login</h1>} />
-					<Route path='/signup' element={<h1>Cadastro</h1>} />
+					<Route path='/signup' element={<SignUp />} />
 					<Route path='/' element={<Default />}>
 						<Route path='myreleases' element={<MyReleases />} />
 					</Route>
