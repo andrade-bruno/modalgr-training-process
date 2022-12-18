@@ -1,7 +1,8 @@
 import Input from 'components/Input'
 import { useState } from 'react'
 import { Button } from '@mui/material'
-import { BikeImg, Box, Container, Details, Form, Logo } from './styles'
+import { Box, Container, Details, Form, Logo } from 'styles/commom'
+import { BikeImg } from './styles'
 
 const SignUp = () => {
 	const [name, setName] = useState('')
