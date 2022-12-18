@@ -68,7 +68,7 @@ export const Details = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content; center;
+	justify-content: space-around;
 	gap: 2px;
 	padding: 10px 20px;
 	background-color: #0084B7;

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Button } from '@mui/material'
 import { Box, Container, Details, Form, Logo } from 'styles/commom'
 import { FormWrapper } from './styles'
+import { BikeImg } from 'pages/SignUp/styles'
 
 const SignIn = () => {
 	const [email, setEmail] = useState('')
@@ -12,8 +13,8 @@ const SignIn = () => {
 		<Container>
 			<Box>
 				<Form style={{justifyContent: 'center'}}>
-					<Logo src='/assets/logo.png' alt='Logo' />
 					<FormWrapper>
+						<Logo src='/assets/logo.png' alt='Logo' />
 						<Input
 							label='E-mail'
 							value={email}
@@ -42,6 +43,7 @@ const SignIn = () => {
 				</Form>
 				<Details>
 					<p>Explore seus movimentos! Quanto você já contribuiu para o meio ambiente até hoje?</p>
+					<BikeImg src='/assets/vintage-bike.png' alt='Vintage Bike' />
 				</Details>
 			</Box>
 		</Container>
