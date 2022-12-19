@@ -4,7 +4,7 @@ export const userPages: IPagination[] = [
 	{
 		id: 1,
 		title: 'Meus lançamentos',
-		path: '/myreleases'
+		path: '/'
 	}
 ]
 

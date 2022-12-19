@@ -33,7 +33,7 @@ import { AppBar, DrawerHeader, drawerWidth, LogoMenuDrawer, Main } from './style
 import { adminPages as admPages, userPages as usPages } from 'static/pagination'
 import IPagination from 'interfaces/IPagination'
 
-export default function DefaultPage() {
+export default function DefaultPage({children}: {children?: any}) {
 	const theme = useTheme()
 	const navigate = useNavigate()
 
@@ -119,6 +119,7 @@ export default function DefaultPage() {
 			<Main open={open}>
 				<DrawerHeader />
 				<Outlet />
+				{children}
 			</Main>
 		</Box>
 	)

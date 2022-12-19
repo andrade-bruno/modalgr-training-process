@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { theme } from './theme'
 
 export const Container = styled.main`
 	height: 100vh;
@@ -71,7 +72,7 @@ export const Details = styled.div`
 	justify-content: space-around;
 	gap: 2px;
 	padding: 10px 20px;
-	background-color: #0084B7;
+	background-color: ${theme.colors.main};
 	
 	p {
 		color: #FFF;

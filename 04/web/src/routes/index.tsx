@@ -19,10 +19,9 @@ const CommomRoutes = () => {
 					<Route path='/signin' element={<SignIn />} />
 					<Route path='/signup' element={<SignUp />} />
 					<Route path='/' element={<Default />}>
-						<Route path='myreleases' element={<MyReleases />} />
+						<Route index element={<MyReleases />} />
 					</Route>
 					<Route path='/admin' element={<Default />}>
-						<Route index element={<h1>Main Admin</h1>} />
 						<Route path='dashboard' element={<Dashboard />} />
 						<Route path='releases' element={<Releases />} />
 						<Route path='collaborators' element={<Collaborators />} />
