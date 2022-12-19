@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
 	Table,
@@ -8,7 +8,6 @@ import {
 	TableHead,
 	TableRow,
 	Paper,
-	Chip,
 	Menu,
 	MenuItem,
 	Button
@@ -17,35 +16,52 @@ import {
 import {
 	EditRounded,
 	DeleteRounded,
-	MoreVertRounded
+	MoreVertRounded,
+	AddRounded
 } from '@mui/icons-material'
 
-const rows = [
-	{ id: 1, distance: 35, hours: 4 },
-	{ id: 2, distance: 42, hours: 4 },
-	{ id: 3, distance: 45, hours: 4 },
-	{ id: 4, distance: 16, hours: 4 },
-	{ id: 5, distance: null, hours: 4 },
-	{ id: 6, distance: 150, hours: 4 },
-	{ id: 7, distance: 44, hours: 4 },
-	{ id: 8, distance: 36, hours: 4 },
-	{ id: 9, distance: 65, hours: 4 }
-]
+import { useReleasesContext } from 'contexts/ReleasesContext'
+import { Header } from 'styles/commom'
+import { Form } from './styles'
+import Modal from 'components/Modal'
+import Input from 'components/Input'
 
 const MyReleases = () => {
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
+	const [isOpen, setIsOpen] = useState(false)
 
+	const [kilometers, setKilometers] = useState<number>()
+	const [hours, setHours] = useState<number>()
+
+	const { releases } = useReleasesContext()
+
+	const handleCloseModal = () => {
+		setIsOpen(false)
+		setKilometers(undefined)
+		setHours(undefined)
+	}
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
 	}
-	const handleClose = () => {
+	const handleCloseMenu = () => {
 		setAnchorEl(null)
 	}
 	
 	return (
 		<>
-			<h1>Meus Lançamentos</h1>
+			<Header>
+				<h1>Meus Lançamentos</h1>
+				<Button
+					variant="outlined"
+					color="success"
+					sx={{margin: 'auto 0px'}}
+					onClick={() => setIsOpen(true)}
+				>
+					<AddRounded />
+					Adicionar
+				</Button>
+			</Header>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 700 }} aria-label="customized table">
 					<TableHead>
@@ -57,11 +73,11 @@ const MyReleases = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rows.map((item) => (
+						{releases && releases.filter(item => item.colaborador_id === 1).map((item) => (
 							<TableRow key={item.id}>
 								<TableCell align='center'>{item.id}</TableCell>
-								<TableCell align='center'>{item.distance}</TableCell>
-								<TableCell align='center'>{item.hours}</TableCell>
+								<TableCell align='center'>{item.km}</TableCell>
+								<TableCell align='center'>{item.tempo}</TableCell>
 								<TableCell align='center'>
 									<Button onClick={handleMenu}><MoreVertRounded /></Button>
 								</TableCell>
@@ -75,15 +91,43 @@ const MyReleases = () => {
 				id='basic-menu'
 				anchorEl={anchorEl}
 				open={open}
-				onClose={handleClose}
+				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleClose}>
-					<Chip variant="outlined" color="warning" label='Editar' icon={<EditRounded />} />
+				<MenuItem onClick={handleCloseMenu}>
+					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleClose}>
-					<Chip variant="outlined" color="error" label='Remover' icon={<DeleteRounded />} />
+				<MenuItem onClick={handleCloseMenu}>
+					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>
+
+			<Modal
+				isOpen={isOpen}
+				onClose={() => handleCloseModal()}
+				title='Adicionar lançamento'
+			>
+				<Form>
+					<Input
+						label='Distância (km)'
+						value={kilometers}
+						setter={setKilometers}
+						type='email'
+						fullWidth
+						required
+					/>
+					<Input
+						label='Horas'
+						value={hours}
+						setter={setHours}
+						type='email'
+						fullWidth
+						required
+					/>
+					<Button variant='outlined' color='success'>
+						Finalizar
+					</Button>
+				</Form>
+			</Modal>
 		</>
 	)
 }

@@ -8,7 +8,6 @@ import {
 	TableHead,
 	TableRow,
 	Paper,
-	Chip,
 	Menu,
 	MenuItem,
 	Button
@@ -19,6 +18,7 @@ import {
 	DeleteRounded,
 	MoreVertRounded
 } from '@mui/icons-material'
+
 import { useReleasesContext } from 'contexts/ReleasesContext'
 
 const Releases = () => {
@@ -49,7 +49,7 @@ const Releases = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{releases.map((item) => (
+						{releases?.map((item) => (
 							<TableRow key={item.colaborador_id}>
 								<TableCell align='center'>{item.id}</TableCell>
 								<TableCell align='left'>{item.colaborador_id}</TableCell>
@@ -71,10 +71,10 @@ const Releases = () => {
 				onClose={handleClose}
 			>
 				<MenuItem onClick={handleClose}>
-					<Chip variant="outlined" color="warning" label='Editar' icon={<EditRounded />} />
+					<EditRounded color='warning'/> Editar
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
-					<Chip variant="outlined" color="error" label='Remover' icon={<DeleteRounded />} />
+					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>
 		</>

@@ -85,10 +85,10 @@ const Collaborators = () => {
 				onClose={handleClose}
 			>
 				<MenuItem onClick={handleClose}>
-					<Chip variant="outlined" color="warning" label='Editar' icon={<EditRounded />} />
+					<EditRounded color='warning'/> Editar
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
-					<Chip variant="outlined" color="error" label='Remover' icon={<DeleteRounded />} />
+					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>
 		</>

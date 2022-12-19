@@ -3,12 +3,10 @@ import axios from 'axios'
 export const instance = axios.create({
 	baseURL: 'http://localhost:8000/',
 	timeout: 10000,
-	headers: {
-		post: {
-			setContentType: 'application/json'
-		}
-	}
 })
+
+instance.defaults.headers.post['Content-Type'] = 'application/json'
+instance.defaults.headers.common['Accept'] = 'application/json'
 
 export const http = {
 	get: instance.get,

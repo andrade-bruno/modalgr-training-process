@@ -125,3 +125,8 @@ export const Logo = styled.img`
 		height: 8rem;
 	}
 `
+
+export const Header = styled.header`
+	display: flex;
+	justify-content: space-between;
+`

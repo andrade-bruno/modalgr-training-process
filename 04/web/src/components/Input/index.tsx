@@ -1,7 +1,8 @@
+import React from 'react'
+
 import {
 	TextField
 } from '@mui/material'
-import React from 'react'
 
 interface InputProps {
 	label: string,
@@ -9,8 +10,8 @@ interface InputProps {
 	required?: boolean,
 	fullWidth?: boolean,
 	type: string,
-	value: string | number,
-	setter: React.Dispatch<React.SetStateAction<string>>
+	value: string | number | undefined,
+	setter: (e: any) => void
 }
 
 const Input = ({
