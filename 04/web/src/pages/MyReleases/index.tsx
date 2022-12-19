@@ -34,7 +34,7 @@ const MyReleases = () => {
 	const [kilometers, setKilometers] = useState<number>()
 	const [hours, setHours] = useState<number>()
 
-	const { releases } = useReleasesContext()
+	const { releases, addRelease } = useReleasesContext()
 
 	const handleCloseModal = () => {
 		setIsOpen(false)
@@ -46,6 +46,12 @@ const MyReleases = () => {
 	}
 	const handleCloseMenu = () => {
 		setAnchorEl(null)
+	}
+	const handleAddRelease = () => {
+		if (kilometers && hours) {
+			addRelease(kilometers, hours)
+			handleCloseModal()
+		}
 	}
 	
 	return (
@@ -123,7 +129,11 @@ const MyReleases = () => {
 						fullWidth
 						required
 					/>
-					<Button variant='outlined' color='success'>
+					<Button
+						variant='outlined'
+						color='success'
+						onClick={() => handleAddRelease()}
+					>
 						Finalizar
 					</Button>
 				</Form>

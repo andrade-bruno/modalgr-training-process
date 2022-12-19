@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import IRelease from 'interfaces/IRelease'
 import http from 'services/http'
-
+import { useUserContext } from './UserContext'
 interface Props {
-	releases: IRelease[] | null,
-	setReleases: React.Dispatch<React.SetStateAction<IRelease[] | null>>,
-	addRelease: (release: IRelease) => void
+	releases: IRelease[]
+	setReleases: React.Dispatch<React.SetStateAction<IRelease[]>>
+	addRelease: (km: number, tempo: number) => void
 }
 
 const ReleasesContext = React.createContext<Props>({} as Props)
 ReleasesContext.displayName = 'ReleasesContext'
 
 export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
-	const [releases, setReleases] = useState<IRelease[] | null>(null)
+	const [releases, setReleases] = useState<IRelease[]>([])
+
+	const { user, config } = useUserContext()
 
 	const getReleases = async () => {
 		try {
@@ -25,10 +27,17 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 
 	useEffect(() => {
 		getReleases()
-	}, []) //Servidor deveria ter endpoint para retornar somente dados do currente usuário
+	}, [])
 
-	const addRelease = (release: IRelease) => {
-		return console.log(release)
+	const addRelease = async (km: number, tempo: number) => {
+		const colaborador_id = user.colaborador_id
+		
+		try {
+			await http.post('lancamentos', {km, tempo, colaborador_id}, config)
+				.then((res) => setReleases([...releases, res.data])) 
+		} catch (error) {
+			console.log('addRelease error: ', error)
+		}
 	}
 
 	return (
