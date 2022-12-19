@@ -18,8 +18,8 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 
 	const getReleases = async () => {
 		try {
-			await http.get<IRelease[]>('lancamentos')
-				.then(res => setReleases(res.data)) 
+			const res = await http.get<IRelease[]>('lancamentos', config)
+			setReleases(res.data)
 		} catch (error) {
 			console.log('getReleases error: ', error)
 		}

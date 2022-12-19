@@ -4,10 +4,16 @@ import { Button } from '@mui/material'
 import { Box, Container, Details, Form, Logo } from 'styles/commom'
 import { FormWrapper } from './styles'
 import { BikeImg } from 'pages/SignUp/styles'
+import { useUserContext } from 'contexts/UserContext'
 
 const SignIn = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
+	const { login } = useUserContext()
+	const handleLogin = () => {
+		login(email, password)
+	}
 
 	return (
 		<Container>
@@ -36,6 +42,7 @@ const SignIn = () => {
 							disabled={false}
 							size="large"
 							variant="outlined"
+							onClick={() => handleLogin()}
 						>
 							Entrar
 						</Button>

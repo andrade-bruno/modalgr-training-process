@@ -17,11 +17,11 @@ UserContext.displayName = 'UserContext'
 export const UserProvider = ({children}: {children: JSX.Element}) => {
 	const [user, setUser] = useState<IUser>({} as IUser)
 	const [token, setToken] = useState<string | null | undefined>('')
-	const [config, setConfig] = useState<AxiosRequestConfig>({})
+	const [config, setConfig] = useState<AxiosRequestConfig>({} as AxiosRequestConfig)
 
 	useEffect(() => {
 		async function getJwt() {
-			const res = await http.getJwt()
+			const res = await localStorage.getItem('token')
 			setToken(res)
 		}
 		getJwt()
@@ -37,9 +37,10 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 
 	const login = async (email: string, password: string) => {
 		try {
-			const res = await http.post('login', {email, password})
+			const res = await http.post('login', {email: email, senha: password})
 			setUser(res.data.colaborador)
 			setToken(res.data.token)
+			localStorage.setItem('token', res.data.token)
 		} catch (error) {
 			console.log('login error: ', error)
 		}
