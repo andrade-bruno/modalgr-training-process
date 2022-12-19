@@ -1,0 +1,84 @@
+{
+	"lancamentos": [
+		{
+			"id": 1,
+			"km": 10.5,
+			"tempo": 0.5,
+			"colaborador_id": 1,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 2,
+			"km": 20.5,
+			"tempo": 1.5,
+			"colaborador_id": 1,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 3,
+			"km": 15,
+			"tempo": 1,
+			"colaborador_id": 2,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 4,
+			"km": 20.5,
+			"tempo": 1.8,
+			"colaborador_id": 3,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 5,
+			"km": 8,
+			"tempo": 0.3,
+			"colaborador_id": 4,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 6,
+			"km": 1,
+			"tempo": 0.2,
+			"colaborador_id": 5,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 7,
+			"km": 18,
+			"tempo": 0.5,
+			"colaborador_id": 6,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 8,
+			"km": 30,
+			"tempo": 1.5,
+			"colaborador_id": 6,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 9,
+			"km": 2,
+			"tempo": 0.2,
+			"colaborador_id": 7,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		},
+		{
+			"id": 10,
+			"km": 22,
+			"tempo": 1,
+			"colaborador_id": 7,
+			"createdAt": "2022-12-10T14-42-12",
+			"updatedAt": "2022-12-10T14-42-12"
+		}
+	]
+}
