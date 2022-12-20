@@ -13,7 +13,9 @@ import {
 	ListItem,
 	ListItemButton,
 	ListItemIcon,
-	ListItemText
+	ListItemText,
+	Button,
+	Chip
 } from '@mui/material'
 
 import {
@@ -32,19 +34,24 @@ import { AppBar, DrawerHeader, drawerWidth, LogoMenuDrawer, Main } from './style
 
 import { adminPages as admPages, userPages as usPages } from 'static/pagination'
 import IPagination from 'interfaces/IPagination'
+import { useUserContext } from 'contexts/UserContext'
 
 export default function DefaultPage({children}: {children?: any}) {
-	const theme = useTheme()
-	const navigate = useNavigate()
-
 	const [open, setOpen] = React.useState(true)
 	const [userPages] = React.useState<IPagination[]>(usPages)
 	const [adminPages] = React.useState<IPagination[]>(admPages)
 
+	const theme = useTheme()
+	const navigate = useNavigate()
+	const { logout, user } = useUserContext()
+
+	const handleLogout = () => {
+		logout()
+		navigate('/signin')
+	}
 	const handleDrawerOpen = () => {
 		setOpen(true)
 	}
-
 	const handleDrawerClose = () => {
 		setOpen(false)
 	}
@@ -53,17 +60,23 @@ export default function DefaultPage({children}: {children?: any}) {
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
 			<AppBar position="fixed" open={open}>
-				<Toolbar>
-					<IconButton
-						color="inherit"
-						aria-label="open drawer"
-						onClick={handleDrawerOpen}
-						edge="start"
-						sx={{ mr: 2, ...(open && { display: 'none' }) }}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant="h6" noWrap component="div">BikeGR</Typography>
+				<Toolbar sx={{justifyContent: 'space-between'}}>
+					<Box sx={{display: 'flex', alignItems: 'center'}}>
+						<IconButton
+							color="inherit"
+							aria-label="open drawer"
+							onClick={handleDrawerOpen}
+							edge="start"
+							sx={{ mr: 2, ...(open && { display: 'none' }) }}
+						>
+							<MenuIcon />
+						</IconButton>
+						<Typography variant="h6" noWrap component="div">BikeGR</Typography>
+					</Box>
+					<Box sx={{display: 'flex', alignItems: 'center', gap: 4}}>
+						{user.nome && <Chip variant='filled' color='warning' label={`Bem vindo, ${user.nome}!`} />}
+						<Button variant='contained' onClick={() => handleLogout()}>Sair</Button>
+					</Box>
 				</Toolbar>
 			</AppBar>
 			<Drawer

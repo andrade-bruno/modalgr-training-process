@@ -5,20 +5,25 @@ import { Box, Container, Details, Form, Logo } from 'styles/commom'
 import { FormWrapper } from './styles'
 import { BikeImg } from 'pages/SignUp/styles'
 import { useUserContext } from 'contexts/UserContext'
+import { useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
+	const navigate = useNavigate()
 	const { login } = useUserContext()
-	const handleLogin = () => {
-		login(email, password)
+	
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		await login(email, password)
+		navigate('/')
 	}
 
 	return (
 		<Container>
 			<Box>
-				<Form style={{justifyContent: 'center'}}>
+				<Form style={{justifyContent: 'center'}} onSubmit={e => handleLogin(e)}>
 					<FormWrapper>
 						<Logo src='/assets/logo.png' alt='Logo' />
 						<Input
@@ -42,7 +47,7 @@ const SignIn = () => {
 							disabled={false}
 							size="large"
 							variant="outlined"
-							onClick={() => handleLogin()}
+							type='submit'
 						>
 							Entrar
 						</Button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
 	Table,
@@ -34,7 +34,11 @@ const MyReleases = () => {
 	const [kilometers, setKilometers] = useState<number>()
 	const [hours, setHours] = useState<number>()
 
-	const { releases, addRelease } = useReleasesContext()
+	const { releases, addRelease, getReleases } = useReleasesContext()
+
+	useEffect(() => {
+		getReleases()
+	}, [])
 
 	const handleCloseModal = () => {
 		setIsOpen(false)

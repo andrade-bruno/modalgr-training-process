@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import IUser from 'interfaces/IUser'
 import http from 'services/http'
-import { AxiosRequestConfig } from 'axios'
 
 interface Props {
 	user: IUser
 	setUser: React.Dispatch<React.SetStateAction<IUser>>
 	token: string | null | undefined
-	config: AxiosRequestConfig
 	login: (email: string, password: string) => void
+	logout: () => void
 }
 
 const UserContext = React.createContext<Props>({} as Props)
@@ -16,24 +15,7 @@ UserContext.displayName = 'UserContext'
 
 export const UserProvider = ({children}: {children: JSX.Element}) => {
 	const [user, setUser] = useState<IUser>({} as IUser)
-	const [token, setToken] = useState<string | null | undefined>('')
-	const [config, setConfig] = useState<AxiosRequestConfig>({} as AxiosRequestConfig)
-
-	useEffect(() => {
-		async function getJwt() {
-			const res = await localStorage.getItem('token')
-			setToken(res)
-		}
-		getJwt()
-	}, [])
-
-	useEffect(() => {
-		setConfig({
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		})
-	}, [token])
+	const [token, setToken] = useState<string | null | undefined>(localStorage.getItem('token'))
 
 	const login = async (email: string, password: string) => {
 		try {
@@ -46,8 +28,14 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 		}
 	}
 
+	const logout = async () => {
+		setUser({} as IUser)
+		setToken('')
+		localStorage.removeItem('token')
+	}
+
 	return (
-		<UserContext.Provider value={{user, setUser, token, config, login}}>
+		<UserContext.Provider value={{user, setUser, token, login, logout}}>
 			{children}
 		</UserContext.Provider>
 	)
