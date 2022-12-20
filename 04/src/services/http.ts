@@ -8,7 +8,6 @@ export const instance = axios.create({
 instance.defaults.headers.post['Content-Type'] = 'application/json'
 instance.defaults.headers.common['Accept'] = 'application/json'
 
-
 export const http = {
 	get: instance.get,
 	post: instance.post,
