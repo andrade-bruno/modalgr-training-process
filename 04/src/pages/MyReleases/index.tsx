@@ -34,8 +34,10 @@ const MyReleases = () => {
 
 	const [kilometers, setKilometers] = useState<number>()
 	const [hours, setHours] = useState<number>()
+	const [selectedRelease, setSelectedRelease] = useState<number>(0)
+	const [isEditing, setIsEditing] = useState(false)
 
-	const { releases, addRelease, getReleases, removeRelease } = useReleasesContext()
+	const { releases, addRelease, getReleases, getReleaseById, removeRelease, updateRelease } = useReleasesContext()
 	const { user } = useUserContext()
 	const myreleases = releases.filter(item => item.colaborador_id === user.id)
 
@@ -45,24 +47,49 @@ const MyReleases = () => {
 
 	const handleCloseModal = () => {
 		setIsOpen(false)
-		setKilometers(undefined)
-		setHours(undefined)
+		setKilometers(0)
+		setHours(0)
+		setSelectedRelease(0)
+		setIsEditing(false)
 	}
+
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
 	}
 	const handleCloseMenu = () => {
 		setAnchorEl(null)
 	}
+	const handleDeleteRelease = () => {
+		anchorEl ? removeRelease(Number(anchorEl.id)) : null
+		handleCloseMenu()
+	}
+	const handleSubmitEdit = async () => {
+		if (kilometers && hours) {
+			await updateRelease(selectedRelease, kilometers, hours)
+			setIsOpen(false)
+			handleCloseMenu()
+		}
+	}
+	const handleEditRelease = async () => {
+		setIsEditing(true)
+		const res = await getReleaseById(Number(anchorEl?.id))
+		if (res) {
+			setKilometers(Number(res.km))
+			setHours(Number(res.tempo))
+			setSelectedRelease(Number(anchorEl?.id))
+			setIsOpen(true)
+			handleCloseMenu()
+		}
+	}
 	const handleAddRelease = () => {
+		setIsEditing(false)
+		setIsOpen(true)
+	}
+	const handleSubmitAdd = () => {
 		if (kilometers && hours) {
 			addRelease(kilometers, hours)
 			handleCloseModal()
 		}
-	}
-	const handleDeleteRelease = () => {
-		anchorEl?.id ? removeRelease(Number(anchorEl.id)) : null
-		handleCloseMenu()
 	}
 	
 	return (
@@ -73,7 +100,7 @@ const MyReleases = () => {
 					variant="outlined"
 					color="success"
 					sx={{margin: 'auto 0px'}}
-					onClick={() => setIsOpen(true)}
+					onClick={handleAddRelease}
 				>
 					<AddRounded />
 					Adicionar
@@ -112,7 +139,7 @@ const MyReleases = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleCloseMenu}>
+				<MenuItem onClick={handleEditRelease}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
 				<MenuItem onClick={handleDeleteRelease}>
@@ -123,7 +150,7 @@ const MyReleases = () => {
 			<Modal
 				isOpen={isOpen}
 				onClose={() => handleCloseModal()}
-				title='Adicionar lançamento'
+				title={isEditing ? 'Editar lançamento' : 'Adicionar lançamento'}
 			>
 				<Form>
 					<Input
@@ -145,9 +172,9 @@ const MyReleases = () => {
 					<Button
 						variant='outlined'
 						color='success'
-						onClick={handleAddRelease}
+						onClick={() => isEditing ? handleSubmitEdit() : handleSubmitAdd()}
 					>
-						Finalizar
+						{isEditing ? 'Editar' : 'Adicionar'}
 					</Button>
 				</Form>
 			</Modal>
