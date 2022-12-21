@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
 	Table,
@@ -21,24 +21,19 @@ import {
 } from '@mui/icons-material'
 import Unauthorized from 'pages/Unauthorized'
 import { useUserContext } from 'contexts/UserContext'
-
-const rows = [
-	{ id: 1, name: 'Snow', bike: 35, status: 1 },
-	{ id: 2, name: 'Lannister', bike: 42, status: 0 },
-	{ id: 3, name: 'Lannister', bike: 45, status: 1 },
-	{ id: 4, name: 'Stark', bike: 16, status: 1 },
-	{ id: 5, name: 'Targaryen', bike: null, status: 1 },
-	{ id: 6, name: 'Melisandre', bike: 150, status: 1 },
-	{ id: 7, name: 'Clifford', bike: 44, status: 0 },
-	{ id: 8, name: 'Frances', bike: 36, status: 1 },
-	{ id: 9, name: 'Roxie', bike: 65, status: 1 }
-]
+import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 
 const Collaborators = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 
 	const { user } = useUserContext()
+	const { collaborators, getCollaborators } = useCollaboratorsContext()
+	
+	useEffect(() => {
+		getCollaborators()
+	}, [])
+	
 	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,19 +52,19 @@ const Collaborators = () => {
 						<TableRow>
 							<TableCell align='center'>ID</TableCell>
 							<TableCell align='left'>Nome</TableCell>
-							<TableCell align='center'>Bicicleta</TableCell>
+							<TableCell align='left'>E-mail</TableCell>
 							<TableCell align='center'>Status</TableCell>
 							<TableCell align='center'>Ações</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rows.map((item) => (
+						{collaborators && collaborators.map((item) => (
 							<TableRow key={item.id}>
 								<TableCell align='center'>{item.id}</TableCell>
-								<TableCell align='left'>{item.name}</TableCell>
-								<TableCell align='center'>{item.bike}</TableCell>
+								<TableCell align='left'>{item.nome}</TableCell>
+								<TableCell align='left'>{item.email}</TableCell>
 								<TableCell align='center'>
-									{item.status === 1 ?
+									{item.ativo ?
 										<Chip variant="outlined" color="success" label='Ativo'/> : 
 										<Chip variant='outlined' color='error' label='Inativo' />
 									}

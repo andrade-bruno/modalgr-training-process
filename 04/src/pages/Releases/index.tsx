@@ -26,6 +26,7 @@ import { Form } from './styles'
 import Input from 'components/Input'
 import Modal from 'components/Modal'
 import Unauthorized from 'pages/Unauthorized'
+import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 
 const Releases = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -38,6 +39,7 @@ const Releases = () => {
 
 	const { releases, removeRelease, getReleases, getReleaseById, updateRelease } = useReleasesContext()
 	const { user } = useUserContext()
+	const { getCollaboratorNameById } = useCollaboratorsContext()
 
 	useEffect(() => {
 		getReleases()
@@ -87,7 +89,7 @@ const Releases = () => {
 					<TableHead>
 						<TableRow>
 							<TableCell align='center'>ID</TableCell>
-							<TableCell align='left'>ID Colaborador</TableCell>
+							<TableCell align='left'>Colaborador</TableCell>
 							<TableCell align='center'>KM</TableCell>
 							<TableCell align='center'>Horas</TableCell>
 							<TableCell align='center'>Ações</TableCell>
@@ -97,7 +99,7 @@ const Releases = () => {
 						{releases?.map((item) => (
 							<TableRow key={item.colaborador_id}>
 								<TableCell align='center'>{item.id}</TableCell>
-								<TableCell align='left'>{item.colaborador_id}</TableCell>
+								<TableCell align='left'>{`${getCollaboratorNameById(item.colaborador_id)}`}</TableCell>
 								<TableCell align='center'>{item.km}</TableCell>
 								<TableCell align='center'>{item.tempo}</TableCell>
 								<TableCell align='center'>
