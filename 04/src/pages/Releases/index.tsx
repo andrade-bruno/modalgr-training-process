@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
 	Table,
@@ -20,18 +20,63 @@ import {
 } from '@mui/icons-material'
 
 import { useReleasesContext } from 'contexts/ReleasesContext'
+import { useUserContext } from 'contexts/UserContext'
+
+import { Form } from './styles'
+import Input from 'components/Input'
+import Modal from 'components/Modal'
+import Unauthorized from 'pages/Unauthorized'
 
 const Releases = () => {
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-	const open = Boolean(anchorEl)
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+	const open = Boolean(anchorEl) // HTML Element
+	const [isOpen, setIsOpen] = useState(false)
 
-	const { releases } = useReleasesContext()
+	const [kilometers, setKilometers] = useState<number>(0)
+	const [hours, setHours] = useState<number>(0)
+	const [selectedRelease, setSelectedRelease] = useState<number>(0)
 
+	const { releases, removeRelease, getReleases, getReleaseById, updateRelease } = useReleasesContext()
+	const { user } = useUserContext()
+
+	useEffect(() => {
+		getReleases()
+	}, [])
+
+	if (user.nivel_id !== 2) return <Unauthorized />
+
+	const handleCloseModal = () => {
+		setIsOpen(false)
+		setKilometers(0)
+		setHours(0)
+		setSelectedRelease(0)
+	}
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
 	}
-	const handleClose = () => {
+	const handleCloseMenu = () => {
 		setAnchorEl(null)
+	}
+	const handleDeleteRelease = () => {
+		anchorEl ? removeRelease(Number(anchorEl.id)) : null
+		handleCloseMenu()
+	}
+	const handleSubmitEdit = async () => {
+		if (kilometers && hours) {
+			await updateRelease(selectedRelease, kilometers, hours)
+			setIsOpen(false)
+			handleCloseMenu()
+		}
+	}
+	const handleEditRelease = async () => {
+		const res = await getReleaseById(Number(anchorEl?.id))
+		if (res) {
+			setKilometers(Number(res.km))
+			setHours(Number(res.tempo))
+			setSelectedRelease(Number(anchorEl?.id))
+			setIsOpen(true)
+			handleCloseMenu()
+		}
 	}
 	
 	return (
@@ -56,7 +101,9 @@ const Releases = () => {
 								<TableCell align='center'>{item.km}</TableCell>
 								<TableCell align='center'>{item.tempo}</TableCell>
 								<TableCell align='center'>
-									<Button onClick={handleMenu}><MoreVertRounded /></Button>
+									<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
+										<MoreVertRounded />
+									</Button>
 								</TableCell>
 							</TableRow>
 						))}
@@ -68,15 +115,47 @@ const Releases = () => {
 				id='basic-menu'
 				anchorEl={anchorEl}
 				open={open}
-				onClose={handleClose}
+				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleClose}>
+				<MenuItem onClick={handleEditRelease}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleClose}>
+				<MenuItem onClick={handleDeleteRelease}>
 					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>
+
+			<Modal
+				isOpen={isOpen}
+				onClose={() => handleCloseModal()}
+				title='Editar lançamento'
+			>
+				<Form>
+					<Input
+						label='Distância (km)'
+						value={kilometers}
+						setter={setKilometers}
+						type='number'
+						fullWidth
+						required
+					/>
+					<Input
+						label='Horas'
+						value={hours}
+						setter={setHours}
+						type='number'
+						fullWidth
+						required
+					/>
+					<Button
+						variant='outlined'
+						color='success'
+						onClick={handleSubmitEdit}
+					>
+						Editar
+					</Button>
+				</Form>
+			</Modal>
 		</>
 	)
 }

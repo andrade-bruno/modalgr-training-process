@@ -8,32 +8,33 @@ import Releases from 'pages/Releases'
 import MyReleases from 'pages/MyReleases'
 import SignUp from 'pages/SignUp'
 import SignIn from 'pages/SignIn'
+import Docs from 'pages/Docs'
 
 import { UserProvider } from 'contexts/UserContext'
 import { ReleasesProvider } from 'contexts/ReleasesContext'
 
 const CommomRoutes = () => {
 	return (
-		<UserProvider>
-			<ReleasesProvider>
-				<BrowserRouter>
+		<BrowserRouter>
+			<UserProvider>
+				<ReleasesProvider>
 					<Routes>
 						<Route path='/signin' element={<SignIn />} />
 						<Route path='/signup' element={<SignUp />} />
 						<Route path='/' element={<Default />}>
 							<Route index element={<MyReleases />} />
+							<Route path='docs' element={<Docs />} />
 						</Route>
 						<Route path='/admin' element={<Default />}>
 							<Route path='dashboard' element={<Dashboard />} />
 							<Route path='releases' element={<Releases />} />
 							<Route path='collaborators' element={<Collaborators />} />
-							<Route path='docs' element={<h1>Documentação</h1>} />
 						</Route>
 						<Route path='*' element={<NotFound />} />
 					</Routes>
-				</BrowserRouter>
-			</ReleasesProvider>
-		</UserProvider>
+				</ReleasesProvider>
+			</UserProvider>
+		</BrowserRouter>
 	)
 }
 

@@ -1,7 +1,12 @@
+import { useUserContext } from 'contexts/UserContext'
 import Default from 'pages/Default'
 import { Container } from './styles'
 
 const Unauthorized = () => {
+	const { user } = useUserContext()
+
+	if (!user.nivel_id) return null
+
 	return (
 		<Default>
 			<Container>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 import {
@@ -32,18 +32,22 @@ import {
 import { useTheme } from '@mui/material/styles'
 import { AppBar, DrawerHeader, drawerWidth, LogoMenuDrawer, Main } from './styles'
 
-import { adminPages as admPages, userPages as usPages } from 'static/pagination'
+import { adminPages as defaultAdminPages, userPages as defaultUserPages } from 'static/pagination'
 import IPagination from 'interfaces/IPagination'
 import { useUserContext } from 'contexts/UserContext'
 
 export default function DefaultPage({children}: {children?: any}) {
 	const [open, setOpen] = React.useState(true)
-	const [userPages] = React.useState<IPagination[]>(usPages)
-	const [adminPages] = React.useState<IPagination[]>(admPages)
+	const [userPages] = React.useState<IPagination[]>(defaultUserPages)
+	const [adminPages, setAdminPages] = React.useState<IPagination[]>([])
 
 	const theme = useTheme()
 	const navigate = useNavigate()
 	const { logout, user } = useUserContext()
+
+	useEffect(() => {
+		user.nivel_id === 2 ? setAdminPages(defaultAdminPages) : setAdminPages([])
+	}, [user.nivel_id])
 
 	const handleLogout = () => {
 		logout()
@@ -104,7 +108,9 @@ export default function DefaultPage({children}: {children?: any}) {
 						<ListItem key={item.id} disablePadding>
 							<ListItemButton onClick={() => navigate(item.path)}>
 								<ListItemIcon>
-									{item.id === 1 ? <ReceiptLongRounded /> : null}
+									{item.id === 1 ? <ReceiptLongRounded />
+										: item.id === 2 ? <TextSnippetRounded />
+											: null}
 								</ListItemIcon>
 								<ListItemText primary={item.title} />
 							</ListItemButton>
@@ -120,8 +126,7 @@ export default function DefaultPage({children}: {children?: any}) {
 									{item.id === 1 ? <DashboardRounded /> :
 										item.id === 2 ? <BarChartRounded /> :
 											item.id === 3 ? <GroupsRounded /> :
-												item.id === 4 ? <TextSnippetRounded />
-													: null}
+												null}
 								</ListItemIcon>
 								<ListItemText primary={item.title} />
 							</ListItemButton>

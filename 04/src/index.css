@@ -1,6 +1,7 @@
 * {
 	box-sizing: border-box;
 	transition: all 0.1s ease, background-position 1ms;
+	font-family: 'Rubik', sans-serif;
 }
 
 body {

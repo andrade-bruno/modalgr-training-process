@@ -25,16 +25,19 @@ import { Header } from 'styles/commom'
 import { Form } from './styles'
 import Modal from 'components/Modal'
 import Input from 'components/Input'
+import { useUserContext } from 'contexts/UserContext'
 
 const MyReleases = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-	const open = Boolean(anchorEl)
+	const open = Boolean(anchorEl) // HTML Element
 	const [isOpen, setIsOpen] = useState(false)
 
 	const [kilometers, setKilometers] = useState<number>()
 	const [hours, setHours] = useState<number>()
 
-	const { releases, addRelease, getReleases } = useReleasesContext()
+	const { releases, addRelease, getReleases, removeRelease } = useReleasesContext()
+	const { user } = useUserContext()
+	const myreleases = releases.filter(item => item.colaborador_id === user.id)
 
 	useEffect(() => {
 		getReleases()
@@ -56,6 +59,10 @@ const MyReleases = () => {
 			addRelease(kilometers, hours)
 			handleCloseModal()
 		}
+	}
+	const handleDeleteRelease = () => {
+		anchorEl?.id ? removeRelease(Number(anchorEl.id)) : null
+		handleCloseMenu()
 	}
 	
 	return (
@@ -83,13 +90,15 @@ const MyReleases = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{releases && releases.filter(item => item.colaborador_id === 1).map((item) => (
+						{myreleases.map((item) => (
 							<TableRow key={item.id}>
 								<TableCell align='center'>{item.id}</TableCell>
 								<TableCell align='center'>{item.km}</TableCell>
 								<TableCell align='center'>{item.tempo}</TableCell>
 								<TableCell align='center'>
-									<Button onClick={handleMenu}><MoreVertRounded /></Button>
+									<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
+										<MoreVertRounded />
+									</Button>
 								</TableCell>
 							</TableRow>
 						))}
@@ -106,7 +115,7 @@ const MyReleases = () => {
 				<MenuItem onClick={handleCloseMenu}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleCloseMenu}>
+				<MenuItem onClick={handleDeleteRelease}>
 					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>
@@ -121,7 +130,7 @@ const MyReleases = () => {
 						label='Distância (km)'
 						value={kilometers}
 						setter={setKilometers}
-						type='email'
+						type='number'
 						fullWidth
 						required
 					/>
@@ -129,14 +138,14 @@ const MyReleases = () => {
 						label='Horas'
 						value={hours}
 						setter={setHours}
-						type='email'
+						type='number'
 						fullWidth
 						required
 					/>
 					<Button
 						variant='outlined'
 						color='success'
-						onClick={() => handleAddRelease()}
+						onClick={handleAddRelease}
 					>
 						Finalizar
 					</Button>

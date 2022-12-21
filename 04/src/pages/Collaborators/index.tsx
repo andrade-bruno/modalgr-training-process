@@ -19,6 +19,8 @@ import {
 	DeleteRounded,
 	MoreVertRounded
 } from '@mui/icons-material'
+import Unauthorized from 'pages/Unauthorized'
+import { useUserContext } from 'contexts/UserContext'
 
 const rows = [
 	{ id: 1, name: 'Snow', bike: 35, status: 1 },
@@ -35,6 +37,9 @@ const rows = [
 const Collaborators = () => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
+
+	const { user } = useUserContext()
+	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
