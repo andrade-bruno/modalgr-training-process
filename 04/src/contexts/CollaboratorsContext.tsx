@@ -3,6 +3,7 @@ import ICollaborator from 'interfaces/ICollaborator'
 import http from 'services/http'
 import { AxiosRequestConfig } from 'axios'
 import { useUserContext } from './UserContext'
+import { toast } from 'react-toastify'
    
 interface Props {
 	collaborators: ICollaborator[]
@@ -45,8 +46,9 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<ICollaborator[]>('colaboradores', config)
 			setCollaborators(res.data)
-		} catch (error) {
+		} catch (error: any) {
 			console.log('getCollaborators error: ', error)
+			toast.error('Não foi possível obter a lista de colaboradores')
 		}
 	}
 
@@ -58,59 +60,87 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 			return res.data
 		} catch (error) {
 			console.log('getCollaboratorById error: ', error)
+			toast.error(`Não foi possível obter dados do colaborador #${id}`)
 		} 
 	}
 
 	const getCollaboratorNameById = (id: number) => {
-		if (collaborators[0]) {
-			const collaborator = collaborators.find(item => item.id === id)
-			return collaborator?.nome
-		} else {
-			return null
-		}
+		collaborators.find(item => item.id === id)?.nome
 	}
 
 	const addColaborator = async (collaborator: addOrUpdateProps) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
-		try {
-			const res = await http.post<ICollaborator>('colaboradores', {
+		const main = new Promise((resolve, reject) => {
+			http.post<ICollaborator>('colaboradores', {
 				nome, email, senha, data_registro, ativo: true, nivel_id
 			}, config)
-			setCollaborators([...collaborators, res.data])
-		} catch (error) {
-			console.log('addColaborator error: ', error)
-		} 
+				.then(res => {
+					resolve(setCollaborators([...collaborators, res.data]))
+				}).catch(error => {
+					reject(console.log('addColaborator error: ', error))
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: 'Colaborador adicionado com sucesso',
+				error: 'Não foi possível adicionar o colaborador'
+			}
+		)
 	}
 
 	const updateCollaborator = async (id: number, collaborator: addOrUpdateProps) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
-		try {
-			const updatedCollaborator = await http.put<ICollaborator>(`colaborador/${id}`, {
+		const main = new Promise((resolve, reject) => {
+			http.put<ICollaborator>(`colaborador/${id}`, {
 				nome, email, senha, data_registro, ativo: true, nivel_id
 			}, config)
-			const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
-			updatedList.push(updatedCollaborator.data)
-			const final = sortCollaboratorsByIdAsc(updatedList)
-			setCollaborators(final)
-		} catch (error) {
-			console.log('updateCollaborator error: ', error)
-		} 
+				.then(res => {
+					const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
+					updatedList.push(res.data)
+					const final = sortCollaboratorsByIdAsc(updatedList)
+					resolve(setCollaborators(final))
+				}).catch(error => {
+					reject(console.log('updateCollaborator error: ', error))
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: `${nome} atualizado(a) com sucesso!`,
+				error: 'Não foi possível atualizar o colaborador'
+			}
+		)
 	}
 
 	const inactivateCollaborator = async (id: number) => {
-		try {
-			const updatedCollaborator = await http.put<ICollaborator>(`colaborador/${id}`, {ativo: false}, config)
-			const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
-			updatedList.push(updatedCollaborator.data)
-			const final = sortCollaboratorsByIdAsc(updatedList)
-			setCollaborators(final)
-		} catch (error) {
-			console.log('inactivateCollaborator error: ', error)
-		} 
+		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		const main = new Promise((resolve, reject) => {
+			http.put<ICollaborator>(`colaborador/${id}`, {ativo: false}, config)
+				.then(res => {
+					const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
+					updatedList.push(res.data)
+					const final = sortCollaboratorsByIdAsc(updatedList)
+					resolve(setCollaborators(final))
+				}).catch(error => {
+					reject(console.log('inactivateCollaborator error: ', error))
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: 'Usuário desativado com sucesso!',
+				error: 'Não foi possível desativar o usuário'
+			}
+		)
 	}
 
 	return (

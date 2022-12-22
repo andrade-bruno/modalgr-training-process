@@ -44,7 +44,7 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 		toast.promise(
 			main,
 			{
-				error: 'Não foi possível obter os lançamentos'
+				error: 'Não foi possível obter a lista de lançamentos'
 			}
 		)
 	}

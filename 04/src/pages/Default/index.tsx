@@ -43,11 +43,11 @@ export default function DefaultPage({children}: {children?: any}) {
 
 	const theme = useTheme()
 	const navigate = useNavigate()
-	const { logout, user } = useUserContext()
+	const { logout, user, token } = useUserContext()
 
 	useEffect(() => {
 		user.nivel_id === 2 ? setAdminPages(defaultAdminPages) : setAdminPages([])
-	}, [user.nivel_id])
+	}, [user.nivel_id, token])
 
 	const handleLogout = () => {
 		logout()

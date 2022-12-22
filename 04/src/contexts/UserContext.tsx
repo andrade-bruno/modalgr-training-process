@@ -40,8 +40,9 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			setTimeout(() => navigate('/'), 2500)
 		} catch (error: any) {
 			console.log('login error: ', error)
-			error.response.data ? toast.error(`${error.response.data}`)
-				: error.message ? toast.error(`${error.message}`)
+			const { response, message } = error
+			response?.data ? toast.error(`${response.data}`)
+				: message ? toast.error(`${message}`)
 					: toast.error('Não foi possível acessar a plataforma')
 		}
 	}
