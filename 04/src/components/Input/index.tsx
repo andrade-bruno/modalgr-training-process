@@ -10,7 +10,7 @@ interface InputProps {
 	required?: boolean,
 	fullWidth?: boolean,
 	type: string,
-	value: string | number | undefined,
+	value: unknown,
 	setter: (e: any) => void
 }
 

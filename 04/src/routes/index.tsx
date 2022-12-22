@@ -9,10 +9,12 @@ import MyReleases from 'pages/MyReleases'
 import SignUp from 'pages/SignUp'
 import SignIn from 'pages/SignIn'
 import Docs from 'pages/Docs'
+import Bikes from 'pages/Bikes'
 
 import { UserProvider } from 'contexts/UserContext'
 import { ReleasesProvider } from 'contexts/ReleasesContext'
 import { CollaboratorsProvider } from 'contexts/CollaboratorsContext'
+import { BikesProvider } from 'contexts/BikesContext'
 
 const CommomRoutes = () => {
 	return (
@@ -20,21 +22,24 @@ const CommomRoutes = () => {
 			<UserProvider>
 				<CollaboratorsProvider>
 					<ReleasesProvider>
-						<Routes>
-							<Route path='/signin' element={<SignIn />} />
-							<Route path='/signup' element={<SignUp />} />
-							<Route path='/' element={<Default />}>
-								<Route index element={<MyReleases />} />
-								<Route path='docs' element={<Docs />} />
-							</Route>
-							<Route path='/admin' element={<Default />}>
-								<Route index element={<Dashboard /> } />
-								<Route path='dashboard' element={<Dashboard />} />
-								<Route path='releases' element={<Releases />} />
-								<Route path='collaborators' element={<Collaborators />} />
-							</Route>
-							<Route path='*' element={<NotFound />} />
-						</Routes>
+						<BikesProvider>
+							<Routes>
+								<Route path='/signin' element={<SignIn />} />
+								<Route path='/signup' element={<SignUp />} />
+								<Route path='/' element={<Default />}>
+									<Route index element={<MyReleases />} />
+									<Route path='docs' element={<Docs />} />
+								</Route>
+								<Route path='/admin' element={<Default />}>
+									<Route index element={<Dashboard /> } />
+									<Route path='dashboard' element={<Dashboard />} />
+									<Route path='releases' element={<Releases />} />
+									<Route path='collaborators' element={<Collaborators />} />
+									<Route path='bikes' element={<Bikes />} />
+								</Route>
+								<Route path='*' element={<NotFound />} />
+							</Routes>
+						</BikesProvider>
 					</ReleasesProvider>
 				</CollaboratorsProvider>
 			</UserProvider>

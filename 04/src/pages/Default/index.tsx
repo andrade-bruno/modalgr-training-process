@@ -26,7 +26,8 @@ import {
 	BarChartRounded,
 	ReceiptLongRounded,
 	GroupsRounded,
-	TextSnippetRounded
+	TextSnippetRounded,
+	DirectionsBikeRounded
 } from '@mui/icons-material'
 
 import { useTheme } from '@mui/material/styles'
@@ -126,7 +127,8 @@ export default function DefaultPage({children}: {children?: any}) {
 									{item.id === 1 ? <DashboardRounded /> :
 										item.id === 2 ? <BarChartRounded /> :
 											item.id === 3 ? <GroupsRounded /> :
-												null}
+												item.id === 4 ? <DirectionsBikeRounded /> :
+													null}
 								</ListItemIcon>
 								<ListItemText primary={item.title} />
 							</ListItemButton>
