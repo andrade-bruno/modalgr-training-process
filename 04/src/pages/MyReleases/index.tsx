@@ -20,11 +20,10 @@ import {
 	AddRounded
 } from '@mui/icons-material'
 
-import { useReleasesContext } from 'contexts/ReleasesContext'
-import { Header } from 'styles/commom'
-import { Form } from './styles'
+import { Header, Form } from 'styles/commom'
 import Modal from 'components/Modal'
 import Input from 'components/Input'
+import { useReleasesContext } from 'contexts/ReleasesContext'
 import { useUserContext } from 'contexts/UserContext'
 
 const MyReleases = () => {

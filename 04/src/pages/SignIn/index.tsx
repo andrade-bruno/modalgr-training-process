@@ -1,7 +1,7 @@
 import Input from 'components/Input'
 import { useState } from 'react'
 import { Button } from '@mui/material'
-import { Box, Container, Details, Form, Logo } from 'styles/commom'
+import { Box, Container, Details, SignInSignUpForm, Logo } from 'styles/commom'
 import { FormWrapper } from './styles'
 import { BikeImg } from 'pages/SignUp/styles'
 import { useUserContext } from 'contexts/UserContext'
@@ -23,7 +23,7 @@ const SignIn = () => {
 	return (
 		<Container>
 			<Box>
-				<Form style={{justifyContent: 'center'}} onSubmit={e => handleLogin(e)}>
+				<SignInSignUpForm style={{justifyContent: 'center'}} onSubmit={e => handleLogin(e)}>
 					<FormWrapper>
 						<Logo src='/assets/logo.png' alt='Logo' />
 						<Input
@@ -52,7 +52,7 @@ const SignIn = () => {
 							Entrar
 						</Button>
 					</FormWrapper>
-				</Form>
+				</SignInSignUpForm>
 				<Details>
 					<p>Explore seus movimentos! Quanto você já contribuiu para o meio ambiente até hoje?</p>
 					<BikeImg src='/assets/vintage-bike.png' alt='Vintage Bike' />

@@ -9,6 +9,16 @@ interface Props {
 	getCollaborators: () => void
 	getCollaboratorById: (id: number) => void
 	getCollaboratorNameById: (id: number) => void
+	addColaborator: (collaborator: addColaboratorProps) => void
+}
+
+interface addColaboratorProps {
+	nome: ICollaborator['nome']
+	email: ICollaborator['email']
+	senha: string
+	data_registro?: ICollaborator['data_registro'] | null
+	ativo: ICollaborator['ativo']
+	nivel_id: ICollaborator['nivel_id']
 }
 
 const CollaboratorsContext = React.createContext<Props>({} as Props)
@@ -51,9 +61,23 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		return collaborator?.nome
 	}
 
+	const addColaborator = async (collaborator: addColaboratorProps) => {
+		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		const { nome, email, senha, data_registro, ativo, nivel_id } = collaborator
+		try {
+			const res = await http.post<ICollaborator>('colaboradores', {
+				nome, email, senha, data_registro, ativo, nivel_id
+			}, config)
+			setCollaborators([...collaborators, res.data])
+		} catch (error) {
+			console.log('addColaborator error: ', error)
+		} 
+	}
+
 	return (
 		<CollaboratorsContext.Provider value={{
-			collaborators, getCollaborators, getCollaboratorById, getCollaboratorNameById
+			collaborators, getCollaborators, getCollaboratorById, getCollaboratorNameById, addColaborator
 		}}>
 			{children}
 		</CollaboratorsContext.Provider>

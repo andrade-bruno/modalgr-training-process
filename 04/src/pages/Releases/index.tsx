@@ -22,7 +22,7 @@ import {
 import { useReleasesContext } from 'contexts/ReleasesContext'
 import { useUserContext } from 'contexts/UserContext'
 
-import { Form } from './styles'
+import { Form } from 'styles/commom'
 import Input from 'components/Input'
 import Modal from 'components/Modal'
 import Unauthorized from 'pages/Unauthorized'

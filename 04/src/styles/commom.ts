@@ -42,7 +42,7 @@ export const Box = styled.section`
 	}
 `
 
-export const Form = styled.form`
+export const SignInSignUpForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -129,4 +129,15 @@ export const Logo = styled.img`
 export const Header = styled.header`
 	display: flex;
 	justify-content: space-between;
+`
+
+export const Form = styled.form`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content; space-between;
+	background-color: #FFF;
+	border-radius: inherit;
+	width: 100%;
+	padding: 0px 0px 10px 0px;
 `

@@ -1,7 +1,7 @@
 import Input from 'components/Input'
 import { useState } from 'react'
 import { Button } from '@mui/material'
-import { Box, Container, Details, Form, Logo } from 'styles/commom'
+import { Box, Container, Details, SignInSignUpForm, Logo } from 'styles/commom'
 import { BikeImg } from './styles'
 
 const SignUp = () => {
@@ -17,7 +17,7 @@ const SignUp = () => {
 					<p>Explore seus movimentos! Quanto você já contribuiu para o meio ambiente até hoje?</p>
 					<BikeImg src='/assets/vintage-bike.png' alt='Vintage Bike' />
 				</Details>
-				<Form>
+				<SignInSignUpForm>
 					<Logo src='/assets/logo.png' alt='Logo' />
 					<Input
 						label='Nome'
@@ -59,7 +59,7 @@ const SignUp = () => {
 					>
 						Começar
 					</Button>
-				</Form>
+				</SignInSignUpForm>
 			</Box>
 		</Container>
 	)
