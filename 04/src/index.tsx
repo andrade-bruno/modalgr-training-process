@@ -24,6 +24,7 @@ root.render(
 			autoClose={3000}
 			closeButton={true}
 			hideProgressBar={false}
+			rtl={false}
 			theme='colored'
 		/>
 	</>

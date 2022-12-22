@@ -50,12 +50,12 @@ const Collaborators = () => {
 	const today = new Date()
 	const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
 
-	const { user } = useUserContext()
+	const { user, token } = useUserContext()
 	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator } = useCollaboratorsContext()
 	
 	useEffect(() => {
-		getCollaborators()
-	}, [])
+		if (token) getCollaborators()
+	}, [token])
 	
 	if (user.nivel_id !== 2) return <Unauthorized />
 

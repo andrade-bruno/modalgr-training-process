@@ -38,12 +38,12 @@ const Releases = () => {
 	const [selectedRelease, setSelectedRelease] = useState<number>(0)
 
 	const { releases, removeRelease, getReleases, getReleaseById, updateRelease } = useReleasesContext()
-	const { user } = useUserContext()
+	const { user, token } = useUserContext()
 	const { getCollaboratorNameById } = useCollaboratorsContext()
 
 	useEffect(() => {
-		getReleases()
-	}, [])
+		if (token) getReleases()
+	}, [token])
 
 	if (user.nivel_id !== 2) return <Unauthorized />
 

@@ -37,12 +37,12 @@ const MyReleases = () => {
 	const [isEditing, setIsEditing] = useState(false)
 
 	const { releases, addRelease, getReleases, getReleaseById, removeRelease, updateRelease } = useReleasesContext()
-	const { user } = useUserContext()
+	const { user, token } = useUserContext()
 	const myreleases = releases.filter(item => item.colaborador_id === user.id)
 
 	useEffect(() => {
-		getReleases()
-	}, [])
+		if (token) getReleases()
+	}, [token])
 
 	const handleCloseModal = () => {
 		setIsOpen(false)

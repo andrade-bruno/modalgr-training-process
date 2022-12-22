@@ -32,7 +32,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
-		getCollaborators()
+		if (token) getCollaborators()
 	}, [])
 
 	const sortCollaboratorsByIdAsc = (collaborators: ICollaborator[]) => {

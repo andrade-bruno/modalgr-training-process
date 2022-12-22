@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import IUser from 'interfaces/IUser'
 import http from 'services/http'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
    
 interface Props {
 	user: IUser
@@ -17,6 +19,8 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 	const [user, setUser] = useState<IUser>({} as IUser)
 	const [token, setToken] = useState<string | null | undefined>(localStorage.getItem('token'))
 
+	const navigate = useNavigate()
+
 	useEffect(() => {
 		const user = localStorage.getItem('user')
 		user ? setUser(JSON.parse(user)) : setUser({} as IUser)
@@ -32,8 +36,13 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			setToken(token)
 			localStorage.setItem('token', token)
 			localStorage.setItem('user', JSON.stringify(colaborador))
-		} catch (error) {
+			toast.success(`Bem vindo, ${colaborador.nome}!`, {autoClose: false})
+			setTimeout(() => navigate('/'), 2500)
+		} catch (error: any) {
 			console.log('login error: ', error)
+			error.response.data ? toast.error(`${error.response.data}`)
+				: error.message ? toast.error(`${error.message}`)
+					: toast.error('Não foi possível acessar a plataforma')
 		}
 	}
 
