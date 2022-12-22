@@ -3,6 +3,7 @@ import IRelease from 'interfaces/IRelease'
 import http from 'services/http'
 import { useUserContext } from './UserContext'
 import { AxiosRequestConfig } from 'axios'
+import { toast } from 'react-toastify'
 interface Props {
 	releases: IRelease[]
 	getReleases: () => void
@@ -29,12 +30,23 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 	const getReleases = async () => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
-		try {
-			const res = await http.get<IRelease[]>('lancamentos', config)
-			setReleases(res.data)
-		} catch (error) {
-			console.log('getReleases error: ', error)
-		}
+		const main = new Promise((resolve, reject) => {
+			http.get<IRelease[]>('lancamentos', config)
+				.then(res => {
+					setReleases(res.data)
+					setTimeout(resolve, 1)
+				})
+				.catch(error => {
+					console.log('getReleases error', error)
+					setTimeout(reject, 1)
+				})
+		})
+		toast.promise(
+			main,
+			{
+				error: 'Não foi possível obter os lançamentos'
+			}
+		)
 	}
 
 	const getReleaseById = async (id: number) => {
@@ -51,14 +63,26 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 	const addRelease = async (km: number, tempo: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 		
-		try {
-			const res = await http.post('lancamentos', {
+		const main = new Promise((resolve, reject) => {
+			http.post('lancamentos', {
 				km, tempo, colaborador_id: user.id
 			}, config)
-			setReleases([...releases, res.data])
-		} catch (error) {
-			console.log('addRelease error: ', error)
-		}
+				.then(res => {
+					setReleases([...releases, res.data])
+					setTimeout(resolve, 1)
+				}).catch(error => {
+					console.log('addRelease error: ', error)
+					setTimeout(reject, 1)
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: 'Lançamento adicionado com sucesso',
+				error: 'Não foi possível adicionar o lançamento'
+			}
+		)
 	}
 
 	const removeRelease = async (id: number) => {

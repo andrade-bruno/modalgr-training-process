@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const instance = axios.create({
 	baseURL: 'http://192.168.10.80:3000/',
-	timeout: 10000,
+	timeout: 5000,
 })
 
 instance.defaults.headers.post['Content-Type'] = 'application/json'

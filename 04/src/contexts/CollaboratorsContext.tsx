@@ -62,8 +62,12 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	}
 
 	const getCollaboratorNameById = (id: number) => {
-		const collaborator = collaborators.find(item => item.id === id)
-		return collaborator?.nome
+		if (collaborators) {
+			const collaborator = collaborators.find(item => item.id === id)
+			return collaborator?.nome
+		} else {
+			return null
+		}
 	}
 
 	const addColaborator = async (collaborator: addOrUpdateProps) => {
