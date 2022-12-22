@@ -18,10 +18,10 @@ const root = ReactDOM.createRoot(
 root.render(
 	<>
 		<Routes />
-		
+
 		<ToastContainer
 			position='top-right'
-			autoClose={2500}
+			autoClose={3000}
 			closeButton={true}
 			hideProgressBar={false}
 			theme='colored'

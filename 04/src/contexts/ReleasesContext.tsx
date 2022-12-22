@@ -56,8 +56,9 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<IRelease>(`lancamentos/${id}`, config)
 			return res.data
 		} catch (error) {
+			toast.error('Não foi possível obter os dados do lançamento')
 			console.log('getReleaseById error: ', error)
-		} 
+		}
 	}
 
 	const addRelease = async (km: number, tempo: number) => {
@@ -88,29 +89,53 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 	const removeRelease = async (id: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 		
-		try {
-			await http.delete(`lancamentos/${id}`, config)
-			const filtered = releases.filter(release => release.id !== id)
-			setReleases(filtered)
-		} catch (error) {
-			console.log('removeRelease error: ', error)
-		}
+		const main = new Promise((resolve, reject) => {
+			http.delete(`lancamentos/${id}`, config)
+				.then(() => {
+					const filtered = releases.filter(release => release.id !== id)
+					setReleases(filtered)
+					setTimeout(resolve, 1)
+				}).catch(error => {
+					console.log('removeRelease error: ', error)
+					setTimeout(reject, 1)
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: `Lançamento #${id} removido com sucesso`,
+				error: `Não foi possível remover o lançamento #${id}`
+			}
+		)
 	}
 
 	const updateRelease = async (releaseId: number, km: number, tempo: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 		
-		try {
-			const updatedRelease = await http.put<IRelease>(`lancamentos/${releaseId}`, {
+		const main = new Promise((resolve, reject) => {
+			http.put<IRelease>(`lancamentos/${releaseId}`, {
 				km, tempo, colaborador_id: user.id
 			}, config)
-			const updatedList = releases.filter(release => release.id !== releaseId)
-			updatedList.push(updatedRelease.data)
-			const final = sortReleasesByIdAsc(updatedList)
-			setReleases(final)
-		} catch (error) {
-			console.log('removeRelease error: ', error)
-		}
+				.then(res => {
+					const updatedList = releases.filter(release => release.id !== releaseId)
+					updatedList.push(res.data)
+					const final = sortReleasesByIdAsc(updatedList)
+					setReleases(final)
+					setTimeout(resolve, 1)
+				}).catch(error => {
+					console.log('updateRelease error: ', error)
+					setTimeout(reject, 1)
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: `Lançamento #${releaseId} atualizado com sucesso`,
+				error: `Não foi possível atualizar o lançamento #${releaseId}`
+			}
+		)
 	}
 
 	return (

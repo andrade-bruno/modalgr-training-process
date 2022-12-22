@@ -62,7 +62,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	}
 
 	const getCollaboratorNameById = (id: number) => {
-		if (collaborators) {
+		if (collaborators[0]) {
 			const collaborator = collaborators.find(item => item.id === id)
 			return collaborator?.nome
 		} else {

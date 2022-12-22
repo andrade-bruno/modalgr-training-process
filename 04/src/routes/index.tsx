@@ -18,8 +18,8 @@ const CommomRoutes = () => {
 	return (
 		<BrowserRouter>
 			<UserProvider>
-				<ReleasesProvider>
-					<CollaboratorsProvider>
+				<CollaboratorsProvider>
+					<ReleasesProvider>
 						<Routes>
 							<Route path='/signin' element={<SignIn />} />
 							<Route path='/signup' element={<SignUp />} />
@@ -35,8 +35,8 @@ const CommomRoutes = () => {
 							</Route>
 							<Route path='*' element={<NotFound />} />
 						</Routes>
-					</CollaboratorsProvider>
-				</ReleasesProvider>
+					</ReleasesProvider>
+				</CollaboratorsProvider>
 			</UserProvider>
 		</BrowserRouter>
 	)
