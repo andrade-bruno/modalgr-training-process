@@ -96,7 +96,7 @@ const Releases = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{releases?.map((item) => (
+						{releases[0] && releases.map((item) => (
 							<TableRow key={item.colaborador_id}>
 								<TableCell align='center'>{item.id}</TableCell>
 								<TableCell align='left'>{`${getCollaboratorNameById(item.colaborador_id)}`}</TableCell>

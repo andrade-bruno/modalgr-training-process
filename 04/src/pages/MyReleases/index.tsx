@@ -116,7 +116,7 @@ const MyReleases = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{myreleases.map((item) => (
+						{myreleases[0] && myreleases.map((item) => (
 							<TableRow key={item.id}>
 								<TableCell align='center'>{item.id}</TableCell>
 								<TableCell align='center'>{item.km}</TableCell>

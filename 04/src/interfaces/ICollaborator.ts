@@ -5,7 +5,7 @@ export default interface ICollaborator {
     nome: string,
     email: string,
     // senha: string, // Security reasons
-    data_registro: Dayjs,
+    data_registro: Dayjs | string | null,
     ativo: boolean,
     createdAt: Date,
     updatedAt: Date,

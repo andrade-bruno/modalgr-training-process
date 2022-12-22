@@ -39,15 +39,19 @@ const Collaborators = () => {
 	const open = Boolean(anchorEl)
 	const [isOpen, setIsOpen] = useState(false)
 	const [isEditing, setIsEditing] = useState(false)
+	const [selectedCollaborator, setSelectedCollaborator] = useState<number>(0)
 
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [registerDate, setRegisterDate] = useState<Dayjs | null>(null)
+	const [registerDate, setRegisterDate] = useState<Dayjs | string | null>(null)
 	const [permissionLevel, setPermissionLevel] = useState(1)
 
+	const today = new Date()
+	const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+
 	const { user } = useUserContext()
-	const { collaborators, getCollaborators, addColaborator } = useCollaboratorsContext()
+	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator } = useCollaboratorsContext()
 	
 	useEffect(() => {
 		getCollaborators()
@@ -63,13 +67,19 @@ const Collaborators = () => {
 	}
 	const handleCloseModal = () => {
 		setIsOpen(false)
-		// setKilometers(0)
-		// setHours(0)
-		// setSelectedRelease(0)
-		setIsEditing(false)
+		setTimeout(() => {
+			setName('')
+			setEmail('')
+			setRegisterDate(null)
+			setPermissionLevel(1)
+			setSelectedCollaborator(0)
+			setIsEditing(false)
+		}, 500)
 	}
 	const handleAddCollaborator = () => {
-		return 
+		setIsEditing(false)
+		setIsOpen(true)
+		handleCloseMenu()
 	}
 	const handleSubmitAdd = () => {
 		addColaborator({
@@ -77,17 +87,37 @@ const Collaborators = () => {
 			email: email,
 			senha: password,
 			data_registro: registerDate,
-			ativo: true,
 			nivel_id: permissionLevel,
 		})
 		handleCloseModal()
 	}
+	const handleEditCollaborator = async () => {
+		setIsEditing(true)
+		const res = await getCollaboratorById(Number(anchorEl?.id))
+		if (res) {
+			setName(res.nome)
+			setEmail(res.email)
+			setRegisterDate(res.data_registro)
+			setPermissionLevel(res.nivel_id)
+			setSelectedCollaborator(Number(anchorEl?.id))
+			setIsOpen(true)
+			handleCloseMenu()
+		}
+	}
 	const handleSubmitEdit = async () => {
-		// if (kilometers && hours) {
-		// 	await updateRelease(selectedRelease, kilometers, hours)
-		// 	setIsOpen(false)
-		// 	handleCloseMenu()
-		// }
+		await updateCollaborator(selectedCollaborator, {
+			nome: name,
+			email: email,
+			senha: password,
+			data_registro: registerDate,
+			nivel_id: permissionLevel,
+		})
+		setIsOpen(false)
+		handleCloseMenu()
+	}
+	const handleInactivateCollaborator = async () => {
+		await inactivateCollaborator(Number(anchorEl?.id))
+		handleCloseMenu()
 	}
 
 	return (
@@ -112,12 +142,13 @@ const Collaborators = () => {
 							<TableCell align='left'>Nome</TableCell>
 							<TableCell align='left'>E-mail</TableCell>
 							<TableCell align='center'>Status</TableCell>
+							<TableCell align='center'>Acesso</TableCell>
 							<TableCell align='center'>Ações</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{collaborators && collaborators.map((item) => (
-							<TableRow key={item.id}>
+						{collaborators[0] && collaborators.map((item) => (
+							<TableRow key={item.id} style={item.id === user.id ? {backgroundColor: '#dff7e0'} : {}}>
 								<TableCell align='center'>{item.id}</TableCell>
 								<TableCell align='left'>{item.nome}</TableCell>
 								<TableCell align='left'>{item.email}</TableCell>
@@ -128,7 +159,17 @@ const Collaborators = () => {
 									}
 								</TableCell>
 								<TableCell align='center'>
-									<Button onClick={handleMenu}><MoreVertRounded /></Button>
+									{item.nivel_id === 2 ?
+										<Chip variant="outlined" color="warning" label='Admin'/> : 
+										<Chip variant='outlined' color='primary' label='Colaborador' />
+									}
+								</TableCell>
+								<TableCell align='center'>
+									{item.ativo && item.id !== user.id &&
+										<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
+											<MoreVertRounded />
+										</Button>
+									}
 								</TableCell>
 							</TableRow>
 						))}
@@ -142,18 +183,18 @@ const Collaborators = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleCloseMenu}>
+				<MenuItem onClick={handleEditCollaborator}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleCloseMenu}>
-					<DeleteRounded color='error' /> Remover
+				<MenuItem onClick={handleInactivateCollaborator}>
+					<DeleteRounded color='error' /> Desativar
 				</MenuItem>
 			</Menu>
 
 			<Modal
 				isOpen={isOpen}
 				onClose={() => handleCloseModal()}
-				title={isEditing ? 'Editar lançamento' : 'Adicionar lançamento'}
+				title={isEditing ? 'Editar colaborador' : 'Adicionar colaborador'}
 			>
 				<Form>
 					<Input
@@ -173,21 +214,28 @@ const Collaborators = () => {
 						required
 					/>
 					<Input
-						label='Senha'
+						label={isEditing ? 'Nova senha': 'Senha'}
 						value={password}
 						setter={setPassword}
 						type='password'
 						fullWidth
-						required
+						required={!isEditing}
 					/>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
 							label="Data de registro"
 							value={registerDate}
+							views={['day', 'month', 'year']}
+							maxDate={currentDate}
 							onChange={(newValue) => {
 								setRegisterDate(newValue)
 							}}
-							renderInput={(params) => <TextField {...params}/>}
+							renderInput={(params) => <TextField
+								fullWidth
+								required
+								margin='normal'
+								{...params}
+							/>}
 						/>
 					</LocalizationProvider>
 					<Input

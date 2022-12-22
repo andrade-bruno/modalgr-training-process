@@ -7,17 +7,18 @@ import { useUserContext } from './UserContext'
 interface Props {
 	collaborators: ICollaborator[]
 	getCollaborators: () => void
-	getCollaboratorById: (id: number) => void
+	getCollaboratorById: (id: number) => Promise<ICollaborator | undefined>
 	getCollaboratorNameById: (id: number) => void
-	addColaborator: (collaborator: addColaboratorProps) => void
+	addColaborator: (collaborator: addOrUpdateProps) => void
+	updateCollaborator: (id: number, collaborator: addOrUpdateProps) => void
+	inactivateCollaborator: (id: number) => void
 }
 
-interface addColaboratorProps {
+interface addOrUpdateProps {
 	nome: ICollaborator['nome']
 	email: ICollaborator['email']
 	senha: string
-	data_registro?: ICollaborator['data_registro'] | null
-	ativo: ICollaborator['ativo']
+	data_registro?: ICollaborator['data_registro']
 	nivel_id: ICollaborator['nivel_id']
 }
 
@@ -33,6 +34,10 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	useEffect(() => {
 		getCollaborators()
 	}, [])
+
+	const sortCollaboratorsByIdAsc = (collaborators: ICollaborator[]) => {
+		return collaborators.sort((a, b) => a.id - b.id)
+	}
 
 	const getCollaborators = async () => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
@@ -61,13 +66,13 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		return collaborator?.nome
 	}
 
-	const addColaborator = async (collaborator: addColaboratorProps) => {
+	const addColaborator = async (collaborator: addOrUpdateProps) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
-		const { nome, email, senha, data_registro, ativo, nivel_id } = collaborator
+		const { nome, email, senha, data_registro, nivel_id } = collaborator
 		try {
 			const res = await http.post<ICollaborator>('colaboradores', {
-				nome, email, senha, data_registro, ativo, nivel_id
+				nome, email, senha, data_registro, ativo: true, nivel_id
 			}, config)
 			setCollaborators([...collaborators, res.data])
 		} catch (error) {
@@ -75,9 +80,44 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		} 
 	}
 
+	const updateCollaborator = async (id: number, collaborator: addOrUpdateProps) => {
+		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		const { nome, email, senha, data_registro, nivel_id } = collaborator
+		try {
+			const updatedCollaborator = await http.put<ICollaborator>(`colaborador/${id}`, {
+				nome, email, senha, data_registro, ativo: true, nivel_id
+			}, config)
+			const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
+			updatedList.push(updatedCollaborator.data)
+			const final = sortCollaboratorsByIdAsc(updatedList)
+			setCollaborators(final)
+		} catch (error) {
+			console.log('updateCollaborator error: ', error)
+		} 
+	}
+
+	const inactivateCollaborator = async (id: number) => {
+		try {
+			const updatedCollaborator = await http.put<ICollaborator>(`colaborador/${id}`, {ativo: false}, config)
+			const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
+			updatedList.push(updatedCollaborator.data)
+			const final = sortCollaboratorsByIdAsc(updatedList)
+			setCollaborators(final)
+		} catch (error) {
+			console.log('inactivateCollaborator error: ', error)
+		} 
+	}
+
 	return (
 		<CollaboratorsContext.Provider value={{
-			collaborators, getCollaborators, getCollaboratorById, getCollaboratorNameById, addColaborator
+			collaborators,
+			getCollaborators,
+			getCollaboratorById,
+			getCollaboratorNameById,
+			addColaborator,
+			updateCollaborator,
+			inactivateCollaborator
 		}}>
 			{children}
 		</CollaboratorsContext.Provider>

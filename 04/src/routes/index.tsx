@@ -28,6 +28,7 @@ const CommomRoutes = () => {
 								<Route path='docs' element={<Docs />} />
 							</Route>
 							<Route path='/admin' element={<Default />}>
+								<Route index element={<Dashboard /> } />
 								<Route path='dashboard' element={<Dashboard />} />
 								<Route path='releases' element={<Releases />} />
 								<Route path='collaborators' element={<Collaborators />} />
