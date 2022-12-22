@@ -34,7 +34,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 
 	useEffect(() => {
 		if (token) getCollaborators()
-	}, [])
+	}, [token])
 
 	const sortCollaboratorsByIdAsc = (collaborators: ICollaborator[]) => {
 		return collaborators.sort((a, b) => a.id - b.id)
@@ -65,7 +65,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	}
 
 	const getCollaboratorNameById = (id: number) => {
-		collaborators.find(item => item.id === id)?.nome
+		const collaborator = collaborators.find(item => item.id === id)
+		return collaborator?.nome
 	}
 
 	const addColaborator = async (collaborator: addOrUpdateProps) => {
