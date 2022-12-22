@@ -70,7 +70,8 @@ const Bikes = () => {
 		setIsOpen(true)
 		handleCloseMenu()
 	}
-	const handleSubmitAdd = () => {
+	const handleSubmitAdd = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		addBike({
 			colaborador_id: collaboratorId,
 			numero: bikeNumber,
@@ -89,7 +90,8 @@ const Bikes = () => {
 			handleCloseMenu()
 		}
 	}
-	const handleSubmitEdit = async () => {
+	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		await updateBike(selectedBike, {
 			colaborador_id: collaboratorId,
 			numero: bikeNumber,
@@ -106,7 +108,7 @@ const Bikes = () => {
 	return (
 		<>
 			<Header>
-				<h1>Bikes</h1>
+				<h1>Gerenciar Bicicletas</h1>
 				<Button
 					variant="outlined"
 					color="success"
@@ -130,18 +132,18 @@ const Bikes = () => {
 					</TableHead>
 					<TableBody>
 						{bikes[0] && bikes.map((item) => (
-							<TableRow key={item.id} style={item.id === user.id ? {backgroundColor: '#dff7e0'} : {}}>
+							<TableRow key={item.id} style={item.colaborador_id === user.id ? {backgroundColor: '#dff7e0'} : {}}>
 								<TableCell align='left'>{item.id}</TableCell>
 								<TableCell align='left'>{item.numero}</TableCell>
 								<TableCell align='left'>
-									{item.status ?
-										<Chip variant="outlined" color="success" label='Ativa'/> : 
-										<Chip variant='outlined' color='error' label='Inativa' />
+									{item.status && item.colaborador_id ? <Chip variant="outlined" color="info" label='Em uso'/> 
+										: item.status ? <Chip variant="outlined" color="success" label='Disponível'/>
+											: <Chip variant='outlined' color='error' label='Inativa' />
 									}
 								</TableCell>
 								<TableCell align='left'>{`${getCollaboratorNameById(item.colaborador_id)}`}</TableCell>
 								<TableCell align='left'>
-									{item.status && item.id !== user.id &&
+									{item.status &&
 										<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
 											<MoreVertRounded />
 										</Button>
@@ -163,7 +165,7 @@ const Bikes = () => {
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
 				<MenuItem onClick={handleDeleteBike}>
-					<DeleteRounded color='error' /> Desativar
+					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>
 
@@ -172,7 +174,7 @@ const Bikes = () => {
 				onClose={handleCloseModal}
 				title={isEditing ? 'Editar bicicleta' : 'Adicionar bicicleta'}
 			>
-				<Form>
+				<Form onSubmit={(e) => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e)}>
 					<Input
 						label='Número'
 						value={bikeNumber}
@@ -182,25 +184,24 @@ const Bikes = () => {
 						required
 					/>
 					<Input
-						label='Usuário'
+						label='Usuário (opcional)'
 						value={collaboratorId}
 						setter={setCollaboratorId}
 						type='number'
 						fullWidth
-						required
+						required={false}
 					/>
-					<Input
+					{isEditing && <Input
 						label='Ativo'
 						value={isActive}
 						setter={setIsActive}
 						type='status'
 						fullWidth
-						required={!isEditing}
-					/>
+					/>}
 					<Button
 						variant='outlined'
 						color='success'
-						onClick={() => isEditing ? handleSubmitEdit() : handleSubmitAdd()}
+						type='submit'
 					>
 						{isEditing ? 'Editar' : 'Adicionar'}
 					</Button>

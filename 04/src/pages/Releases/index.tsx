@@ -66,7 +66,8 @@ const Releases = () => {
 		anchorEl ? removeRelease(Number(anchorEl.id)) : null
 		handleCloseMenu()
 	}
-	const handleSubmitEdit = async () => {
+	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		if (kilometers && hours) {
 			await updateRelease(selectedRelease, kilometers, hours)
 			setIsOpen(false)
@@ -135,7 +136,7 @@ const Releases = () => {
 				onClose={() => handleCloseModal()}
 				title='Editar lançamento'
 			>
-				<Form>
+				<Form onSubmit={e => handleSubmitEdit(e)}>
 					<Input
 						label='Distância (km)'
 						value={kilometers}
@@ -155,7 +156,7 @@ const Releases = () => {
 					<Button
 						variant='outlined'
 						color='success'
-						onClick={handleSubmitEdit}
+						type='submit'
 					>
 						Editar
 					</Button>

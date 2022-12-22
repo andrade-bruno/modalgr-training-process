@@ -81,8 +81,9 @@ const Collaborators = () => {
 		setIsOpen(true)
 		handleCloseMenu()
 	}
-	const handleSubmitAdd = () => {
-		addColaborator({
+	const handleSubmitAdd = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		await addColaborator({
 			nome: name,
 			email: email,
 			senha: password,
@@ -104,7 +105,8 @@ const Collaborators = () => {
 			handleCloseMenu()
 		}
 	}
-	const handleSubmitEdit = async () => {
+	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		await updateCollaborator(selectedCollaborator, {
 			nome: name,
 			email: email,
@@ -196,7 +198,7 @@ const Collaborators = () => {
 				onClose={() => handleCloseModal()}
 				title={isEditing ? 'Editar colaborador' : 'Adicionar colaborador'}
 			>
-				<Form>
+				<Form onSubmit={(e) => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e)}>
 					<Input
 						label='Nome'
 						value={name}
@@ -249,7 +251,7 @@ const Collaborators = () => {
 					<Button
 						variant='outlined'
 						color='success'
-						onClick={() => isEditing ? handleSubmitEdit() : handleSubmitAdd()}
+						type='submit'
 					>
 						{isEditing ? 'Editar' : 'Adicionar'}
 					</Button>

@@ -56,6 +56,7 @@ const SignUp = () => {
 						disabled={false}
 						size="large"
 						variant="outlined"
+						type='submit'
 					>
 						Começar
 					</Button>
