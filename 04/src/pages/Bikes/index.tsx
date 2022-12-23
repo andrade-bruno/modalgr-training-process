@@ -18,7 +18,8 @@ import {
 	EditRounded,
 	DeleteRounded,
 	MoreVertRounded,
-	AddRounded
+	AddRounded,
+	BlockRounded
 } from '@mui/icons-material'
 
 import Unauthorized from 'pages/Unauthorized'
@@ -42,7 +43,7 @@ const Bikes = () => {
 
 	const { user, token } = useUserContext()
 	const { getCollaboratorNameById } = useCollaboratorsContext()
-	const { bikes, getBikes, getBikeById, addBike, deleteBike, updateBike } = useBikesContext()
+	const { bikes, getBikes, getBikeById, addBike, deleteBike, updateBike, inactivateBike } = useBikesContext()
 	
 	useEffect(() => {
 		if (token) getBikes()
@@ -104,6 +105,10 @@ const Bikes = () => {
 		await deleteBike(Number(anchorEl?.id))
 		handleCloseMenu()
 	}
+	const handleInactivateBike = async () => {
+		await inactivateBike(Number(anchorEl?.id))
+		handleCloseMenu()
+	}
 
 	return (
 		<>
@@ -163,6 +168,9 @@ const Bikes = () => {
 			>
 				<MenuItem onClick={handleEditBike}>
 					<EditRounded color='warning'/> Editar
+				</MenuItem>
+				<MenuItem onClick={handleInactivateBike}>
+					<BlockRounded color='warning' /> Desativar
 				</MenuItem>
 				<MenuItem onClick={handleDeleteBike}>
 					<DeleteRounded color='error' /> Remover

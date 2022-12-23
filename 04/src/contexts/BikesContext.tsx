@@ -12,6 +12,7 @@ interface Props {
 	addBike: (bike: addOrUpdateProps) => void
 	updateBike: (id: number, bike: addOrUpdateProps) => void
 	deleteBike: (id: number) => void
+	inactivateBike: (id: number) => void
 }
 
 interface addOrUpdateProps {
@@ -90,7 +91,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 
 		const { numero, colaborador_id, status } = bike
 		const main = new Promise((resolve, reject) => {
-			http.put<IBike>(`colaborador/${id}`, {
+			http.put<IBike>(`bicicleta/${id}`, {
 				numero, colaborador_id, status
 			}, config)
 				.then(res => {
@@ -112,16 +113,38 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 		)
 	}
 
-	const deleteBike = async (id: number) => {
+	const inactivateBike = async (id: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const main = new Promise((resolve, reject) => {
-			http.put<IBike>(`biclicleta/${id}`, {status: false}, config)
+			http.put<IBike>(`bicicleta/${id}`, {status: false}, config)
 				.then(res => {
 					const updatedList = bikes.filter(bike => bike.id !== id)
 					updatedList.push(res.data)
 					const final = sortBikesByIdAsc(updatedList)
 					resolve(setBikes(final))
+				}).catch(error => {
+					reject(console.log('inactivateBike error: ', error))
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: 'Bicicleta desativada com sucesso!',
+				error: 'Não foi possível desativar a bicicleta'
+			}
+		)
+	}
+
+	const deleteBike = async (id: number) => {
+		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		const main = new Promise((resolve, reject) => {
+			http.delete<IBike>(`bicicleta/${id}`, config)
+				.then(() => {
+					const updatedList = bikes.filter(bike => bike.id !== id)
+					resolve(setBikes(updatedList))
 				}).catch(error => {
 					reject(console.log('deleteBike error: ', error))
 				})
@@ -143,7 +166,8 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			getBikeById,
 			addBike,
 			updateBike,
-			deleteBike
+			deleteBike,
+			inactivateBike
 		}}>
 			{children}
 		</BikesContext.Provider>
