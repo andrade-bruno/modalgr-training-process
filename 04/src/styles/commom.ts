@@ -9,10 +9,6 @@ export const Container = styled.main`
 	justify-content: center;
 	padding: 2vw;
 	background-color: #F1F1F1;
-
-	@media (max-width: 360px) {
-		height: auto;
-	}
 `
 
 export const Box = styled.section`

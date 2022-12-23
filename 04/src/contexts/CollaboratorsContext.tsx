@@ -4,13 +4,14 @@ import http from 'services/http'
 import { AxiosRequestConfig } from 'axios'
 import { useUserContext } from './UserContext'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
    
 interface Props {
 	collaborators: ICollaborator[]
 	getCollaborators: () => void
 	getCollaboratorById: (id: number) => Promise<ICollaborator | undefined>
 	getCollaboratorNameById: (id: number) => void
-	addColaborator: (collaborator: addOrUpdateProps) => void
+	addColaborator: (collaborator: addOrUpdateProps, isSignUpPage?: boolean) => void
 	updateCollaborator: (id: number, collaborator: addOrUpdateProps) => void
 	inactivateCollaborator: (id: number) => void
 }
@@ -29,7 +30,8 @@ CollaboratorsContext.displayName = 'CollaboratorsContext'
 export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	const [collaborators, setCollaborators] = useState<ICollaborator[]>({} as ICollaborator[])
 
-	const { token } = useUserContext()
+	const navigate = useNavigate()
+	const { token, setUser, setToken } = useUserContext()
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
@@ -71,16 +73,27 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		}
 	}
 
-	const addColaborator = async (collaborator: addOrUpdateProps) => {
+	const addColaborator = async (collaborator: addOrUpdateProps, isSignUpPage?: boolean) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
 		const main = new Promise((resolve, reject) => {
+			// Deveria retornar ICollaborator + token
+			// http.post<{colaborador: ICollaborator, token: string}>('colaboradores', {
 			http.post<ICollaborator>('colaboradores', {
 				nome, email, senha, data_registro, ativo: true, nivel_id
 			}, config)
 				.then(res => {
 					resolve(setCollaborators([...collaborators, res.data]))
+					if (isSignUpPage) {
+						// const { colaborador, token } = res.data
+						// setUser(colaborador)
+						// setToken(token)
+						// localStorage.setItem('token', token)
+						// localStorage.setItem('user', JSON.stringify(colaborador))
+						// toast.success(`Bem vindo, ${colaborador.nome}!`, {autoClose: false})
+						// setTimeout(() => navigate('/'), 2500)
+					}
 				}).catch(error => {
 					reject(console.log('addColaborator error: ', error))
 				})
@@ -89,8 +102,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 			main,
 			{
 				pending: 'Aguarde...',
-				success: 'Colaborador adicionado com sucesso',
-				error: 'Não foi possível adicionar o colaborador'
+				success: 'Usuário adicionado com sucesso',
+				error: 'Não foi possível adicionar o usuário'
 			}
 		)
 	}

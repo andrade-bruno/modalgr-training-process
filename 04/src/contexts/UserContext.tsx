@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 interface Props {
 	user: IUser
 	setUser: React.Dispatch<React.SetStateAction<IUser>>
+	setToken: React.Dispatch<React.SetStateAction<string | null | undefined>>
 	token: string | null | undefined
 	login: (email: string, password: string) => void
 	logout: () => void
@@ -55,7 +56,7 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 	}
 
 	return (
-		<UserContext.Provider value={{user, setUser, token, login, logout}}>
+		<UserContext.Provider value={{user, setUser, token, setToken, login, logout}}>
 			{children}
 		</UserContext.Provider>
 	)

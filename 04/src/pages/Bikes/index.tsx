@@ -137,7 +137,7 @@ const Bikes = () => {
 					</TableHead>
 					<TableBody>
 						{bikes[0] && bikes.map((item) => (
-							<TableRow key={item.id} style={item.colaborador_id === user.id ? {backgroundColor: '#dff7e0'} : {}}>
+							<TableRow key={item.id} style={item.colaborador_id === user.id ? {backgroundColor: '#e9f1f5'} : {}}>
 								<TableCell align='left'>{item.id}</TableCell>
 								<TableCell align='left'>{item.numero}</TableCell>
 								<TableCell align='left'>

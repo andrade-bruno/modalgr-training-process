@@ -150,7 +150,7 @@ const Collaborators = () => {
 					</TableHead>
 					<TableBody>
 						{collaborators[0] && collaborators.map((item) => (
-							<TableRow key={item.id} style={item.id === user.id ? {backgroundColor: '#dff7e0'} : {}}>
+							<TableRow key={item.id} style={item.id === user.id ? {backgroundColor: '#e9f1f5'} : {}}>
 								<TableCell align='center'>{item.id}</TableCell>
 								<TableCell align='left'>{item.nome}</TableCell>
 								<TableCell align='left'>{item.email}</TableCell>

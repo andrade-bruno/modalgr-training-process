@@ -1,9 +1,8 @@
 import Input from 'components/Input'
 import { useState } from 'react'
 import { Button } from '@mui/material'
-import { Box, Container, Details, SignInSignUpForm, Logo } from 'styles/commom'
-import { FormWrapper } from './styles'
-import { BikeImg } from 'pages/SignUp/styles'
+import { Box, Container, SignInSignUpForm, Logo } from 'styles/commom'
+import { BackgroundImg } from './styles'
 import { useUserContext } from 'contexts/UserContext'
 
 const SignIn = () => {
@@ -21,39 +20,34 @@ const SignIn = () => {
 		<Container>
 			<Box>
 				<SignInSignUpForm style={{justifyContent: 'center'}} onSubmit={e => handleLogin(e)}>
-					<FormWrapper>
-						<Logo src='/assets/logo.png' alt='Logo' />
-						<Input
-							label='E-mail'
-							value={email}
-							setter={setEmail}
-							type='email'
-							fullWidth
-							required
-						/>
-						<Input
-							label='Senha'
-							value={password}
-							setter={setPassword}
-							type='password'
-							fullWidth
-							required
-						/>
-						<Button
-							color="primary"
-							disabled={false}
-							size="large"
-							variant="outlined"
-							type='submit'
-						>
-							Entrar
-						</Button>
-					</FormWrapper>
+					<Logo src='/assets/logo.png' alt='Logo' />
+					<Input
+						label='E-mail'
+						value={email}
+						setter={setEmail}
+						type='email'
+						fullWidth
+						required
+					/>
+					<Input
+						label='Senha'
+						value={password}
+						setter={setPassword}
+						type='password'
+						fullWidth
+						required
+					/>
+					<Button
+						color="primary"
+						disabled={false}
+						size="large"
+						variant="outlined"
+						type='submit'
+					>
+						Entrar
+					</Button>
 				</SignInSignUpForm>
-				<Details>
-					<p>Explore seus movimentos! Quanto você já contribuiu para o meio ambiente até hoje?</p>
-					<BikeImg src='/assets/vintage-bike.png' alt='Vintage Bike' />
-				</Details>
+				<BackgroundImg />
 			</Box>
 		</Container>
 	)
