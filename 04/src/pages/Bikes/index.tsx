@@ -45,11 +45,11 @@ const Bikes = () => {
 	const { getCollaboratorNameById } = useCollaboratorsContext()
 	const { bikes, getBikes, getBikeById, addBike, deleteBike, updateBike, inactivateBike } = useBikesContext()
 	
+	if (user.nivel_id !== 2) return <Unauthorized />
+
 	useEffect(() => {
 		if (token) getBikes()
 	}, [token])
-	
-	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)

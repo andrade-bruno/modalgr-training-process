@@ -53,11 +53,11 @@ const Collaborators = () => {
 	const { user, token } = useUserContext()
 	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator } = useCollaboratorsContext()
 	
+	if (user.nivel_id !== 2) return <Unauthorized />
+
 	useEffect(() => {
 		if (token) getCollaborators()
 	}, [token])
-	
-	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)

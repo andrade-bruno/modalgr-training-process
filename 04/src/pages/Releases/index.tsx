@@ -41,14 +41,14 @@ const Releases = () => {
 	const { user, token } = useUserContext()
 	const { getCollaborators, getCollaboratorNameById } = useCollaboratorsContext()
 
+	if (user.nivel_id !== 2) return <Unauthorized />
+
 	useEffect(() => {
 		if (token) {
 			getCollaborators()
 			getReleases()
 		}
 	}, [token])
-
-	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleCloseModal = () => {
 		setIsOpen(false)
@@ -101,7 +101,7 @@ const Releases = () => {
 					</TableHead>
 					<TableBody>
 						{releases[0] && releases.map((item) => (
-							<TableRow key={item.colaborador_id}>
+							<TableRow key={item.id}>
 								<TableCell align='center'>{item.id}</TableCell>
 								<TableCell align='left'>{`${getCollaboratorNameById(item.colaborador_id)}`}</TableCell>
 								<TableCell align='center'>{item.km}</TableCell>

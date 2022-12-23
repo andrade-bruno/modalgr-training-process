@@ -27,11 +27,11 @@ BikesContext.displayName = 'BikesContext'
 export const BikesProvider = ({children}: {children: JSX.Element}) => {
 	const [bikes, setBikes] = useState<IBike[]>({} as IBike[])
 
-	const { token } = useUserContext()
+	const { token, user } = useUserContext()
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
-		if (token) getBikes()
+		if (token && user.nivel_id === 2) getBikes()
 	}, [token])
 
 	const sortBikesByIdAsc = (bikes: IBike[]) => {

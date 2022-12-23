@@ -31,11 +31,11 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	const [collaborators, setCollaborators] = useState<ICollaborator[]>({} as ICollaborator[])
 
 	const navigate = useNavigate()
-	const { token, setUser, setToken } = useUserContext()
+	const { token, user, setUser, setToken } = useUserContext()
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
-		if (token) getCollaborators()
+		if (token && user.nivel_id === 2) getCollaborators()
 	}, [token])
 
 	const sortCollaboratorsByIdAsc = (collaborators: ICollaborator[]) => {
