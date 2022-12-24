@@ -56,8 +56,8 @@ const Collaborators = () => {
 	if (user.nivel_id !== 2) return <Unauthorized />
 
 	useEffect(() => {
-		if (token) getCollaborators()
-	}, [token])
+		if (token && user.nivel_id === 2) getCollaborators()
+	}, [token, user])
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)

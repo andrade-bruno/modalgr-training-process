@@ -90,6 +90,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const { numero, colaborador_id, status } = bike
+		
 		const main = new Promise((resolve, reject) => {
 			http.put<IBike>(`bicicleta/${id}`, {
 				numero, colaborador_id, status
@@ -116,8 +117,17 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 	const inactivateBike = async (id: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
+		const bike = await getBikeById(id)
+		if (bike) {
+			if (bike.colaborador_id) {
+				toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
+				return false
+			}			
+			bike.status = false
+		}
+
 		const main = new Promise((resolve, reject) => {
-			http.put<IBike>(`bicicleta/${id}`, {status: false}, config)
+			http.put<IBike>(`bicicleta/${id}`, bike, config)
 				.then(res => {
 					const updatedList = bikes.filter(bike => bike.id !== id)
 					updatedList.push(res.data)
@@ -139,6 +149,14 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 
 	const deleteBike = async (id: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		const bike = await getBikeById(id)
+		if (bike) {
+			if (bike.colaborador_id) {
+				toast.info('Não é possível remover a bicicleta, a mesma está em uso.')
+				return false
+			}			
+		}
 
 		const main = new Promise((resolve, reject) => {
 			http.delete<IBike>(`bicicleta/${id}`, config)

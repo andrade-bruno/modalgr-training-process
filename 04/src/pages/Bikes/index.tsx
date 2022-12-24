@@ -11,7 +11,8 @@ import {
 	Chip,
 	Menu,
 	MenuItem,
-	Button
+	Button,
+	Select
 } from '@mui/material'
 
 import {
@@ -38,17 +39,17 @@ const Bikes = () => {
 	const [selectedBike, setSelectedBike] = useState<number>(0)
 
 	const [bikeNumber, setBikeNumber] = useState<number>(0)
-	const [collaboratorId, setCollaboratorId] = useState<number>(0)
+	const [collaboratorId, setCollaboratorId] = useState<number | string>(0)
 	const [isActive, setIsActive] = useState<boolean>(true)
 
 	const { user, token } = useUserContext()
-	const { getCollaboratorNameById } = useCollaboratorsContext()
+	const { getCollaboratorNameById, collaborators } = useCollaboratorsContext()
 	const { bikes, getBikes, getBikeById, addBike, deleteBike, updateBike, inactivateBike } = useBikesContext()
 	
-	if (user.nivel_id !== 2) return <Unauthorized />
+	if (user.nivel_id !== 2 || !user) return <Unauthorized />
 
 	useEffect(() => {
-		if (token) getBikes()
+		if (token && user.nivel_id === 2) getBikes()
 	}, [token])
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,7 +75,7 @@ const Bikes = () => {
 	const handleSubmitAdd = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		addBike({
-			colaborador_id: collaboratorId,
+			colaborador_id: Number(collaboratorId),
 			numero: bikeNumber,
 			status: isActive
 		})
@@ -94,7 +95,7 @@ const Bikes = () => {
 	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		await updateBike(selectedBike, {
-			colaborador_id: collaboratorId,
+			colaborador_id: Number(collaboratorId),
 			numero: bikeNumber,
 			status: isActive
 		})
@@ -191,14 +192,20 @@ const Bikes = () => {
 						fullWidth
 						required
 					/>
-					<Input
+					<Select
 						label='Usuário (opcional)'
+						placeholder='Usuário (opcional)'
 						value={collaboratorId}
-						setter={setCollaboratorId}
+						onChange={e => setCollaboratorId(e.target.value)}
 						type='number'
 						fullWidth
 						required={false}
-					/>
+					>
+						<MenuItem value={undefined}>Nenhum</MenuItem>
+						{collaborators.map(item => (
+							<MenuItem value={item.id} key={item.id}>{item.nome}</MenuItem>
+						))}
+					</Select>
 					{isEditing && <Input
 						label='Ativo'
 						value={isActive}

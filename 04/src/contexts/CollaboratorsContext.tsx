@@ -36,7 +36,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 
 	useEffect(() => {
 		if (token && user.nivel_id === 2) getCollaborators()
-	}, [token])
+	}, [token, user])
 
 	const sortCollaboratorsByIdAsc = (collaborators: ICollaborator[]) => {
 		return collaborators.sort((a, b) => a.id - b.id)
