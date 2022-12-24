@@ -9,7 +9,7 @@ const Docs = () => {
 	return (
 		<>
 			<h1>Documentação</h1>
-			<Object data="/assets/documentation.pdf" type="application/pdf" />
+			<Object data="/assets/manual.pdf" type="application/pdf" />
 		</>
 	)
 }
