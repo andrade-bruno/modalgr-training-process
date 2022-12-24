@@ -1,10 +1,11 @@
 import Input from 'components/Input'
 import { useState } from 'react'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { Box, Container, Details, SignInSignUpForm, Logo } from 'styles/commom'
 import { BikeImg } from './styles'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
 	const [name, setName] = useState('')
@@ -28,8 +29,9 @@ const SignUp = () => {
 			nome: name,
 			email: email,
 			senha: password,
-			nivel_id: 1,
-			data_registro: currentDate
+			nivel_id: 3,
+			data_registro: currentDate,
+			ativo: true
 		}, true)
 	}
 
@@ -74,6 +76,9 @@ const SignUp = () => {
 						fullWidth
 						required
 					/>
+					<Typography variant='overline' component='h6'>
+						Já possui cadastro? <Link style={{ textDecoration: 'none' }} to='/signin'>Acesse a plataforma</Link>
+					</Typography>
 					<Button
 						color="primary"
 						disabled={false}

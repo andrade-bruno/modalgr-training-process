@@ -41,11 +41,11 @@ const MyReleases = () => {
 	const { user, token } = useUserContext()
 	const myreleases = releases.filter(item => item.colaborador_id === user.id)
 
-	if (!user.nivel_id) return <Unauthorized />
-
 	useEffect(() => {
-		if (token) user.nivel_id === 2 ? getReleases() : getMyReleases()
-	}, [token])
+		if (token && user.id) user.nivel_id === 2 ? getReleases() : getMyReleases()
+	}, [token, user])
+	
+	if (!user.nivel_id) return <Unauthorized />
 
 	const handleCloseModal = () => {
 		setIsOpen(false)
@@ -143,10 +143,10 @@ const MyReleases = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleEditRelease}>
+				<MenuItem onClick={handleEditRelease} style={{gap: 6}}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleDeleteRelease}>
+				<MenuItem onClick={handleDeleteRelease} style={{gap: 6}}>
 					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>

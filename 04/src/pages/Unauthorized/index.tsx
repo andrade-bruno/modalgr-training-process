@@ -3,13 +3,9 @@ import { Button } from '@mui/material'
 import Default from 'pages/Default'
 import { Container } from './styles'
 import { useNavigate } from 'react-router-dom'
-import { useUserContext } from 'contexts/UserContext'
 
 const Unauthorized = () => {
 	const navigate = useNavigate()
-	const { user } = useUserContext()
-
-	if (!user.nivel_id) return null
 
 	return (
 		<Default>

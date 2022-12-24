@@ -1,9 +1,10 @@
 import Input from 'components/Input'
 import { useState } from 'react'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { Box, Container, SignInSignUpForm, Logo } from 'styles/commom'
 import { BackgroundImg } from './styles'
 import { useUserContext } from 'contexts/UserContext'
+import { Link } from 'react-router-dom'
 
 const SignIn = () => {
 	const [email, setEmail] = useState('')
@@ -37,6 +38,9 @@ const SignIn = () => {
 						fullWidth
 						required
 					/>
+					<Typography variant='overline' component='h6'>
+						Ainda não utiliza a plataforma? <Link style={{ textDecoration: 'none' }} to='/signup'>Cadastre-se.</Link>
+					</Typography>
 					<Button
 						color="primary"
 						disabled={false}

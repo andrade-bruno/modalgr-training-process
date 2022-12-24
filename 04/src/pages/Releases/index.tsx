@@ -123,10 +123,10 @@ const Releases = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleEditRelease}>
+				<MenuItem onClick={handleEditRelease} style={{gap: 6}}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleDeleteRelease}>
+				<MenuItem onClick={handleDeleteRelease} style={{gap: 6}}>
 					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>

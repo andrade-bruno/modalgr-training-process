@@ -4,7 +4,6 @@ import http from 'services/http'
 import { AxiosRequestConfig } from 'axios'
 import { useUserContext } from './UserContext'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
    
 interface Props {
 	collaborators: ICollaborator[]
@@ -14,6 +13,7 @@ interface Props {
 	addColaborator: (collaborator: addOrUpdateProps, isSignUpPage?: boolean) => void
 	updateCollaborator: (id: number, collaborator: addOrUpdateProps) => void
 	inactivateCollaborator: (id: number) => void
+	guaranteeAccess: (collaboratorId: number) => void
 }
 
 interface addOrUpdateProps {
@@ -22,6 +22,7 @@ interface addOrUpdateProps {
 	senha: string
 	data_registro?: ICollaborator['data_registro']
 	nivel_id: ICollaborator['nivel_id']
+	ativo: boolean | string
 }
 
 const CollaboratorsContext = React.createContext<Props>({} as Props)
@@ -30,8 +31,7 @@ CollaboratorsContext.displayName = 'CollaboratorsContext'
 export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	const [collaborators, setCollaborators] = useState<ICollaborator[]>({} as ICollaborator[])
 
-	const navigate = useNavigate()
-	const { token, user, setUser, setToken } = useUserContext()
+	const { token, user } = useUserContext()
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
@@ -69,7 +69,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	const getCollaboratorNameById = (id: number) => {
 		if (collaborators[0]) {
 			const collaborator = collaborators.find(item => item.id === id)
-			return collaborator?.nome ? collaborator.nome : `#${id} Usuário indefinido`
+			return collaborator?.nome ? collaborator.nome : ''
 		}
 	}
 
@@ -78,22 +78,11 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
 		const main = new Promise((resolve, reject) => {
-			// Deveria retornar ICollaborator + token
-			// http.post<{colaborador: ICollaborator, token: string}>('colaboradores', {
 			http.post<ICollaborator>('colaboradores', {
 				nome, email, senha, data_registro, ativo: true, nivel_id
 			}, config)
 				.then(res => {
 					resolve(setCollaborators([...collaborators, res.data]))
-					if (isSignUpPage) {
-						// const { colaborador, token } = res.data
-						// setUser(colaborador)
-						// setToken(token)
-						// localStorage.setItem('token', token)
-						// localStorage.setItem('user', JSON.stringify(colaborador))
-						// toast.success(`Bem vindo, ${colaborador.nome}!`, {autoClose: false})
-						// setTimeout(() => navigate('/'), 2500)
-					}
 				}).catch(error => {
 					reject(console.log('addColaborator error: ', error))
 				})
@@ -102,8 +91,13 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 			main,
 			{
 				pending: 'Aguarde...',
-				success: 'Usuário adicionado com sucesso',
-				error: 'Não foi possível adicionar o usuário'
+				success: 
+					isSignUpPage
+						? `Bem vindo, ${collaborator.nome.split(' ')[0]}, em breve você receberá um e-mail com devidas instruções de acesso.`
+						: 'Usuário adicionado com sucesso',
+				error: isSignUpPage
+					? 'Desculpe, não foi possível executar o cadastro. Tente novamente mais tarde.'
+					: 'Não foi possível adicionar o usuário'
 			}
 		)
 	}
@@ -112,9 +106,12 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
+		let { ativo } = collaborator
+		ativo = (ativo === 'true') || (ativo === true)
+		
 		const main = new Promise((resolve, reject) => {
 			http.put<ICollaborator>(`colaborador/${id}`, {
-				nome, email, senha, data_registro, ativo: true, nivel_id
+				nome, email, senha, data_registro, ativo, nivel_id
 			}, config)
 				.then(res => {
 					const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
@@ -159,6 +156,30 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		)
 	}
 
+	const guaranteeAccess = async (collaboratorId: number) => {
+		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		const main = new Promise((resolve, reject) => {
+			http.put<ICollaborator>(`liberar/${collaboratorId}`, {nivel_id: 1}, config)
+				.then(res => {
+					const updatedList = collaborators.filter(collaborator => collaborator.id !== collaboratorId)
+					updatedList.push(res.data)
+					const final = sortCollaboratorsByIdAsc(updatedList)
+					resolve(setCollaborators(final))
+				}).catch(error => {
+					reject(console.log('guaranteeAccess error: ', error))
+				})
+		})
+		toast.promise(
+			main,
+			{
+				pending: 'Aguarde...',
+				success: 'Acesso liberado com sucesso!',
+				error: 'Não foi possível liberar o acesso para o usuário'
+			}
+		)
+	}
+
 	return (
 		<CollaboratorsContext.Provider value={{
 			collaborators,
@@ -167,7 +188,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 			getCollaboratorNameById,
 			addColaborator,
 			updateCollaborator,
-			inactivateCollaborator
+			inactivateCollaborator,
+			guaranteeAccess
 		}}>
 			{children}
 		</CollaboratorsContext.Provider>

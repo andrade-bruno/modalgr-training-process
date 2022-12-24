@@ -12,7 +12,11 @@ import {
 	Menu,
 	MenuItem,
 	Button,
-	TextField
+	TextField,
+	FormControl,
+	RadioGroup,
+	FormControlLabel,
+	Radio
 } from '@mui/material'
 
 import {
@@ -48,18 +52,19 @@ const Collaborators = () => {
 	const [password, setPassword] = useState('')
 	const [registerDate, setRegisterDate] = useState<Dayjs | string | null>(null)
 	const [permissionLevel, setPermissionLevel] = useState(1)
+	const [isActive, setIsActive] = useState<string>('true')
 
 	const today = new Date()
 	const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
 
 	const { user, token } = useUserContext()
-	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator } = useCollaboratorsContext()
+	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator, guaranteeAccess } = useCollaboratorsContext()
 	
-	if (user.nivel_id !== 2) return <Unauthorized />
-
 	useEffect(() => {
 		if (token && user.nivel_id === 2) getCollaborators()
 	}, [token, user])
+
+	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>, accessLevelId: number) => {
 		setAnchorEl(event.currentTarget)
@@ -77,6 +82,7 @@ const Collaborators = () => {
 			setPermissionLevel(1)
 			setSelectedCollaborator(0)
 			setIsEditing(false)
+			setIsActive('true')
 		}, 500)
 	}
 	const handleAddCollaborator = () => {
@@ -92,6 +98,7 @@ const Collaborators = () => {
 			senha: password,
 			data_registro: registerDate,
 			nivel_id: permissionLevel,
+			ativo: true
 		})
 		handleCloseModal()
 	}
@@ -103,6 +110,7 @@ const Collaborators = () => {
 			setEmail(res.email)
 			setRegisterDate(res.data_registro)
 			setPermissionLevel(res.nivel_id)
+			setIsActive(String(res.ativo))
 			setSelectedCollaborator(Number(anchorEl?.id))
 			setIsOpen(true)
 			handleCloseMenu()
@@ -116,6 +124,7 @@ const Collaborators = () => {
 			senha: password,
 			data_registro: registerDate,
 			nivel_id: permissionLevel,
+			ativo: isActive
 		})
 		setIsOpen(false)
 		handleCloseMenu()
@@ -124,14 +133,18 @@ const Collaborators = () => {
 		await inactivateCollaborator(Number(anchorEl?.id))
 		handleCloseMenu()
 	}
+	const handleGuaranteeAccess = async () => {
+		await guaranteeAccess(Number(anchorEl?.id))
+		handleCloseMenu()
+	}
 
 	return (
 		<>
 			<Header>
 				<h1>Gerenciar Colaboradores</h1>
 				<Button
-					variant="outlined"
-					color="success"
+					variant='outlined'
+					color='success'
 					sx={{margin: 'auto 0px'}}
 					onClick={handleAddCollaborator}
 				>
@@ -140,7 +153,7 @@ const Collaborators = () => {
 				</Button>
 			</Header>
 			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 700 }} aria-label="customized table">
+				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
 						<TableRow>
 							<TableCell align='center'>ID</TableCell>
@@ -159,20 +172,20 @@ const Collaborators = () => {
 								<TableCell align='left'>{item.email}</TableCell>
 								<TableCell align='center'>
 									{item.ativo ?
-										<Chip variant="outlined" color="success" label='Ativo'/> : 
+										<Chip variant='outlined' color='success' label='Ativo'/> : 
 										<Chip variant='outlined' color='error' label='Inativo' />
 									}
 								</TableCell>
 								<TableCell align='center'>
 									{
-										item.nivel_id === 2 ? <Chip variant="outlined" color="error" label='Admin'/> 
+										item.nivel_id === 2 ? <Chip variant='outlined' color='error' label='Admin'/> 
 											: item.nivel_id === 1 ? <Chip variant='outlined' color='success' label='Colaborador' />
 												: item.nivel_id === 3 ? <Chip variant='outlined' color='default' label='Aguardando acesso' />
 													: null
 									}
 								</TableCell>
 								<TableCell align='center'>
-									{item.ativo && item.id !== user.id &&
+									{item.id !== user.id &&
 										<Button onClick={e => handleMenu(e, item.nivel_id)} id={`${item.id}`}>
 											<MoreVertRounded />
 										</Button>
@@ -190,13 +203,13 @@ const Collaborators = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleEditCollaborator}>
+				<MenuItem onClick={handleEditCollaborator} style={{gap: 6}}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleInactivateCollaborator}>
+				<MenuItem onClick={handleInactivateCollaborator} style={{gap: 6}}>
 					<BlockRounded color='error' /> Desativar
 				</MenuItem>
-				{accessLevel === 3 && <MenuItem onClick={handleEditCollaborator}>
+				{accessLevel === 3 && <MenuItem onClick={handleGuaranteeAccess} style={{gap: 6}}>
 					<CheckRounded color='success'/> Liberar
 				</MenuItem>}
 			</Menu>
@@ -233,7 +246,7 @@ const Collaborators = () => {
 					/>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
-							label="Data de registro"
+							label='Data de registro'
 							value={registerDate}
 							views={['day', 'month', 'year']}
 							maxDate={currentDate}
@@ -256,6 +269,16 @@ const Collaborators = () => {
 						fullWidth
 						required
 					/>
+					<FormControl style={{width: '95%'}}>
+						<RadioGroup
+							value={isActive}
+							onChange={e => setIsActive((e.target as HTMLInputElement).value)}
+							style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}
+						>
+							<FormControlLabel value='true' control={<Radio />} label='Ativo' />
+							<FormControlLabel value='false' control={<Radio />} label='Inativo' />
+						</RadioGroup>
+					</FormControl>
 					<Button
 						variant='outlined'
 						color='success'

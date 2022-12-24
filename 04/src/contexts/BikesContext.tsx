@@ -17,8 +17,8 @@ interface Props {
 
 interface addOrUpdateProps {
 	numero: number
-	colaborador_id: number
-	status: boolean
+	colaborador_id: number | null
+	status: boolean | string
 }
 
 const BikesContext = React.createContext<Props>({} as Props)
@@ -65,7 +65,11 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 	const addBike = async (bike: addOrUpdateProps) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
-		const { numero, colaborador_id, status } = bike
+		const { numero, status } = bike
+		let { colaborador_id } = bike
+
+		colaborador_id = (colaborador_id == 0 || colaborador_id == null) ? null : colaborador_id
+
 		const main = new Promise((resolve, reject) => {
 			http.post<IBike>('bicicletas', {
 				numero, colaborador_id, status
@@ -89,7 +93,16 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 	const updateBike = async (id: number, bike: addOrUpdateProps) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
-		const { numero, colaborador_id, status } = bike
+		const { numero } = bike
+		let { status, colaborador_id } = bike
+		
+		colaborador_id = (colaborador_id == 0 || colaborador_id == null) ? null : colaborador_id
+		status = (status === 'true') || (status === true)
+
+		if (colaborador_id) {
+			toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
+			return false
+		}
 		
 		const main = new Promise((resolve, reject) => {
 			http.put<IBike>(`bicicleta/${id}`, {

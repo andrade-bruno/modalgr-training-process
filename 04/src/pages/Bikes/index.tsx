@@ -12,7 +12,12 @@ import {
 	Menu,
 	MenuItem,
 	Button,
-	Select
+	Select,
+	FormControl,
+	InputLabel,
+	RadioGroup,
+	FormControlLabel,
+	Radio
 } from '@mui/material'
 
 import {
@@ -39,18 +44,21 @@ const Bikes = () => {
 	const [selectedBike, setSelectedBike] = useState<number>(0)
 
 	const [bikeNumber, setBikeNumber] = useState<number>(0)
-	const [collaboratorId, setCollaboratorId] = useState<number | string>(0)
-	const [isActive, setIsActive] = useState<boolean>(true)
+	const [collaboratorId, setCollaboratorId] = useState<number>(0)
+	const [isActive, setIsActive] = useState<string>('true')
 
 	const { user, token } = useUserContext()
-	const { getCollaboratorNameById, collaborators } = useCollaboratorsContext()
+	const { getCollaboratorNameById, collaborators, getCollaborators } = useCollaboratorsContext()
 	const { bikes, getBikes, getBikeById, addBike, deleteBike, updateBike, inactivateBike } = useBikesContext()
 	
-	if (user.nivel_id !== 2 || !user) return <Unauthorized />
-
 	useEffect(() => {
-		if (token && user.nivel_id === 2) getBikes()
-	}, [token])
+		if (token && user.nivel_id === 2) {
+			getCollaborators()
+			getBikes()
+		}
+	}, [token, user])
+
+	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
@@ -64,6 +72,7 @@ const Bikes = () => {
 			setBikeNumber(0)
 			setCollaboratorId(0)
 			setSelectedBike(0)
+			setIsActive('true')
 			setIsEditing(false)
 		}, 500)
 	}
@@ -77,7 +86,7 @@ const Bikes = () => {
 		addBike({
 			colaborador_id: Number(collaboratorId),
 			numero: bikeNumber,
-			status: isActive
+			status: true
 		})
 		handleCloseModal()
 	}
@@ -88,12 +97,14 @@ const Bikes = () => {
 			setBikeNumber(res.numero)
 			setCollaboratorId(res.colaborador_id)
 			setSelectedBike(Number(anchorEl?.id))
+			setIsActive(String(res.status))
 			setIsOpen(true)
 			handleCloseMenu()
 		}
 	}
 	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		console.log('submitedit', isActive)
 		await updateBike(selectedBike, {
 			colaborador_id: Number(collaboratorId),
 			numero: bikeNumber,
@@ -116,8 +127,8 @@ const Bikes = () => {
 			<Header>
 				<h1>Gerenciar Bicicletas</h1>
 				<Button
-					variant="outlined"
-					color="success"
+					variant='outlined'
+					color='success'
 					sx={{margin: 'auto 0px'}}
 					onClick={handleAddBike}
 				>
@@ -126,13 +137,13 @@ const Bikes = () => {
 				</Button>
 			</Header>
 			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 700 }} aria-label="customized table">
+				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
 						<TableRow>
 							<TableCell align='left'>ID</TableCell>
 							<TableCell align='left'>Número</TableCell>
 							<TableCell align='left'>Status</TableCell>
-							<TableCell align='left'>Nome do usuário</TableCell>
+							<TableCell align='left'>Uuário</TableCell>
 							<TableCell align='left'>Ações</TableCell>
 						</TableRow>
 					</TableHead>
@@ -142,18 +153,16 @@ const Bikes = () => {
 								<TableCell align='left'>{item.id}</TableCell>
 								<TableCell align='left'>{item.numero}</TableCell>
 								<TableCell align='left'>
-									{item.status && item.colaborador_id ? <Chip variant="outlined" color="info" label='Em uso'/> 
-										: item.status ? <Chip variant="outlined" color="success" label='Disponível'/>
+									{item.status && item.colaborador_id ? <Chip variant='outlined' color='info' label='Em uso'/> 
+										: item.status ? <Chip variant='outlined' color='success' label='Disponível'/>
 											: <Chip variant='outlined' color='error' label='Inativa' />
 									}
 								</TableCell>
 								<TableCell align='left'>{`${getCollaboratorNameById(item.colaborador_id)}`}</TableCell>
 								<TableCell align='left'>
-									{item.status &&
-										<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
-											<MoreVertRounded />
-										</Button>
-									}
+									<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
+										<MoreVertRounded />
+									</Button>
 								</TableCell>
 							</TableRow>
 						))}
@@ -167,13 +176,13 @@ const Bikes = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleEditBike}>
+				<MenuItem onClick={handleEditBike} style={{gap: 6}}>
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
-				<MenuItem onClick={handleInactivateBike}>
+				<MenuItem onClick={handleInactivateBike} style={{gap: 6}}>
 					<BlockRounded color='warning' /> Desativar
 				</MenuItem>
-				<MenuItem onClick={handleDeleteBike}>
+				<MenuItem onClick={handleDeleteBike} style={{gap: 6}}>
 					<DeleteRounded color='error' /> Remover
 				</MenuItem>
 			</Menu>
@@ -192,27 +201,34 @@ const Bikes = () => {
 						fullWidth
 						required
 					/>
-					<Select
-						label='Usuário (opcional)'
-						placeholder='Usuário (opcional)'
-						value={collaboratorId}
-						onChange={e => setCollaboratorId(e.target.value)}
-						type='number'
-						fullWidth
-						required={false}
-					>
-						<MenuItem value={undefined}>Nenhum</MenuItem>
-						{collaborators.map(item => (
-							<MenuItem value={item.id} key={item.id}>{item.nome}</MenuItem>
-						))}
-					</Select>
-					{isEditing && <Input
-						label='Ativo'
-						value={isActive}
-						setter={setIsActive}
-						type='status'
-						fullWidth
-					/>}
+					<FormControl fullWidth>
+						<InputLabel id='user-label'>Usuário (opcional)</InputLabel>
+						<Select
+							labelId='user-label'
+							label='Usuário (opcional)'
+							color='primary'
+							value={collaboratorId}
+							onChange={e => setCollaboratorId(Number(e.target.value))}
+							fullWidth
+						>
+							<MenuItem value={0}>Nenhum</MenuItem>
+							{collaborators[0] && collaborators.map(item => (
+								<MenuItem value={item.id} key={item.id}>{item.nome}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+					{isEditing && 
+					<FormControl style={{width: '95%'}}>
+						<RadioGroup
+							value={isActive}
+							onChange={e => setIsActive((e.target as HTMLInputElement).value)}
+							style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}
+						>
+							<FormControlLabel value='true' control={<Radio />} label='Ativa' />
+							<FormControlLabel value='false' control={<Radio />} label='Inativa' />
+						</RadioGroup>
+					</FormControl>
+					}
 					<Button
 						variant='outlined'
 						color='success'
