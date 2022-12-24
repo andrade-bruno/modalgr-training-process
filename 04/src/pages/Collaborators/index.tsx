@@ -17,9 +17,10 @@ import {
 
 import {
 	EditRounded,
-	DeleteRounded,
 	MoreVertRounded,
-	AddRounded
+	AddRounded,
+	BlockRounded,
+	CheckRounded
 } from '@mui/icons-material'
 
 import { Dayjs } from 'dayjs'
@@ -40,6 +41,7 @@ const Collaborators = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [isEditing, setIsEditing] = useState(false)
 	const [selectedCollaborator, setSelectedCollaborator] = useState<number>(0)
+	const [accessLevel, setAccessLevel] = useState(0)
 
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
@@ -59,8 +61,9 @@ const Collaborators = () => {
 		if (token && user.nivel_id === 2) getCollaborators()
 	}, [token, user])
 
-	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleMenu = (event: React.MouseEvent<HTMLButtonElement>, accessLevelId: number) => {
 		setAnchorEl(event.currentTarget)
+		setAccessLevel(accessLevelId)
 	}
 	const handleCloseMenu = () => {
 		setAnchorEl(null)
@@ -161,14 +164,16 @@ const Collaborators = () => {
 									}
 								</TableCell>
 								<TableCell align='center'>
-									{item.nivel_id === 2 ?
-										<Chip variant="outlined" color="warning" label='Admin'/> : 
-										<Chip variant='outlined' color='primary' label='Colaborador' />
+									{
+										item.nivel_id === 2 ? <Chip variant="outlined" color="error" label='Admin'/> 
+											: item.nivel_id === 1 ? <Chip variant='outlined' color='success' label='Colaborador' />
+												: item.nivel_id === 3 ? <Chip variant='outlined' color='default' label='Aguardando acesso' />
+													: null
 									}
 								</TableCell>
 								<TableCell align='center'>
 									{item.ativo && item.id !== user.id &&
-										<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
+										<Button onClick={e => handleMenu(e, item.nivel_id)} id={`${item.id}`}>
 											<MoreVertRounded />
 										</Button>
 									}
@@ -189,8 +194,11 @@ const Collaborators = () => {
 					<EditRounded color='warning'/> Editar
 				</MenuItem>
 				<MenuItem onClick={handleInactivateCollaborator}>
-					<DeleteRounded color='error' /> Desativar
+					<BlockRounded color='error' /> Desativar
 				</MenuItem>
+				{accessLevel === 3 && <MenuItem onClick={handleEditCollaborator}>
+					<CheckRounded color='success'/> Liberar
+				</MenuItem>}
 			</Menu>
 
 			<Modal

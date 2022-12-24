@@ -27,7 +27,8 @@ import {
 	ReceiptLongRounded,
 	GroupsRounded,
 	TextSnippetRounded,
-	DirectionsBikeRounded
+	DirectionsBikeRounded,
+	LoginRounded
 } from '@mui/icons-material'
 
 import { useTheme } from '@mui/material/styles'
@@ -48,7 +49,7 @@ export default function DefaultPage({children}: {children?: any}) {
 
 	useEffect(() => {
 		user.nivel_id === 2 ? setAdminPages(defaultAdminPages) : setAdminPages([])
-	}, [user.nivel_id, token])
+	}, [user, token])
 
 	const handleLogout = () => {
 		logout()
@@ -79,8 +80,11 @@ export default function DefaultPage({children}: {children?: any}) {
 						<Typography variant="h6" noWrap component="div">BikeGR</Typography>
 					</Box>
 					<Box sx={{display: 'flex', alignItems: 'center', gap: 4}}>
-						{user.nome && <Chip variant='filled' color='warning' label={`Bem vindo, ${user.nome}!`} />}
-						<Button variant='contained' onClick={() => handleLogout()}>Sair</Button>
+						{user.nome && <Chip variant='filled' color='warning' label={`Bem vindo, ${user.nome.split(' ')[0]}!`} />}
+						<Button variant='contained' color={!user.nivel_id ? 'success' : 'info'} onClick={() => handleLogout()}>
+							{(!user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Login</>}
+							{(user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Sair</>}
+						</Button>
 					</Box>
 				</Toolbar>
 			</AppBar>

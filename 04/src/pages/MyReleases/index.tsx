@@ -25,6 +25,7 @@ import Modal from 'components/Modal'
 import Input from 'components/Input'
 import { useReleasesContext } from 'contexts/ReleasesContext'
 import { useUserContext } from 'contexts/UserContext'
+import Unauthorized from 'pages/Unauthorized'
 
 const MyReleases = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -36,12 +37,14 @@ const MyReleases = () => {
 	const [selectedRelease, setSelectedRelease] = useState<number>(0)
 	const [isEditing, setIsEditing] = useState(false)
 
-	const { releases, addRelease, getReleases, getReleaseById, removeRelease, updateRelease } = useReleasesContext()
+	const { releases, addRelease, getReleases, getMyReleases, getReleaseById, removeRelease, updateRelease } = useReleasesContext()
 	const { user, token } = useUserContext()
 	const myreleases = releases.filter(item => item.colaborador_id === user.id)
 
+	if (!user.nivel_id) return <Unauthorized />
+
 	useEffect(() => {
-		if (token) getReleases()
+		if (token) user.nivel_id === 2 ? getReleases() : getMyReleases()
 	}, [token])
 
 	const handleCloseModal = () => {

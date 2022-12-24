@@ -7,8 +7,8 @@ import { toast } from 'react-toastify'
 interface Props {
 	releases: IRelease[]
 	getReleases: () => void
+	getMyReleases: () => void
 	getReleaseById: (id: number) => Promise<IRelease | undefined>
-	setReleases: React.Dispatch<React.SetStateAction<IRelease[]>>
 	addRelease: (km: number, tempo: number) => void
 	removeRelease: (id: number) => void
 	updateRelease: (releaseId: number, km: number, tempo: number) => void
@@ -47,6 +47,18 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 				error: 'Não foi possível obter a lista de lançamentos'
 			}
 		)
+	}
+
+	const getMyReleases = async () => {
+		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		try {
+			const res = await http.get<IRelease[]>(`lancamento/${user.id}`, config)
+			setReleases(res.data)
+		} catch (error) {
+			toast.error('Não foi possível obter os seus lançamentos')
+			console.log('getMyReleases error: ', error)
+		}
 	}
 
 	const getReleaseById = async (id: number) => {
@@ -140,7 +152,13 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 
 	return (
 		<ReleasesContext.Provider value={{
-			releases, setReleases, getReleases, getReleaseById, addRelease, removeRelease, updateRelease
+			releases,			
+			getReleases,
+			getMyReleases,
+			getReleaseById,
+			addRelease,
+			removeRelease,
+			updateRelease
 		}}>
 			{children}
 		</ReleasesContext.Provider>

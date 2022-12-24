@@ -32,12 +32,19 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.post<{
 				mensagem: string, colaborador: IUser, token: string
 			}>('login', {email: email, senha: password})
+
 			const { colaborador, token } = res.data
+
+			if (colaborador.nivel_id === 3) {
+				toast.info(`${colaborador.nome.split(' ')[0]}, seu acesso ainda não foi concedido. Aguarde liberação.`)
+				return false
+			}
+			
 			setUser(colaborador)
 			setToken(token)
 			localStorage.setItem('token', token)
 			localStorage.setItem('user', JSON.stringify(colaborador))
-			toast.success(`Bem vindo, ${colaborador.nome}!`, {autoClose: false})
+			toast.success(`Bem vindo, ${colaborador.nome.split(' ')[0]}!`, {autoClose: false})
 			setTimeout(() => navigate('/'), 2500)
 		} catch (error: any) {
 			console.log('login error: ', error)
