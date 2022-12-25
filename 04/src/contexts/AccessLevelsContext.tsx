@@ -44,7 +44,6 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<IAccessLevel[]>('niveis', config)
 			setLevels(res.data)
 		} catch (error: any) {
-			console.log('getLevels error: ', error)
 			toast.error('Não foi possível obter a lista de níveis de acesso')
 		}
 	}
@@ -56,7 +55,6 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<IAccessLevel>(`niveis/${id}`, config)
 			return res.data
 		} catch (error) {
-			console.log('getLevelById error: ', error)
 			toast.error(`Não foi possível obter dados do nível de acesso #${id}`)
 		} 
 	}
@@ -68,8 +66,8 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 			http.post<IAccessLevel>('niveis', {nivel}, config)
 				.then(res => {
 					resolve(setLevels([...levels, res.data]))
-				}).catch(error => {
-					reject(console.log('addLevel error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -92,8 +90,8 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 					updatedList.push(res.data)
 					const final = sortAccessLevelsByIdAsc(updatedList)
 					resolve(setLevels(final))
-				}).catch(error => {
-					reject(console.log('updateLevel error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -119,8 +117,8 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 				.then(() => {
 					const updatedList = levels.filter(level => level.id !== id)
 					resolve(setLevels(updatedList))
-				}).catch(error => {
-					reject(console.log('deleteLevel error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(

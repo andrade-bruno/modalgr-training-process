@@ -193,7 +193,7 @@ const Collaborators = () => {
 									}
 								</TableCell>
 								<TableCell align='center'>
-									{levels.map(level => 
+									{levels[0] && levels.map(level => 
 										item.nivel_id === level.id && <Chip
 											key={level.id}
 											variant='outlined'

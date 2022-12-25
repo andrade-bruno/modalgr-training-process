@@ -36,8 +36,7 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 					setReleases(res.data)
 					setTimeout(resolve, 1)
 				})
-				.catch(error => {
-					console.log('getReleases error', error)
+				.catch(() => {
 					setTimeout(reject, 1)
 				})
 		})
@@ -57,7 +56,6 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 			setReleases(res.data)
 		} catch (error) {
 			toast.error('Não foi possível obter os seus lançamentos')
-			console.log('getMyReleases error: ', error)
 		}
 	}
 
@@ -69,7 +67,6 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 			return res.data
 		} catch (error) {
 			toast.error('Não foi possível obter os dados do lançamento')
-			console.log('getReleaseById error: ', error)
 		}
 	}
 
@@ -81,11 +78,9 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 				km, tempo, colaborador_id: user.id
 			}, config)
 				.then(res => {
-					setReleases([...releases, res.data])
-					setTimeout(resolve, 1)
-				}).catch(error => {
-					console.log('addRelease error: ', error)
-					setTimeout(reject, 1)
+					resolve(setReleases([...releases, res.data]))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -105,11 +100,9 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 			http.delete(`lancamentos/${id}`, config)
 				.then(() => {
 					const filtered = releases.filter(release => release.id !== id)
-					setReleases(filtered)
-					setTimeout(resolve, 1)
-				}).catch(error => {
-					console.log('removeRelease error: ', error)
-					setTimeout(reject, 1)
+					resolve(setReleases(filtered))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -133,11 +126,9 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 					const updatedList = releases.filter(release => release.id !== releaseId)
 					updatedList.push(res.data)
 					const final = sortReleasesByIdAsc(updatedList)
-					setReleases(final)
-					setTimeout(resolve, 1)
-				}).catch(error => {
-					console.log('updateRelease error: ', error)
-					setTimeout(reject, 1)
+					resolve(setReleases(final))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(

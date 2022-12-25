@@ -47,7 +47,6 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			toast.success(`Bem vindo, ${colaborador.nome.split(' ')[0]}!`)
 			setTimeout(() => navigate('/'), 2500)
 		} catch (error: any) {
-			console.log('login error: ', error)
 			const { response, message } = error
 			response?.data ? toast.error(`${response.data}`)
 				: message ? toast.error(`${message}`)

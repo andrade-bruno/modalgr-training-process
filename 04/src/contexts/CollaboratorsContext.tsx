@@ -48,8 +48,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<ICollaborator[]>('colaboradores', config)
 			setCollaborators(res.data)
-		} catch (error: any) {
-			console.log('getCollaborators error: ', error)
+		} catch (error) {
 			toast.error('Não foi possível obter a lista de colaboradores')
 		}
 	}
@@ -61,7 +60,6 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<ICollaborator>(`colaboradores/${id}`, config)
 			return res.data
 		} catch (error) {
-			console.log('getCollaboratorById error: ', error)
 			toast.error(`Não foi possível obter dados do colaborador #${id}`)
 		} 
 	}
@@ -83,8 +81,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 			}, config)
 				.then(res => {
 					resolve(setCollaborators([...collaborators, res.data]))
-				}).catch(error => {
-					reject(console.log('addColaborator error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -118,8 +116,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 					updatedList.push(res.data)
 					const final = sortCollaboratorsByIdAsc(updatedList)
 					resolve(setCollaborators(final))
-				}).catch(error => {
-					reject(console.log('updateCollaborator error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -142,8 +140,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 					updatedList.push(res.data)
 					const final = sortCollaboratorsByIdAsc(updatedList)
 					resolve(setCollaborators(final))
-				}).catch(error => {
-					reject(console.log('inactivateCollaborator error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -166,8 +164,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 					updatedList.push(res.data)
 					const final = sortCollaboratorsByIdAsc(updatedList)
 					resolve(setCollaborators(final))
-				}).catch(error => {
-					reject(console.log('guaranteeAccess error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(

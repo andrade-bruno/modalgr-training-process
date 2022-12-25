@@ -45,7 +45,6 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<IBike[]>('bicicletas', config)
 			setBikes(res.data)
 		} catch (error: any) {
-			console.log('getBikes error: ', error)
 			toast.error('Não foi possível obter a lista de bicicletas')
 		}
 	}
@@ -57,7 +56,6 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<IBike>(`bicicletas/${id}`, config)
 			return res.data
 		} catch (error) {
-			console.log('getBikeById error: ', error)
 			toast.error(`Não foi possível obter dados da bicicleta #${id}`)
 		} 
 	}
@@ -76,8 +74,8 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			}, config)
 				.then(res => {
 					resolve(setBikes([...bikes, res.data]))
-				}).catch(error => {
-					reject(console.log('addBike error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -113,8 +111,8 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 					updatedList.push(res.data)
 					const final = sortBikesByIdAsc(updatedList)
 					resolve(setBikes(final))
-				}).catch(error => {
-					reject(console.log('updateBike error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -146,8 +144,8 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 					updatedList.push(res.data)
 					const final = sortBikesByIdAsc(updatedList)
 					resolve(setBikes(final))
-				}).catch(error => {
-					reject(console.log('inactivateBike error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
@@ -176,8 +174,8 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 				.then(() => {
 					const updatedList = bikes.filter(bike => bike.id !== id)
 					resolve(setBikes(updatedList))
-				}).catch(error => {
-					reject(console.log('deleteBike error: ', error))
+				}).catch(() => {
+					reject()
 				})
 		})
 		toast.promise(
