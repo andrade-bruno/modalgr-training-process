@@ -98,8 +98,8 @@ export default function DefaultPage({children}: {children?: any}) {
 						boxSizing: 'border-box',
 					},
 				}}
-				variant="temporary"
-				anchor="top"
+				variant="persistent"
+				anchor="left"
 				open={open}
 			>
 				<DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between' }}>
