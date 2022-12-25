@@ -8,6 +8,7 @@ import theme from 'styles/theme'
 import { Link } from 'react-router-dom'
 import { Co2Rounded, DirectionsBikeRounded, NearMeRounded } from '@mui/icons-material'
 import { useReleasesContext } from 'contexts/ReleasesContext'
+import RaceChart from './RaceChart'
 
 const Dashboard = () => {
 	const { user, token } = useUserContext()
@@ -27,7 +28,7 @@ const Dashboard = () => {
 	const borrowedBikes = bikes[0] && bikes.filter(bike => bike.colaborador_id).length
 	const totalDistance = releases[0] && releases.reduce((sum, release) => {return sum + release.km}, 0)
 	const totalGrKm = totalDistance * 0.82
-
+	
 	return (
 		<Main>
 			<WelcomeCard>
@@ -60,12 +61,12 @@ const Dashboard = () => {
 				<CounterHighlight title={'true'}>{borrowedBikes}</CounterHighlight>
 			</SquareCard>
 			<WelcomeCard>
-				{/* Grafico */}
+				<RaceChart />
 			</WelcomeCard>
 			<SquareCard>
 				<NearMeRounded sx={{width: 40, height: 40}}/>
-				<CounterHighlight>KM Totais</CounterHighlight>
-				<CounterHighlight title={'true'}>{totalDistance?.toFixed(2)}</CounterHighlight>
+				<CounterHighlight>Distância percorrida</CounterHighlight>
+				<CounterHighlight title={'true'}>{totalDistance?.toFixed(2)} KM</CounterHighlight>
 			</SquareCard>
 			<SquareCard title='co2'>
 				<Co2Rounded sx={{width: 40, height: 40}}/>
