@@ -25,12 +25,12 @@ AccessLevelsContext.displayName = 'AccessLevelsContext'
 export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 	const [levels, setLevels] = useState<IAccessLevel[]>({} as IAccessLevel[])
 
-	const { token, user } = useUserContext()
+	const { token } = useUserContext()
 	const { collaborators } = useCollaboratorsContext()
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
-		if (token && user.nivel_id === 2) getLevels()
+		if (token) getLevels()
 	}, [token])
 
 	const sortAccessLevelsByIdAsc = (accessLevels: IAccessLevel[]) => {

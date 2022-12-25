@@ -9,6 +9,17 @@ export const Container = styled.main`
 	justify-content: center;
 	padding: 2vw;
 	background-color: #F1F1F1;
+
+	animation-name: bgModal;
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	@keyframes bgModal {
+		0%   {background-color: #0084B7;}
+		25%  {background-color: #91D7F6;}
+		50%  {background-color: #FFF;}
+		75%  {background-color: #0084B7;}
+		100% {background-color: #91D7F6;}
+	}
 `
 
 export const Box = styled.section`
@@ -35,6 +46,14 @@ export const Box = styled.section`
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+
+	animation-name: fade;
+	animation-duration: 2s;
+	opacity: 1;
+	@keyframes fade {
+		0%   {opacity: 0;}
+		100% {opacity: 1;}
 	}
 `
 

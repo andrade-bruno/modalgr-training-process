@@ -143,7 +143,7 @@ const Bikes = () => {
 							<TableCell align='left'>ID</TableCell>
 							<TableCell align='left'>Número</TableCell>
 							<TableCell align='left'>Status</TableCell>
-							<TableCell align='left'>Uuário</TableCell>
+							<TableCell align='left'>Usuário</TableCell>
 							<TableCell align='left'>Ações</TableCell>
 						</TableRow>
 					</TableHead>

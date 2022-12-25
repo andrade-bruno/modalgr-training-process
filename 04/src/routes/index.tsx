@@ -11,11 +11,12 @@ import SignIn from 'pages/SignIn'
 import Docs from 'pages/Docs'
 import Bikes from 'pages/Bikes'
 
+import ScrollToTop from 'components/ScrollToTop'
 import { UserProvider } from 'contexts/UserContext'
 import { ReleasesProvider } from 'contexts/ReleasesContext'
 import { CollaboratorsProvider } from 'contexts/CollaboratorsContext'
 import { BikesProvider } from 'contexts/BikesContext'
-import ScrollToTop from 'components/ScrollToTop'
+import { AccessLevelProvider } from 'contexts/AccessLevelsContext'
 
 const CommomRoutes = () => {
 	return (
@@ -23,27 +24,29 @@ const CommomRoutes = () => {
 			<UserProvider>
 				<CollaboratorsProvider>
 					<ReleasesProvider>
-						<BikesProvider>
-							<>
-								<ScrollToTop />
-								<Routes>
-									<Route path='/signin' element={<SignIn />} />
-									<Route path='/signup' element={<SignUp />} />
-									<Route path='/' element={<Default />}>
-										<Route index element={<MyReleases />} />
-										<Route path='docs' element={<Docs />} />
-									</Route>
-									<Route path='/admin' element={<Default />}>
-										<Route index element={<Dashboard /> } />
-										<Route path='dashboard' element={<Dashboard />} />
-										<Route path='releases' element={<Releases />} />
-										<Route path='collaborators' element={<Collaborators />} />
-										<Route path='bikes' element={<Bikes />} />
-									</Route>
-									<Route path='*' element={<NotFound />} />
-								</Routes>
-							</>
-						</BikesProvider>
+						<AccessLevelProvider>
+							<BikesProvider>
+								<>
+									<ScrollToTop />
+									<Routes>
+										<Route path='/signin' element={<SignIn />} />
+										<Route path='/signup' element={<SignUp />} />
+										<Route path='/' element={<Default />}>
+											<Route index element={<MyReleases />} />
+											<Route path='docs' element={<Docs />} />
+										</Route>
+										<Route path='/admin' element={<Default />}>
+											<Route index element={<Dashboard /> } />
+											<Route path='dashboard' element={<Dashboard />} />
+											<Route path='releases' element={<Releases />} />
+											<Route path='collaborators' element={<Collaborators />} />
+											<Route path='bikes' element={<Bikes />} />
+										</Route>
+										<Route path='*' element={<NotFound />} />
+									</Routes>
+								</>
+							</BikesProvider>
+						</AccessLevelProvider>
 					</ReleasesProvider>
 				</CollaboratorsProvider>
 			</UserProvider>

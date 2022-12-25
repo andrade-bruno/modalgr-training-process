@@ -44,7 +44,7 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			setToken(token)
 			localStorage.setItem('token', token)
 			localStorage.setItem('user', JSON.stringify(colaborador))
-			toast.success(`Bem vindo, ${colaborador.nome.split(' ')[0]}!`, {autoClose: false})
+			toast.success(`Bem vindo, ${colaborador.nome.split(' ')[0]}!`)
 			setTimeout(() => navigate('/'), 2500)
 		} catch (error: any) {
 			console.log('login error: ', error)

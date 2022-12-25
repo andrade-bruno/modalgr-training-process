@@ -10,6 +10,7 @@ interface InputProps {
 	required?: boolean,
 	fullWidth?: boolean,
 	type: string,
+	disabled?: boolean,
 	value: unknown,
 	setter: (e: any) => void
 }
@@ -20,6 +21,7 @@ const Input = ({
 	required,
 	fullWidth,
 	type,
+	disabled,
 	value,
 	setter
 }: InputProps) => {
@@ -37,6 +39,7 @@ const Input = ({
 			fullWidth={fullWidth}
 			margin='normal'
 			type={type}
+			disabled={disabled}
 			value={value}
 			onChange={(e) => handleChange(e)}
 		/>

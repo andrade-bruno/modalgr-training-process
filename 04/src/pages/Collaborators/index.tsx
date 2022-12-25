@@ -38,6 +38,10 @@ import Modal from 'components/Modal'
 import Input from 'components/Input'
 import { useUserContext } from 'contexts/UserContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
+import { useAccessLevelsContext } from 'contexts/AccessLevelsContext'
+import InputLabel from '@mui/material/InputLabel'
+import Select from '@mui/material/Select'
+import { toast } from 'react-toastify'
 
 const Collaborators = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -59,6 +63,7 @@ const Collaborators = () => {
 
 	const { user, token } = useUserContext()
 	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator, guaranteeAccess } = useCollaboratorsContext()
+	const { levels } = useAccessLevelsContext()
 	
 	useEffect(() => {
 		if (token && user.nivel_id === 2) getCollaborators()
@@ -118,6 +123,14 @@ const Collaborators = () => {
 	}
 	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		if (selectedCollaborator == 1 && (permissionLevel != 2 || email != 'rodrigo.lopes@modalgr.com.br')) {
+			toast.info('Você não possui permissão para alterar este usuário')
+			return false
+		}
+		if (!permissionLevel || permissionLevel === 3) {
+			toast.info('Informe o nível de acesso')
+			return false
+		}
 		await updateCollaborator(selectedCollaborator, {
 			nome: name,
 			email: email,
@@ -177,12 +190,14 @@ const Collaborators = () => {
 									}
 								</TableCell>
 								<TableCell align='center'>
-									{
-										item.nivel_id === 2 ? <Chip variant='outlined' color='error' label='Admin'/> 
-											: item.nivel_id === 1 ? <Chip variant='outlined' color='success' label='Colaborador' />
-												: item.nivel_id === 3 ? <Chip variant='outlined' color='default' label='Aguardando acesso' />
-													: null
-									}
+									{levels.map(level => 
+										item.nivel_id === level.id && <Chip
+											key={level.id}
+											variant='outlined'
+											color={level.id == 1 ? 'success' : level.id == 2 ? 'primary' : 'default'}
+											label={level.nivel}
+										/>
+									)}
 								</TableCell>
 								<TableCell align='center'>
 									{item.id !== user.id &&
@@ -235,6 +250,7 @@ const Collaborators = () => {
 						type='email'
 						fullWidth
 						required
+						disabled={selectedCollaborator === 1}
 					/>
 					<Input
 						label={isEditing ? 'Nova senha': 'Senha'}
@@ -243,6 +259,7 @@ const Collaborators = () => {
 						type='password'
 						fullWidth
 						required={!isEditing}
+						disabled={selectedCollaborator === 1}
 					/>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
@@ -261,22 +278,32 @@ const Collaborators = () => {
 							/>}
 						/>
 					</LocalizationProvider>
-					<Input
-						label='Nível de acesso'
-						value={permissionLevel}
-						setter={setPermissionLevel}
-						type='number'
-						fullWidth
-						required
-					/>
+					<FormControl fullWidth>
+						<InputLabel id='access-level-label'>Nível de acesso</InputLabel>
+						<Select
+							labelId='access-level-label'
+							label='Nível de acesso'
+							color='primary'
+							value={permissionLevel}
+							onChange={e => setPermissionLevel(Number(e.target.value))}
+							margin='dense'
+							fullWidth
+							required
+							disabled={selectedCollaborator === 1}
+						>
+							{levels[0] && levels.map(item => (
+								item.id != 3 && <MenuItem value={item.id} key={item.id}>{item.nivel}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
 					<FormControl style={{width: '95%'}}>
 						<RadioGroup
 							value={isActive}
 							onChange={e => setIsActive((e.target as HTMLInputElement).value)}
 							style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}
 						>
-							<FormControlLabel value='true' control={<Radio />} label='Ativo' />
-							<FormControlLabel value='false' control={<Radio />} label='Inativo' />
+							<FormControlLabel value='true' control={<Radio />} label='Ativo' disabled={selectedCollaborator === 1}/>
+							<FormControlLabel value='false' control={<Radio />} label='Inativo' disabled={selectedCollaborator === 1}/>
 						</RadioGroup>
 					</FormControl>
 					<Button

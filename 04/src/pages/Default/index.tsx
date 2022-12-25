@@ -15,7 +15,8 @@ import {
 	ListItemIcon,
 	ListItemText,
 	Button,
-	Chip
+	Chip,
+	Avatar
 } from '@mui/material'
 
 import {
@@ -80,7 +81,7 @@ export default function DefaultPage({children}: {children?: any}) {
 						<Typography variant="h6" noWrap component="div">BikeGR</Typography>
 					</Box>
 					<Box sx={{display: 'flex', alignItems: 'center', gap: 4}}>
-						{user.nome && <Chip variant='filled' color='warning' label={`Bem vindo, ${user.nome.split(' ')[0]}!`} />}
+						{user.nome && <Chip avatar={<Avatar>{user.nome[0]}</Avatar>} variant='filled' color='warning' label={`${user.nome.split(' ')[0]}`} />}
 						<Button variant='contained' color={!user.nivel_id ? 'success' : 'info'} onClick={() => handleLogout()}>
 							{(!user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Login</>}
 							{(user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Sair</>}
@@ -97,8 +98,8 @@ export default function DefaultPage({children}: {children?: any}) {
 						boxSizing: 'border-box',
 					},
 				}}
-				variant="persistent"
-				anchor="left"
+				variant="temporary"
+				anchor="top"
 				open={open}
 			>
 				<DrawerHeader sx={{ display: 'flex', justifyContent: 'space-between' }}>
