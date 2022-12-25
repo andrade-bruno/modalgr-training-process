@@ -203,11 +203,9 @@ const Collaborators = () => {
 									)}
 								</TableCell>
 								<TableCell align='center'>
-									{item.id !== user.id &&
-										<Button onClick={e => handleMenu(e, item.nivel_id)} id={`${item.id}`}>
-											<MoreVertRounded />
-										</Button>
-									}
+									<Button onClick={e => handleMenu(e, item.nivel_id)} id={`${item.id}`}>
+										<MoreVertRounded />
+									</Button>
 								</TableCell>
 							</TableRow>
 						))}
@@ -220,14 +218,17 @@ const Collaborators = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				<MenuItem onClick={handleEditCollaborator} style={{gap: 6}}>
-					<EditRounded color='warning'/> Editar
-				</MenuItem>
-				<MenuItem onClick={handleInactivateCollaborator} style={{gap: 6}}>
+				
+				{accessLevel === 3 ?
+					<MenuItem onClick={handleGuaranteeAccess} style={{gap: 6}}>
+						<CheckRounded color='success'/> Liberar
+					</MenuItem> :
+					<MenuItem onClick={handleEditCollaborator} style={{gap: 6}}>
+						<EditRounded color='warning'/> Editar
+					</MenuItem>
+				}
+				{anchorEl && anchorEl.id != '1' && <MenuItem onClick={handleInactivateCollaborator} style={{gap: 6}}>
 					<BlockRounded color='error' /> Desativar
-				</MenuItem>
-				{accessLevel === 3 && <MenuItem onClick={handleGuaranteeAccess} style={{gap: 6}}>
-					<CheckRounded color='success'/> Liberar
 				</MenuItem>}
 			</Menu>
 

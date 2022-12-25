@@ -10,6 +10,7 @@ import SignUp from 'pages/SignUp'
 import SignIn from 'pages/SignIn'
 import Docs from 'pages/Docs'
 import Bikes from 'pages/Bikes'
+import Profile from 'pages/Profile'
 
 import ScrollToTop from 'components/ScrollToTop'
 import { UserProvider } from 'contexts/UserContext'
@@ -29,12 +30,14 @@ const CommomRoutes = () => {
 								<>
 									<ScrollToTop />
 									<Routes>
-										<Route path='/signin' element={<SignIn />} />
+										<Route path='/' element={<SignIn />} />
 										<Route path='/signup' element={<SignUp />} />
-										<Route path='/' element={<Default />}>
-											<Route index element={<MyReleases />} />
+										<Route path='/system' element={<Default />} >
+											<Route path='me' element={<Profile />} />
+											<Route path='myreleases' element={<MyReleases />} />
 											<Route path='docs' element={<Docs />} />
 										</Route>
+
 										<Route path='/admin' element={<Default />}>
 											<Route index element={<Dashboard /> } />
 											<Route path='dashboard' element={<Dashboard />} />

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import {
 	CssBaseline,
@@ -29,7 +29,8 @@ import {
 	GroupsRounded,
 	TextSnippetRounded,
 	DirectionsBikeRounded,
-	LoginRounded
+	LoginRounded,
+	AccountCircleRounded
 } from '@mui/icons-material'
 
 import { useTheme } from '@mui/material/styles'
@@ -53,10 +54,6 @@ export default function DefaultPage({children}: {children?: any}) {
 		user.nivel_id === 2 ? setAdminPages(defaultAdminPages) : setAdminPages([])
 	}, [user, token])
 
-	const handleLogout = () => {
-		logout()
-		navigate('/signin')
-	}
 	const handleDrawerOpen = () => {
 		setOpen(true)
 	}
@@ -83,22 +80,25 @@ export default function DefaultPage({children}: {children?: any}) {
 					</Box>
 					<Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
 						{user.nome && 
-							<Chip
-								avatar={<Avatar><b>{user.nome[0]}</b></Avatar>}
-								variant='filled'
-								style={{
-									color: defaultTheme.colors.white,
-									backgroundColor: defaultTheme.colors.orange,
-									fontWeight: 900,
-									letterSpacing: 1,
-									textTransform: 'uppercase'
-								}}
-								label={`${user.nome.split(' ')[0]}`}
-							/>}
+							<Link to='/system/me' style={{textDecoration: 'none'}}>
+								<Chip
+									avatar={<Avatar><b>{user.nome[0]}</b></Avatar>}
+									variant='filled'
+									style={{
+										color: defaultTheme.colors.white,
+										backgroundColor: defaultTheme.colors.orange,
+										fontWeight: 900,
+										letterSpacing: 1,
+										textTransform: 'uppercase'
+									}}
+									label={`${user.nome.split(' ')[0]}`}
+								/>
+							</Link>
+						}
 						<Button
 							variant='contained'
 							color={!user.nivel_id ? 'success' : 'info'}
-							onClick={() => handleLogout()}
+							onClick={() => logout()}
 						>
 							{(!user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Login</>}
 							{(user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Sair</>}
@@ -131,9 +131,10 @@ export default function DefaultPage({children}: {children?: any}) {
 						<ListItem key={item.id} disablePadding>
 							<ListItemButton onClick={() => navigate(item.path)}>
 								<ListItemIcon>
-									{item.id === 1 ? <ReceiptLongRounded />
-										: item.id === 2 ? <TextSnippetRounded />
-											: null}
+									{item.id == 1 ? <AccountCircleRounded />
+										: item.id === 2 ? <ReceiptLongRounded />
+											: item.id === 3 ? <TextSnippetRounded />
+												: null}
 								</ListItemIcon>
 								<ListItemText primary={item.title} />
 							</ListItemButton>

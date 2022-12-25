@@ -24,7 +24,12 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 
 	useEffect(() => {
 		const user = localStorage.getItem('user')
-		user ? setUser(JSON.parse(user)) : setUser({} as IUser)
+		if (user) {
+			setUser(JSON.parse(user))
+			if (window.location.pathname === '/') navigate('/system/myreleases')
+		} else {
+			setUser({} as IUser)
+		}	
 	}, [])
 
 	const login = async (email: string, password: string) => {
@@ -36,7 +41,7 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			const { colaborador, token } = res.data
 
 			if (colaborador.nivel_id === 3) {
-				toast.info(`${colaborador.nome.split(' ')[0]}, seu acesso ainda não foi concedido. Aguarde liberação.`)
+				toast.info(`${colaborador.nome.split(' ')[0]}, seu acesso ainda não foi concedido. Aguarde liberação.`, {autoClose: false})
 				return false
 			}
 			
@@ -44,8 +49,8 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			setToken(token)
 			localStorage.setItem('token', token)
 			localStorage.setItem('user', JSON.stringify(colaborador))
-			toast.success(`Bem vindo, ${colaborador.nome.split(' ')[0]}!`)
-			setTimeout(() => navigate('/'), 2500)
+			toast.success(`Bem vindo(a) ${colaborador.nome.split(' ')[0]}!`)
+			setTimeout(() => navigate('/system/myreleases'), 2500)
 		} catch (error: any) {
 			const { response, message } = error
 			response?.data ? toast.error(`${response.data}`)
@@ -59,6 +64,7 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 		setToken('')
 		localStorage.removeItem('token')
 		localStorage.removeItem('user')
+		navigate('/')
 	}
 
 	return (

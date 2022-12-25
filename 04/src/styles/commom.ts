@@ -11,14 +11,14 @@ export const Container = styled.main`
 	background-color: #F1F1F1;
 
 	animation-name: bgModal;
-	animation-duration: 10s;
+	animation-duration: 14s;
 	animation-iteration-count: infinite;
 	@keyframes bgModal {
-		0%   {background-color: #0084B7;}
-		25%  {background-color: #91D7F6;}
+		0%   {background-color: ${theme.colors.main};}
+		25%  {background-color: ${theme.colors.seconday};}
 		50%  {background-color: #FFF;}
-		75%  {background-color: #0084B7;}
-		100% {background-color: #91D7F6;}
+		75%  {background-color: ${theme.colors.main};}
+		100% {background-color: ${theme.colors.seconday};}
 	}
 `
 

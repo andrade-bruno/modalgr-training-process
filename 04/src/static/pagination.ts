@@ -3,13 +3,18 @@ import IPagination from 'interfaces/IPagination'
 export const userPages: IPagination[] = [
 	{
 		id: 1,
-		title: 'Meus lançamentos',
-		path: '/'
+		title: 'Conta',
+		path: '/system/me'
 	},
 	{
 		id: 2,
+		title: 'Meus lançamentos',
+		path: '/system/myreleases'
+	},
+	{
+		id: 3,
 		title: 'Documentação',
-		path: '/docs'
+		path: '/system/docs'
 	}
 ]
 

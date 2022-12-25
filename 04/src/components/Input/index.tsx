@@ -5,14 +5,15 @@ import {
 } from '@mui/material'
 
 interface InputProps {
-	label: string,
-	defaultValue?: string,
-	required?: boolean,
-	fullWidth?: boolean,
-	type: string,
-	disabled?: boolean,
-	value: unknown,
-	setter: (e: any) => void
+	label: string
+	defaultValue?: string
+	required?: boolean
+	fullWidth?: boolean
+	type: string
+	disabled?: boolean
+	sx?: any
+	value: unknown
+	setter?: (e: any) => void
 }
 
 const Input = ({
@@ -22,11 +23,12 @@ const Input = ({
 	fullWidth,
 	type,
 	disabled,
+	sx,
 	value,
 	setter
 }: InputProps) => {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		setter(event.target.value)
+		setter ? setter(event.target.value) : null
 	}
 	
 	return (
@@ -42,6 +44,7 @@ const Input = ({
 			disabled={disabled}
 			value={value}
 			onChange={(e) => handleChange(e)}
+			sx={sx}
 		/>
 	)
 }

@@ -8,6 +8,7 @@ import { useCollaboratorsContext } from './CollaboratorsContext'
    
 interface Props {
 	levels: IAccessLevel[]
+	getAccessLevelNameById: (id: number) => void
 	getLevels: () => void
 	getLevelById: (id: number) => Promise<IAccessLevel | undefined>
 	addLevel: (bike: addOrUpdateProps) => void
@@ -35,6 +36,13 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 
 	const sortAccessLevelsByIdAsc = (accessLevels: IAccessLevel[]) => {
 		return accessLevels.sort((a, b) => a.id - b.id)
+	}
+
+	const getAccessLevelNameById = (id: number) => {
+		if (levels[0]) {
+			const level = levels.find(item => item.id === id)
+			return level?.nivel ? level.nivel : ''
+		}
 	}
 
 	const getLevels = async () => {
@@ -134,6 +142,7 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 	return (
 		<AccessLevelsContext.Provider value={{
 			levels,
+			getAccessLevelNameById,
 			getLevels,
 			getLevelById,
 			addLevel,

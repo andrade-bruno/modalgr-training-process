@@ -101,6 +101,14 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
 			return false
 		}
+
+		const bikesWithSameCollaborator = bikes.filter(
+			bike => bike.colaborador_id === colaborador_id && bike.id != id
+		)
+		if (bikesWithSameCollaborator.length > 0) {
+			toast.error('O colaborador selecionado está utilizando outra bicicleta')
+			return false
+		}
 		
 		const main = new Promise((resolve, reject) => {
 			http.put<IBike>(`bicicleta/${id}`, {

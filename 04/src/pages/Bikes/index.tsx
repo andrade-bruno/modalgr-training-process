@@ -109,6 +109,14 @@ const Bikes = () => {
 			toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
 			return false
 		}
+		const bikesWithSameCollaborator = bikes.filter(
+			bike => bike.colaborador_id === collaboratorId && bike.id != Number(anchorEl?.id)
+		)
+		if (bikesWithSameCollaborator.length > 0) {
+			toast.error('O colaborador selecionado está utilizando outra bicicleta')
+			return false
+		}
+
 		await updateBike(selectedBike, {
 			colaborador_id: Number(collaboratorId),
 			numero: bikeNumber,

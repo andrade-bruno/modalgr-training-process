@@ -77,7 +77,7 @@ const SignUp = () => {
 						required
 					/>
 					<Typography variant='overline' component='h6'>
-						Já possui cadastro? <Link style={{ textDecoration: 'none' }} to='/signin'>Acesse a plataforma</Link>
+						Já possui cadastro? <Link style={{ textDecoration: 'none' }} to='/'>Acesse a plataforma</Link>
 					</Typography>
 					<Button
 						color="primary"
