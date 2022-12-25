@@ -63,10 +63,13 @@ const Collaborators = () => {
 
 	const { user, token } = useUserContext()
 	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator, guaranteeAccess } = useCollaboratorsContext()
-	const { levels } = useAccessLevelsContext()
+	const { levels, getLevels } = useAccessLevelsContext()
 	
 	useEffect(() => {
-		if (token && user.nivel_id === 2) getCollaborators()
+		if (token && user.nivel_id === 2) {
+			getCollaborators()
+			getLevels()
+		}
 	}, [token, user])
 
 	if (user.nivel_id !== 2) return <Unauthorized />
@@ -213,7 +216,6 @@ const Collaborators = () => {
 			</TableContainer>
 
 			<Menu
-				id='basic-menu'
 				anchorEl={anchorEl}
 				open={open}
 				onClose={handleCloseMenu}

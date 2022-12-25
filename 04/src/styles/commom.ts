@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { theme } from './theme'
 
 export const Container = styled.main`
@@ -19,6 +19,17 @@ export const Container = styled.main`
 		50%  {background-color: #FFF;}
 		75%  {background-color: #0084B7;}
 		100% {background-color: #91D7F6;}
+	}
+`
+
+export const fadeAnimation = css`
+	animation-name: fade;
+	animation-duration: 2s;
+	opacity: 1;
+	
+	@keyframes fade {
+		0%   {opacity: 0;}
+		100% {opacity: 1;}
 	}
 `
 
@@ -48,13 +59,7 @@ export const Box = styled.section`
 		justify-content: center;
 	}
 
-	animation-name: fade;
-	animation-duration: 2s;
-	opacity: 1;
-	@keyframes fade {
-		0%   {opacity: 0;}
-		100% {opacity: 1;}
-	}
+	${fadeAnimation}
 `
 
 export const SignInSignUpForm = styled.form`
@@ -155,4 +160,23 @@ export const Form = styled.form`
 	border-radius: inherit;
 	width: 100%;
 	padding: 0px 0px 10px 0px;
+`
+
+export const AdaptiveImg = css`
+	object-fit: contain;
+	
+	@media (min-width: 840px) {
+		width: 8rem;
+		height: 8rem;
+	}
+
+	@media (max-width: 840px) {
+		width: 6rem;
+		height: 6rem;
+	}
+
+	@media (max-width: 360px) {
+		width: 4rem;
+		height: 4rem;
+	}
 `

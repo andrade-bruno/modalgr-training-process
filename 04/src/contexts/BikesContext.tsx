@@ -99,7 +99,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 		colaborador_id = (colaborador_id == 0 || colaborador_id == null) ? null : colaborador_id
 		status = (status === 'true') || (status === true)
 
-		if (colaborador_id) {
+		if (status == false && colaborador_id) {
 			toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
 			return false
 		}

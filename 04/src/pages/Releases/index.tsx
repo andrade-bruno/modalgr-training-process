@@ -41,14 +41,14 @@ const Releases = () => {
 	const { user, token } = useUserContext()
 	const { getCollaborators, getCollaboratorNameById } = useCollaboratorsContext()
 
-	if (user.nivel_id !== 2) return <Unauthorized />
-
 	useEffect(() => {
 		if (token && user.nivel_id === 2) {
 			getCollaborators()
 			getReleases()
 		}
 	}, [token, user])
+
+	if (user.nivel_id !== 2) return <Unauthorized />
 
 	const handleCloseModal = () => {
 		setIsOpen(false)

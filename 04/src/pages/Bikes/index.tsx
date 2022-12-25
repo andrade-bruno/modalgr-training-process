@@ -35,6 +35,7 @@ import Input from 'components/Input'
 import { useUserContext } from 'contexts/UserContext'
 import { useBikesContext } from 'contexts/BikesContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
+import { toast } from 'react-toastify'
 
 const Bikes = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -104,7 +105,10 @@ const Bikes = () => {
 	}
 	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log('submitedit', isActive)
+		if (isActive == 'false' && collaboratorId) {
+			toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
+			return false
+		}
 		await updateBike(selectedBike, {
 			colaborador_id: Number(collaboratorId),
 			numero: bikeNumber,

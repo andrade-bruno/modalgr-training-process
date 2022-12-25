@@ -38,6 +38,7 @@ import { AppBar, DrawerHeader, drawerWidth, LogoMenuDrawer, Main } from './style
 import { adminPages as defaultAdminPages, userPages as defaultUserPages } from 'static/pagination'
 import IPagination from 'interfaces/IPagination'
 import { useUserContext } from 'contexts/UserContext'
+import { theme as defaultTheme } from 'styles/theme'
 
 export default function DefaultPage({children}: {children?: any}) {
 	const [open, setOpen] = React.useState(true)
@@ -80,9 +81,25 @@ export default function DefaultPage({children}: {children?: any}) {
 						</IconButton>
 						<Typography variant="h6" noWrap component="div">BikeGR</Typography>
 					</Box>
-					<Box sx={{display: 'flex', alignItems: 'center', gap: 4}}>
-						{user.nome && <Chip avatar={<Avatar>{user.nome[0]}</Avatar>} variant='filled' color='warning' label={`${user.nome.split(' ')[0]}`} />}
-						<Button variant='contained' color={!user.nivel_id ? 'success' : 'info'} onClick={() => handleLogout()}>
+					<Box sx={{display: 'flex', alignItems: 'center', gap: 2}}>
+						{user.nome && 
+							<Chip
+								avatar={<Avatar><b>{user.nome[0]}</b></Avatar>}
+								variant='filled'
+								style={{
+									color: defaultTheme.colors.white,
+									backgroundColor: defaultTheme.colors.orange,
+									fontWeight: 900,
+									letterSpacing: 1,
+									textTransform: 'uppercase'
+								}}
+								label={`${user.nome.split(' ')[0]}`}
+							/>}
+						<Button
+							variant='contained'
+							color={!user.nivel_id ? 'success' : 'info'}
+							onClick={() => handleLogout()}
+						>
 							{(!user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Login</>}
 							{(user.nivel_id) && <><LoginRounded style={{marginRight: 6}}/> Sair</>}
 						</Button>
