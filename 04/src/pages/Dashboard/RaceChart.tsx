@@ -13,11 +13,13 @@ const RaceChart = () => {
 		getCollaborators()
 	}, [token, user])
 
-	const distanceByCollaborator = collaborators.map(collaborator => (
+	const distanceByCollaborator = collaborators[0] && collaborators.map(collaborator => (
 		{id: collaborator.nome, value: releases.reduce((sum, release) => {
 			return (release.colaborador_id == collaborator.id) ? sum + release.km : sum + 0
 		}, 0)}
 	))
+
+	if (!distanceByCollaborator) return null
 	
 	const raceChartData = distanceByCollaborator.filter(data => data.value > 6).sort((a: any, b: any) => a.value - b.value)
 
