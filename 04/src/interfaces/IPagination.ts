@@ -1,5 +1,5 @@
 export default interface IPagination {
-	id: number,
-	title: string,
-	path: string
+	readonly id: number,
+	readonly title: string,
+	readonly path: string
 }

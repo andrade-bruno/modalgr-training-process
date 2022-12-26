@@ -12,7 +12,7 @@ import RaceChart from './RaceChart'
 
 const Dashboard = () => {
 	const { user, token } = useUserContext()
-	const { bikes, getBikes } = useBikesContext()
+	const { bikes, getBikes, getAvailableBikes } = useBikesContext()
 	const { releases, getReleases } = useReleasesContext()
 
 	useEffect(() => {
@@ -24,7 +24,7 @@ const Dashboard = () => {
 	
 	if (user.nivel_id !== 2) return <Unauthorized />
 	
-	const availableBikes = bikes[0] && bikes.filter(bike => bike.status == true && bike.colaborador_id == null).length
+	const availableBikes = bikes[0] && getAvailableBikes().length
 	const borrowedBikes = bikes[0] && bikes.filter(bike => bike.colaborador_id).length
 	const totalDistance = releases[0] && releases.reduce((sum, release) => {return sum + release.km}, 0)
 	const totalGrKm = totalDistance * 0.82
@@ -35,7 +35,7 @@ const Dashboard = () => {
 				<div>
 					<p style={{color: theme.colors.orange, fontWeight: 900}}>Olá {user.nome && user.nome.split(' ')[0]}!</p>
 					<p>
-						Hoje <b>{availableBikes && ((availableBikes < 1) ? 'não temos nenhuma bicicleta disponível' : availableBikes == 1 ? 'temos 1 bicicleta disponível' : `temos ${availableBikes} bicicletas disponíveis`)}</b> para entrega. 
+						Hoje <b>{availableBikes ? (availableBikes == 1 ? 'temos 1 bicicleta disponível' : `temos ${availableBikes} bicicletas disponíveis`) : 'não temos nenhuma bicicleta disponível'}</b> para entrega. 
 					</p>
 					<p>
 						Verifique a lista no botão abaixo.

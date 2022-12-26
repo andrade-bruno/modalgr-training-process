@@ -1,6 +1,6 @@
 export default interface IAccessLevel {
-	id: number
+	readonly id: number
 	nivel: string
-	createdAt: Date
-	updatedAt: Date
+	readonly createdAt: Date
+	readonly updatedAt: Date
 }

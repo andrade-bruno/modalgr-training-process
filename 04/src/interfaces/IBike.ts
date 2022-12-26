@@ -1,8 +1,8 @@
 export default interface IBike {
-	id: number
+	readonly id: number
 	numero: number
 	colaborador_id: number
 	status: boolean
-	createdAt: Date
-	updatedAt: Date
+	readonly createdAt: Date
+	readonly updatedAt: Date
 }

@@ -50,7 +50,7 @@ const Bikes = () => {
 
 	const { user, token } = useUserContext()
 	const { getCollaboratorNameById, collaborators, getCollaborators } = useCollaboratorsContext()
-	const { bikes, getBikes, getBikeById, addBike, deleteBike, updateBike, inactivateBike } = useBikesContext()
+	const { bikes, getBikes, getBikeById, addBike, deleteBike, updateBike, inactivateBike, isCollaboratorUsingOtherBike } = useBikesContext()
 	
 	useEffect(() => {
 		if (token && user.nivel_id === 2) {
@@ -109,10 +109,8 @@ const Bikes = () => {
 			toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
 			return false
 		}
-		const bikesWithSameCollaborator = bikes.filter(
-			bike => bike.colaborador_id === collaboratorId && bike.id != Number(anchorEl?.id)
-		)
-		if (bikesWithSameCollaborator.length > 0) {
+		
+		if (collaboratorId && isCollaboratorUsingOtherBike(selectedBike, collaboratorId)) {
 			toast.error('O colaborador selecionado está utilizando outra bicicleta')
 			return false
 		}

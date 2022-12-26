@@ -11,6 +11,7 @@ interface Props {
 	token: string | null | undefined
 	login: (email: string, password: string) => void
 	logout: () => void
+	checkIfCorrectPassword: (email: string, password: string) => Promise<boolean | undefined>
 }
 
 const UserContext = React.createContext<Props>({} as Props)
@@ -25,7 +26,8 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 	useEffect(() => {
 		const user = localStorage.getItem('user')
 		if (user) {
-			setUser(JSON.parse(user))
+			const userObj = JSON.parse(user) as IUser
+			setUser(userObj)
 			if (window.location.pathname === '/') navigate('/system/myreleases')
 		} else {
 			setUser({} as IUser)
@@ -33,9 +35,13 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 	}, [])
 
 	const login = async (email: string, password: string) => {
+		interface colaboradorResponseProps extends IUser {
+			senha?: string
+		}
+		
 		try {
 			const res = await http.post<{
-				mensagem: string, colaborador: IUser, token: string
+				mensagem: string, colaborador: colaboradorResponseProps, token: string
 			}>('login', {email: email, senha: password})
 
 			const { colaborador, token } = res.data
@@ -45,6 +51,8 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 				return false
 			}
 			
+			delete colaborador.senha //Security reasons
+
 			setUser(colaborador)
 			setToken(token)
 			localStorage.setItem('token', token)
@@ -67,8 +75,27 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 		navigate('/')
 	}
 
+	const checkIfCorrectPassword = async (email: string, password: string) => {
+		try {
+			const res = await http.post<{
+				mensagem: string, colaborador: IUser, token: string
+			}>('login', {email: email, senha: password})
+			if (res.data.colaborador) return true
+		} catch (error: any) {
+			return false
+		}
+	}
+
 	return (
-		<UserContext.Provider value={{user, setUser, token, setToken, login, logout}}>
+		<UserContext.Provider value={{
+			user,
+			setUser,
+			token,
+			setToken,
+			login,
+			logout,
+			checkIfCorrectPassword
+		}}>
 			{children}
 		</UserContext.Provider>
 	)

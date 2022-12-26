@@ -10,9 +10,11 @@ interface Props {
 	getBikes: () => void
 	getBikeById: (id: number) => Promise<IBike | undefined>
 	addBike: (bike: addOrUpdateProps) => void
-	updateBike: (id: number, bike: addOrUpdateProps) => void
+	updateBike: (id: number, bike: addOrUpdateProps, userKnowsAvailableBikes?: boolean) => void
 	deleteBike: (id: number) => void
 	inactivateBike: (id: number) => void
+	isCollaboratorUsingOtherBike: (bikeId: number, collaboratorId: number) => boolean
+	getAvailableBikes: () => IBike[]
 }
 
 interface addOrUpdateProps {
@@ -36,6 +38,18 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 
 	const sortBikesByIdAsc = (bikes: IBike[]) => {
 		return bikes.sort((a, b) => a.id - b.id)
+	}
+
+	const isCollaboratorUsingOtherBike = (bikeId: number, collaboratorId: number) => {
+		const bikesWithSameCollaborator = bikes.filter(
+			bike => bike.colaborador_id === collaboratorId && bike.id != bikeId
+		)
+		return (bikesWithSameCollaborator.length > 0) ? true : false
+	}
+
+	const getAvailableBikes = () => {
+		const available = bikes[0] && bikes.filter(bike => bike.status == true && bike.colaborador_id == null)
+		return (available && available.length >= 1) ? available : []
 	}
 
 	const getBikes = async () => {
@@ -88,7 +102,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 		)
 	}
 
-	const updateBike = async (id: number, bike: addOrUpdateProps) => {
+	const updateBike = async (id: number, bike: addOrUpdateProps, userKnowsAvailableBikes?: boolean) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const { numero } = bike
@@ -102,10 +116,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			return false
 		}
 
-		const bikesWithSameCollaborator = bikes.filter(
-			bike => bike.colaborador_id === colaborador_id && bike.id != id
-		)
-		if (bikesWithSameCollaborator.length > 0) {
+		if (!userKnowsAvailableBikes && colaborador_id && isCollaboratorUsingOtherBike(id, colaborador_id)) {
 			toast.error('O colaborador selecionado está utilizando outra bicicleta')
 			return false
 		}
@@ -127,7 +138,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			main,
 			{
 				pending: 'Aguarde...',
-				success: `Bicicleta #${numero} atualizada com sucesso!`,
+				success: `Bicicleta #${numero} atualizada com sucesso!` ,
 				error: 'Não foi possível atualizar a bicicleta'
 			}
 		)
@@ -204,7 +215,9 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			addBike,
 			updateBike,
 			deleteBike,
-			inactivateBike
+			inactivateBike,
+			isCollaboratorUsingOtherBike,
+			getAvailableBikes
 		}}>
 			{children}
 		</BikesContext.Provider>

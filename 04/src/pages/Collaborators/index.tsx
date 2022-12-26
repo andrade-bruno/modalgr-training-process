@@ -54,7 +54,7 @@ const Collaborators = () => {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [registerDate, setRegisterDate] = useState<Dayjs | string | null>(null)
+	const [registerDate, setRegisterDate] = useState<Dayjs | Date | string | null>(null)
 	const [permissionLevel, setPermissionLevel] = useState(1)
 	const [isActive, setIsActive] = useState<string>('true')
 

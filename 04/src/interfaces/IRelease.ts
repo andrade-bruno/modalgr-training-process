@@ -1,8 +1,8 @@
 export default interface IRelease {
-	id: number,
+	readonly id: number,
 	km: number,
 	tempo: number,
 	colaborador_id: number,
-	createdAt: Date,
-	updatedAt: Date
+	readonly createdAt: Date,
+	readonly updatedAt: Date
 }

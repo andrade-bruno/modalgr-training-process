@@ -10,12 +10,14 @@ import { useUserContext } from 'contexts/UserContext'
 import { useAccessLevelsContext } from 'contexts/AccessLevelsContext'
 import { useBikesContext } from 'contexts/BikesContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
+import moment from 'moment'
+import IBike from 'interfaces/IBike'
 
 const Profile = () => {
 	const { getLevels, getAccessLevelNameById } = useAccessLevelsContext()
-	const { bikes, getBikes, updateBike } = useBikesContext()
+	const { bikes, getBikes, updateBike, getAvailableBikes } = useBikesContext()
 	const { updateCollaborator } = useCollaboratorsContext()
-	const { user, token } = useUserContext()
+	const { user, token, checkIfCorrectPassword } = useUserContext()
 	
 	useEffect(() => {
 		if (token && user) {
@@ -28,6 +30,7 @@ const Profile = () => {
 	
 	useEffect(() => {
 		const mybike = bikes[0] && bikes.find(bike => bike.colaborador_id === user.id)
+		setMyBike(mybike)
 		setBikeNumber(mybike?.numero)
 	}, [bikes])
 	
@@ -37,20 +40,25 @@ const Profile = () => {
 	const [newPassword, setNewPassword] = useState('')
 	const [oldPassword, setOldPassword] = useState('')
 	const [bikeNumber, setBikeNumber] = useState<number | undefined>()
+	const [myBike, setMyBike] = useState<IBike | undefined>()
 
 	if (!user) return <Unauthorized />
 	
-	const avatarSize = 100
+	const avatarSize = 120
+	const availableBikes = getAvailableBikes()
+	if (myBike) availableBikes.push(myBike)
 
 	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.preventDefault()
 
-		if (user.senha !== oldPassword) {
+		const isValid = await checkIfCorrectPassword(email, oldPassword)
+
+		if (!isValid) {
 			toast.info('Senha atual incorreta, tente novamente')
 			return false
 		}
 
-		if (user.nivel_id === 2 && bikeNumber) {
+		if (user.nivel_id === 2 && bikeNumber && bikeNumber != 0 && bikeNumber != myBike?.numero) {
 			const bikeToUpdate = bikes.find(bike => bike.numero === bikeNumber)
 
 			if (bikeToUpdate) {
@@ -58,7 +66,16 @@ const Profile = () => {
 					colaborador_id: user.id,
 					numero: bikeToUpdate.numero,
 					status: bikeToUpdate.status
-				})
+				}, true)
+			}
+
+			const myPreviousBike = bikes.find(bike => bike.numero === myBike?.numero)
+			if (myPreviousBike) {
+				await updateBike(myPreviousBike.id, {
+					colaborador_id: null,
+					numero: myPreviousBike.numero,
+					status: myPreviousBike.status
+				}, true)
 			}
 		}
 
@@ -68,11 +85,11 @@ const Profile = () => {
 			senha: newPassword,
 			nivel_id: user.nivel_id,
 			ativo: true
-		})
+		}, true)
 
 		setIsEditing(false)
 	}
-	
+
 	return (
 		<Main>
 			<BackgroundImg />
@@ -145,14 +162,17 @@ const Profile = () => {
 							required
 							disabled={!isEditing || user.nivel_id != 2}
 						>
-							{bikes[0] && bikes.map(item => (
-								<MenuItem value={item.numero} key={item.id}>{item.numero}</MenuItem>
-							))}
+							{availableBikes.length > 0
+								? availableBikes.map(item => (
+									<MenuItem value={item.numero} key={item.id}>{item.numero}</MenuItem>
+								))
+								: <MenuItem value={0} selected>Nenhuma bicicleta disponível</MenuItem>
+							}
 						</Select>
 					</FormControl>
 					<Input
 						label='Data de registro'
-						value={`${user.data_registro}`}
+						value={`${moment(user.data_registro?.toLocaleString()).format('DD/MM/YYYY')}`}
 						type='string'
 						fullWidth
 						disabled

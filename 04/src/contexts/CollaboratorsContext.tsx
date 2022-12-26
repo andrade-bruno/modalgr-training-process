@@ -11,7 +11,7 @@ interface Props {
 	getCollaboratorById: (id: number) => Promise<ICollaborator | undefined>
 	getCollaboratorNameById: (id: number) => void
 	addColaborator: (collaborator: addOrUpdateProps, isSignUpPage?: boolean) => void
-	updateCollaborator: (id: number, collaborator: addOrUpdateProps) => void
+	updateCollaborator: (id: number, collaborator: addOrUpdateProps, isUpdatingCurrentUser?: boolean) => void
 	inactivateCollaborator: (id: number) => void
 	guaranteeAccess: (collaboratorId: number) => void
 }
@@ -31,7 +31,7 @@ CollaboratorsContext.displayName = 'CollaboratorsContext'
 export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 	const [collaborators, setCollaborators] = useState<ICollaborator[]>({} as ICollaborator[])
 
-	const { token, user } = useUserContext()
+	const { token, user, setUser } = useUserContext()
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
@@ -100,7 +100,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		)
 	}
 
-	const updateCollaborator = async (id: number, collaborator: addOrUpdateProps) => {
+	const updateCollaborator = async (id: number, collaborator: addOrUpdateProps, isUpdatingCurrentUser?: boolean) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
@@ -114,6 +114,11 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 				.then(res => {
 					const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
 					updatedList.push(res.data)
+					delete res.data.senha
+					if (isUpdatingCurrentUser) {
+						setUser({...res.data})
+						localStorage.setItem('user', JSON.stringify({...res.data}))
+					}
 					const final = sortCollaboratorsByIdAsc(updatedList)
 					resolve(setCollaborators(final))
 				}).catch(() => {
@@ -124,7 +129,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 			main,
 			{
 				pending: 'Aguarde...',
-				success: `${nome} atualizado(a) com sucesso!`,
+				success: isUpdatingCurrentUser ? 'Perfil atualizado com sucesso!' : `${nome} atualizado(a) com sucesso!`,
 				error: 'Não foi possível atualizar o colaborador'
 			}
 		)

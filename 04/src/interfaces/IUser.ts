@@ -1,11 +1,13 @@
+import { Dayjs } from 'dayjs'
+
 export default interface IUser {
-	id: number,
+	readonly id: number,
     nome: string,
     email: string,
-    senha: string,
-    data_registro: Date,
+	senha?: string,
+    data_registro: Date | Dayjs | string | null,
     ativo: boolean,
-    createdAt: Date,
-    updatedAt: Date,
+    readonly createdAt: Date,
+    readonly updatedAt: Date,
     nivel_id: number
 }
