@@ -10,4 +10,5 @@ export default interface ICollaborator {
     readonly createdAt: Date,
     readonly updatedAt: Date,
     nivel_id: number
+	numeroBike?: number | null
 }

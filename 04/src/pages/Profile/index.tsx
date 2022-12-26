@@ -11,7 +11,6 @@ import { useAccessLevelsContext } from 'contexts/AccessLevelsContext'
 import { useBikesContext } from 'contexts/BikesContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 import moment from 'moment'
-import IBike from 'interfaces/IBike'
 
 const Profile = () => {
 	const { getLevels, getAccessLevelNameById } = useAccessLevelsContext()
@@ -22,31 +21,27 @@ const Profile = () => {
 	useEffect(() => {
 		if (token && user) {
 			getLevels()
-			getBikes()
+			if (user.nivel_id == 2) getBikes()
 		}
 		setName(user.nome)
 		setEmail(user.email)
+		setBikeNumber(user?.numeroBike)
 	}, [user, token])
-	
-	useEffect(() => {
-		const mybike = bikes[0] && bikes.find(bike => bike.colaborador_id === user.id)
-		setMyBike(mybike)
-		setBikeNumber(mybike?.numero)
-	}, [bikes])
 	
 	const [isEditing, setIsEditing] = useState(false)
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [newPassword, setNewPassword] = useState('')
 	const [oldPassword, setOldPassword] = useState('')
-	const [bikeNumber, setBikeNumber] = useState<number | undefined>()
-	const [myBike, setMyBike] = useState<IBike | undefined>()
+	const [bikeNumber, setBikeNumber] = useState<number | null | undefined>()
 
 	if (!user) return <Unauthorized />
 	
 	const avatarSize = 120
 	const availableBikes = getAvailableBikes()
-	if (myBike) availableBikes.push(myBike)
+	if (bikeNumber) availableBikes.push({
+		id: 1, colaborador_id: user.id, status: true, createdAt: new Date(), updatedAt: new Date(), numero: bikeNumber
+	})
 
 	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.preventDefault()
@@ -58,7 +53,7 @@ const Profile = () => {
 			return false
 		}
 
-		if (user.nivel_id === 2 && bikeNumber && bikeNumber != 0 && bikeNumber != myBike?.numero) {
+		if (user.nivel_id === 2 && bikeNumber && bikeNumber != 0 && bikeNumber != user.numeroBike) {
 			const bikeToUpdate = bikes.find(bike => bike.numero === bikeNumber)
 
 			if (bikeToUpdate) {
@@ -69,7 +64,7 @@ const Profile = () => {
 				}, true)
 			}
 
-			const myPreviousBike = bikes.find(bike => bike.numero === myBike?.numero)
+			const myPreviousBike = bikes.find(bike => bike.numero === user.numeroBike)
 			if (myPreviousBike) {
 				await updateBike(myPreviousBike.id, {
 					colaborador_id: null,
@@ -84,7 +79,8 @@ const Profile = () => {
 			email: email,
 			senha: newPassword,
 			nivel_id: user.nivel_id,
-			ativo: true
+			ativo: true,
+			numeroBike: bikeNumber
 		}, true)
 
 		setIsEditing(false)
@@ -163,7 +159,7 @@ const Profile = () => {
 						>
 							{availableBikes.length > 0
 								? availableBikes.map(item => (
-									<MenuItem value={item.numero} key={item.id}>{item.numero}</MenuItem>
+									<MenuItem value={item.numero} key={item.numero}>{item.numero}</MenuItem>
 								))
 								: <MenuItem value={0} selected>Nenhuma bicicleta disponível</MenuItem>
 							}

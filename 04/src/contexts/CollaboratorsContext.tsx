@@ -23,6 +23,7 @@ interface addOrUpdateProps {
 	data_registro?: ICollaborator['data_registro']
 	nivel_id: ICollaborator['nivel_id']
 	ativo: boolean | string
+	numeroBike?: number | null 
 }
 
 const CollaboratorsContext = React.createContext<Props>({} as Props)

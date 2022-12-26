@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useUserContext } from 'contexts/UserContext'
 import Unauthorized from 'pages/Unauthorized'
-import { Main, WelcomeCard, DashboardBike, SquareCard, CounterHighlight } from './styles'
+import { Main, WelcomeCard, DashboardBike, SquareCard, CounterHighlight, RaceChartStyle } from './styles'
 import { useBikesContext } from 'contexts/BikesContext'
 import { Button } from '@mui/material'
 import theme from 'styles/theme'
 import { Link } from 'react-router-dom'
-import { Co2Rounded, DirectionsBikeRounded, NearMeRounded } from '@mui/icons-material'
+import { Co2Rounded, DirectionsBikeRounded, NearMeRounded, ParkRounded } from '@mui/icons-material'
 import { useReleasesContext } from 'contexts/ReleasesContext'
 import RaceChart from './RaceChart'
 
@@ -27,7 +27,10 @@ const Dashboard = () => {
 	const availableBikes = bikes[0] && getAvailableBikes().length
 	const borrowedBikes = bikes[0] && bikes.filter(bike => bike.colaborador_id).length
 	const totalDistance = releases[0] && releases.reduce((sum, release) => {return sum + release.km}, 0)
-	const totalGrKm = totalDistance * 0.82
+	const totalConsumeCO2 = totalDistance * 0.82
+	const compensedTrees = (totalConsumeCO2 / 1000) / 5.85
+
+	const svgIconsSize = 50
 	
 	return (
 		<Main>
@@ -51,28 +54,35 @@ const Dashboard = () => {
 				</div>
 			</WelcomeCard>
 			<SquareCard>
-				<DirectionsBikeRounded sx={{width: 40, height: 40}}/>
+				<DirectionsBikeRounded sx={{width: svgIconsSize, height: svgIconsSize}}/>
 				<CounterHighlight>Bicicletas</CounterHighlight>
 				<CounterHighlight title={'true'}>{bikes.length}</CounterHighlight>
 			</SquareCard>
 			<SquareCard>
-				<DirectionsBikeRounded sx={{width: 40, height: 40}}/>
+				<DirectionsBikeRounded sx={{width: svgIconsSize, height: svgIconsSize}}/>
 				<CounterHighlight>Emprestadas</CounterHighlight>
 				<CounterHighlight title={'true'}>{borrowedBikes}</CounterHighlight>
 			</SquareCard>
-			<WelcomeCard>
-				<RaceChart />
-			</WelcomeCard>
-			<SquareCard>
-				<NearMeRounded sx={{width: 40, height: 40}}/>
+			<SquareCard style={{width: '30%'}}>
+				<NearMeRounded sx={{width: svgIconsSize, height: svgIconsSize}}/>
 				<CounterHighlight>Distância percorrida</CounterHighlight>
 				<CounterHighlight title={'true'}>{totalDistance?.toFixed(2)} KM</CounterHighlight>
 			</SquareCard>
-			<SquareCard title='co2'>
-				<Co2Rounded sx={{width: 40, height: 40}}/>
-				<CounterHighlight>Consumo Gr/Km</CounterHighlight>
-				<CounterHighlight title={'true'}>{totalGrKm?.toFixed(2)}</CounterHighlight>
+			<SquareCard style={{width: '30%'}} title='co2'>
+				<Co2Rounded sx={{width: svgIconsSize, height: svgIconsSize}}/>
+				<CounterHighlight>Consumo CO2</CounterHighlight>
+				<CounterHighlight title={'true'}>
+					{(totalConsumeCO2 >= 1000) ? `${(totalConsumeCO2 / 1000).toFixed(2)} kg/km` : `${totalConsumeCO2?.toFixed(2)} g/km`}
+				</CounterHighlight>
 			</SquareCard>
+			<SquareCard style={{width: '30%'}}>
+				<ParkRounded sx={{width: svgIconsSize, height: svgIconsSize}}/>
+				<CounterHighlight>Árvores Compensadadas</CounterHighlight>
+				<CounterHighlight title={'true'}>{compensedTrees.toFixed(2)}</CounterHighlight>
+			</SquareCard>
+			<RaceChartStyle style={{width: '100%'}}>
+				<RaceChart />
+			</RaceChartStyle>
 		</Main>
 	)
 }

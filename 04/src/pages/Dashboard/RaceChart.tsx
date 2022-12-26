@@ -77,7 +77,7 @@ const RaceChart = () => {
 				width={1000}
 				height={500}
 				layout="horizontal"
-				margin={{ top: 26, right: 120, bottom: 26, left: 10 }}
+				margin={{ top: 26, right: 10, bottom: 26, left: 10 }}
 				data={raceChartData}
 				indexBy="id"
 				keys={['value']}

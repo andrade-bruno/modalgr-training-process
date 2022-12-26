@@ -6,8 +6,8 @@ export const TemplateCard = styled.section`
 	border-radius: 8px;
 	background: #f5f5f5;
 	padding: 10px;
-	min-height: 26vh;
-	min-width: 26vh;
+	min-height: 20%;
+	min-width: 20%;
 	overflow: hidden;
 `
 
@@ -48,24 +48,22 @@ export const Main = styled.main`
 	width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+	justify-content: center;
     flex-wrap: wrap;
-	gap: 20px;
+	gap: 10px;
 
 	@media (min-width: 840px) {
 		padding: 0px;
         gap: 32px;
-        justify-content: flex-start;
     }
     @media (max-width: 840px) {
 		padding: 40px;
         gap: 64px;
-        justify-content: center;
     }
     @media (max-width: 360px) {
 		padding: 10px;
         gap: 64px;
-        justify-content: center;
     }
 
 	${fadeAnimation}
@@ -78,10 +76,10 @@ export const WelcomeCard = styled(TemplateCard)`
 	gap: 10px;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 40px;
+	padding: 10px 40px;
 
 	@media (min-width: 840px) {
-		width: 60%;
+		width: 50%;
 		flex-direction: row;
     }
     @media (max-width: 840px) {
@@ -104,7 +102,6 @@ export const SquareCard = styled(TemplateCard)`
 	align-items: flex-start;
 	justify-content: space-evenly;
 	padding: 40px 30px;
-	min-w
 
 	${(props) => props.title == 'co2' && AnimatedBorder}
 `
@@ -114,3 +111,10 @@ export const CounterHighlight = styled.p((props) => `
 	margin: 0px;
 	padding: 0px;
 `)
+
+export const RaceChartStyle = styled(TemplateCard)`
+	display: grid;
+	grid-template-columns: 1;
+	width: 100%;
+	min-height: 40%;
+`
