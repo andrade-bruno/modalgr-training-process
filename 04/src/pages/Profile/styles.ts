@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import {
 	Avatar as MuiAvatar
 } from '@mui/material'
@@ -7,11 +8,14 @@ export const Main = styled.main`
 	box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.20);
 	border-radius: 8px;
 	background: #f5f5f5;
-	overflow: hidden;
-	height: 85vh;
 	display: flex;
-	flex-direction: row;
 	align-items: center;
+	flex-direction: row;
+	height: 100%;
+	overflow: scroll;
+`
+
+export const SideAvatar = styled.div`
 `
 
 export const Content = styled.div`
@@ -20,26 +24,16 @@ export const Content = styled.div`
 	justify-content: flex-start;
 	gap: 40px;
 	padding: 5vh;
-
-	@media (min-width: 840px) {
-		height: 100%;
-		width: 70%;
-	}
+	height: 100%;
+	width: 100%;
+	flex-direction: row;
 
 	@media (max-width: 840px) {
-		height: 100%;
-		width: 70%;
-	}
-
-	@media (max-width: 360px) {
-		width: 100%;
+		flex-direction: column;
 	}
 `
 
 export const Avatar = styled(MuiAvatar)`
-	width: 200px;
-	height: 200px;
-	
 `
 
 export const Form = styled.form`
@@ -47,7 +41,11 @@ export const Form = styled.form`
 	flex-direction: column;
 	aling-items: flex-start;
 	justify-content: flex-start;
-	width: 50%;
+	width: 60%;
+
+	@media (max-width: 840px) {
+		width: 100%;
+	}
 `
 
 export const BackgroundImg = styled.div`
@@ -55,18 +53,11 @@ export const BackgroundImg = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url('/assets/login.png');
+	width: 40%;
+	height: 100%;
+	object-fit: contain;
 
-	@media (min-width: 840px) {
-		height: 100%;
-		width: 30%;
-	}
-
-	@media (max-width: 840px) {
-		height: 100%;
-		width: 30%;
-	}
-
-	@media (max-width: 360px) {
-		width: 100%;
+	@media (max-width: 660px) {
+		display: none;
 	}
 `

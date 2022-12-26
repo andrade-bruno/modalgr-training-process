@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 import Input from 'components/Input'
-import { Main, Avatar, Form, BackgroundImg, Content } from './styles'
+import { Main, Avatar, Form, Content, SideAvatar, BackgroundImg } from './styles'
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import Unauthorized from 'pages/Unauthorized'
 
@@ -92,9 +92,8 @@ const Profile = () => {
 
 	return (
 		<Main>
-			<BackgroundImg />
 			<Content>
-				<div>
+				<SideAvatar>
 					<h1>Conta</h1>
 					<Avatar
 						alt={user.nome && user.nome[0]}
@@ -103,7 +102,7 @@ const Profile = () => {
 					>
 						{user.nome && user?.nome[0]}
 					</Avatar>
-				</div>
+				</SideAvatar>
 				<Form>
 					<Input
 						type='string'
@@ -206,6 +205,7 @@ const Profile = () => {
 					</div>
 				</Form>
 			</Content>
+			<BackgroundImg />
 		</Main>	
 	)
 }
