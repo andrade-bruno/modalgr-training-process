@@ -3,6 +3,7 @@ import IUser from 'interfaces/IUser'
 import http from 'services/http'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+// import jwtDecode from 'jwt-decode'
    
 interface Props {
 	user: IUser
@@ -26,6 +27,7 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 	useEffect(() => {
 		const user = localStorage.getItem('user')
 		if (user) {
+			// const userObj = jwtDecode(user) as IUser
 			const userObj = JSON.parse(user) as IUser
 			setUser(userObj)
 			if (window.location.pathname === '/') navigate('/system/myreleases')

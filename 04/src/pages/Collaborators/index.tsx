@@ -42,6 +42,7 @@ import { useAccessLevelsContext } from 'contexts/AccessLevelsContext'
 import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import { toast } from 'react-toastify'
+import moment from 'moment'
 
 const Collaborators = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -172,27 +173,29 @@ const Collaborators = () => {
 				<Table sx={{ minWidth: 700 }} aria-label='customized table'>
 					<TableHead>
 						<TableRow>
-							<TableCell align='center'>ID</TableCell>
+							<TableCell align='left'>ID</TableCell>
 							<TableCell align='left'>Nome</TableCell>
 							<TableCell align='left'>E-mail</TableCell>
-							<TableCell align='center'>Status</TableCell>
-							<TableCell align='center'>Acesso</TableCell>
+							<TableCell align='left'>Status</TableCell>
+							<TableCell align='left'>Acesso</TableCell>
+							<TableCell align='left'>Criação</TableCell>
+							<TableCell align='left'>Atualização</TableCell>
 							<TableCell align='center'>Ações</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{collaborators[0] && collaborators.map((item) => (
 							<TableRow key={item.id} style={item.id === user.id ? {backgroundColor: '#e9f1f5'} : {}}>
-								<TableCell align='center'>{item.id}</TableCell>
+								<TableCell align='left'>{item.id}</TableCell>
 								<TableCell align='left'>{item.nome}</TableCell>
 								<TableCell align='left'>{item.email}</TableCell>
-								<TableCell align='center'>
+								<TableCell align='left'>
 									{item.ativo ?
 										<Chip variant='outlined' color='success' label='Ativo'/> : 
 										<Chip variant='outlined' color='error' label='Inativo' />
 									}
 								</TableCell>
-								<TableCell align='center'>
+								<TableCell align='left'>
 									{levels[0] && levels.map(level => 
 										item.nivel_id === level.id && <Chip
 											key={level.id}
@@ -202,6 +205,12 @@ const Collaborators = () => {
 										/>
 									)}
 								</TableCell>
+								<TableCell align='left'>{
+									`${moment(item.createdAt).format('DD/MM/YYYY')}`
+								}</TableCell>
+								<TableCell align='left'>{
+									`${moment(item.updatedAt).format('DD/MM/YYYY')}`
+								}</TableCell>
 								<TableCell align='center'>
 									<Button onClick={e => handleMenu(e, item.nivel_id)} id={`${item.id}`}>
 										<MoreVertRounded />

@@ -21,7 +21,7 @@ import {
 
 import { useReleasesContext } from 'contexts/ReleasesContext'
 import { useUserContext } from 'contexts/UserContext'
-
+import moment from 'moment'
 import { Form } from 'styles/commom'
 import Input from 'components/Input'
 import Modal from 'components/Modal'
@@ -92,20 +92,28 @@ const Releases = () => {
 				<Table sx={{ minWidth: 700 }} aria-label="customized table">
 					<TableHead>
 						<TableRow>
-							<TableCell align='center'>ID</TableCell>
+							<TableCell align='left'>ID</TableCell>
+							<TableCell align='left'>Distância</TableCell>
+							<TableCell align='left'>Tempo</TableCell>
 							<TableCell align='left'>Colaborador</TableCell>
-							<TableCell align='center'>KM</TableCell>
-							<TableCell align='center'>Horas</TableCell>
+							<TableCell align='left'>Criação</TableCell>
+							<TableCell align='left'>Atualização</TableCell>
 							<TableCell align='center'>Ações</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{releases[0] && releases.map((item) => (
 							<TableRow key={item.id}>
-								<TableCell align='center'>{item.id}</TableCell>
+								<TableCell align='left'>{item.id}</TableCell>
+								<TableCell align='left'>{item.km} km</TableCell>
+								<TableCell align='left'>{item.tempo} h</TableCell>
 								<TableCell align='left'>{`${getCollaboratorNameById(item.colaborador_id)}`}</TableCell>
-								<TableCell align='center'>{item.km}</TableCell>
-								<TableCell align='center'>{item.tempo}</TableCell>
+								<TableCell align='left'>{
+									`${moment(item.createdAt).format('DD/MM/YYYY')}`
+								}</TableCell>
+								<TableCell align='left'>{
+									`${moment(item.updatedAt).format('DD/MM/YYYY')}`
+								}</TableCell>
 								<TableCell align='center'>
 									<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
 										<MoreVertRounded />

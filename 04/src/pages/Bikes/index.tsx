@@ -36,6 +36,7 @@ import { useUserContext } from 'contexts/UserContext'
 import { useBikesContext } from 'contexts/BikesContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 import { toast } from 'react-toastify'
+import moment from 'moment'
 
 const Bikes = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -154,7 +155,9 @@ const Bikes = () => {
 							<TableCell align='left'>Número</TableCell>
 							<TableCell align='left'>Status</TableCell>
 							<TableCell align='left'>Usuário</TableCell>
-							<TableCell align='left'>Ações</TableCell>
+							<TableCell align='left'>Criação</TableCell>
+							<TableCell align='left'>Atualização</TableCell>
+							<TableCell align='center'>Ações</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -169,7 +172,13 @@ const Bikes = () => {
 									}
 								</TableCell>
 								<TableCell align='left'>{`${getCollaboratorNameById(item.colaborador_id)}`}</TableCell>
-								<TableCell align='left'>
+								<TableCell align='left'>{
+									`${moment(item.createdAt).format('DD/MM/YYYY')}`
+								}</TableCell>
+								<TableCell align='left'>{
+									`${moment(item.updatedAt).format('DD/MM/YYYY')}`
+								}</TableCell>
+								<TableCell align='center'>
 									<Button onClick={e => handleMenu(e)} id={`${item.id}`}>
 										<MoreVertRounded />
 									</Button>
