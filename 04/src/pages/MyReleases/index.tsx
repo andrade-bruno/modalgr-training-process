@@ -27,18 +27,19 @@ import Input from 'components/Input'
 import { useReleasesContext } from 'contexts/ReleasesContext'
 import { useUserContext } from 'contexts/UserContext'
 import Unauthorized from 'pages/Unauthorized'
+import IRelease from 'interfaces/IRelease'
 
 const MyReleases = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl) // HTML Element
 	const [isOpen, setIsOpen] = useState(false)
 
-	const [kilometers, setKilometers] = useState<number>()
-	const [hours, setHours] = useState<number>()
-	const [selectedRelease, setSelectedRelease] = useState<number>(0)
+	const [killometers, setKillometers] = useState<number>(0)
+	const [hours, setHours] = useState<number>(0)
+	const [selectedRelease, setSelectedRelease] = useState<IRelease>({} as IRelease)
 	const [isEditing, setIsEditing] = useState(false)
 
-	const { releases, addRelease, getReleases, getMyReleases, getReleaseById, removeRelease, updateRelease } = useReleasesContext()
+	const { releases, addRelease, getReleases, getMyReleases, getReleaseById, removeRelease, updateRelease, validateRelease } = useReleasesContext()
 	const { user, token } = useUserContext()
 	const myreleases = releases.filter(item => item.colaborador_id === user.id)
 
@@ -50,9 +51,9 @@ const MyReleases = () => {
 
 	const handleCloseModal = () => {
 		setIsOpen(false)
-		setKilometers(0)
+		setKillometers(0)
 		setHours(0)
-		setSelectedRelease(0)
+		setSelectedRelease({} as IRelease)
 		setIsEditing(false)
 	}
 
@@ -68,8 +69,14 @@ const MyReleases = () => {
 	}
 	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		if (kilometers && hours) {
-			await updateRelease(selectedRelease, kilometers, hours)
+		if (validateRelease({
+			killometers,
+			hours,
+			collaboratorId: user.id,
+			releaseDate: selectedRelease.createdAt,
+			idToEdit: selectedRelease.id
+		})) {
+			await updateRelease(selectedRelease.id, killometers, hours)
 			setIsOpen(false)
 			handleCloseMenu()
 		}
@@ -78,9 +85,9 @@ const MyReleases = () => {
 		setIsEditing(true)
 		const res = await getReleaseById(Number(anchorEl?.id))
 		if (res) {
-			setKilometers(Number(res.km))
+			setKillometers(Number(res.km))
 			setHours(Number(res.tempo))
-			setSelectedRelease(Number(anchorEl?.id))
+			setSelectedRelease(res)
 			setIsOpen(true)
 			handleCloseMenu()
 		}
@@ -91,8 +98,13 @@ const MyReleases = () => {
 	}
 	const handleSubmitAdd = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		if (kilometers && hours) {
-			await addRelease(kilometers, hours)
+		if (validateRelease({
+			killometers,
+			hours,
+			collaboratorId: user.id,
+			releaseDate: new Date()
+		})) {
+			await addRelease(killometers, hours)
 			handleCloseModal()
 		}
 	}
@@ -168,8 +180,8 @@ const MyReleases = () => {
 				<Form onSubmit={(e) => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e)}>
 					<Input
 						label='Distância (km)'
-						value={kilometers}
-						setter={setKilometers}
+						value={killometers}
+						setter={e => setKillometers(parseFloat(e))}
 						type='number'
 						fullWidth
 						required
@@ -177,7 +189,7 @@ const MyReleases = () => {
 					<Input
 						label='Horas'
 						value={hours}
-						setter={setHours}
+						setter={e => setHours(parseFloat(e))}
 						type='number'
 						fullWidth
 						required

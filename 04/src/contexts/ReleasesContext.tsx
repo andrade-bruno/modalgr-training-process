@@ -12,6 +12,15 @@ interface Props {
 	addRelease: (km: number, tempo: number) => void
 	removeRelease: (id: number) => void
 	updateRelease: (releaseId: number, km: number, tempo: number) => void
+	validateRelease: (props: validateProps) => boolean
+}
+
+interface validateProps {
+	killometers: number
+	hours: number
+	collaboratorId: number
+	releaseDate: Date
+	idToEdit?: number
 }
 
 const ReleasesContext = React.createContext<Props>({} as Props)
@@ -74,10 +83,12 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 		
 		const main = new Promise((resolve, reject) => {
-			http.post('lancamentos', {
+			http.post<IRelease>('lancamentos', {
 				km, tempo, colaborador_id: user.id
 			}, config)
 				.then(res => {
+					res.data.tempo = parseFloat(`${res.data.tempo}`)
+					res.data.km = parseFloat(`${res.data.km}`)
 					resolve(setReleases([...releases, res.data]))
 				}).catch(() => {
 					reject()
@@ -141,6 +152,44 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 		)
 	}
 
+	const validateRelease = ({killometers, collaboratorId, hours, releaseDate, idToEdit}: validateProps) => {
+		// Step 1
+		const average = killometers / hours
+		const maxAverage = Number(process.env.REACT_APP_MAX_AVERAGE_SPEED)
+
+		if (!(average <= maxAverage)) {
+			toast.info(`Média de velocidade excedida, insira valores inferiores ou iguais a ${maxAverage}`)
+			return false
+		}
+		
+		// Step 2
+		const baseDate = new Date(releaseDate).toLocaleDateString('pt-br')
+		const collaboratorReleases = releases.filter(release => release.colaborador_id === collaboratorId)
+
+		const distance = collaboratorReleases.reduce((sum, release) => {
+			const idxDate = new Date(release.createdAt).toLocaleDateString('pt-br')
+			if (idToEdit) {
+				return (idxDate == baseDate && (release.id != idToEdit)) ? sum + release.km : sum + 0
+			} else {
+				return (idxDate == baseDate) ? sum + release.km : sum + 0
+			}
+		}, 0)
+
+		const limitKmPerDay = Number(process.env.REACT_APP_LIMIT_KILLOMETERS_PER_DAY)
+		const remainingKmAvailable = limitKmPerDay - Number(distance)
+		const final = remainingKmAvailable - Number(killometers)
+
+		if (final < 0) {
+			toast.info(
+				remainingKmAvailable > 0 ? 
+					`Limite de lançamentos excedido na data de ${baseDate}. Você ainda pode adicionar mais ${remainingKmAvailable} km(s)`
+					: `Limite de lançamentos excedido na data de ${baseDate}. Você pode adicionar ${limitKmPerDay} kms/dia`, {autoClose: 8000})
+			return false
+		} 
+
+		return true
+	}
+
 	return (
 		<ReleasesContext.Provider value={{
 			releases,			
@@ -149,7 +198,8 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 			getReleaseById,
 			addRelease,
 			removeRelease,
-			updateRelease
+			updateRelease,
+			validateRelease
 		}}>
 			{children}
 		</ReleasesContext.Provider>

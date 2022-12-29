@@ -1,8 +1,8 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
 
 export const instance = axios.create({
-	baseURL: 'http://localhost:3000/',
-	timeout: 10000,
+	baseURL: process.env.REACT_APP_API_URL,
+	timeout: Number(process.env.REACT_APP_REQUEST_TIMEOUT),
 })
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
