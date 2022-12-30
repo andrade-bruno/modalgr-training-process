@@ -4,6 +4,8 @@ import http from 'services/http'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
+import ICollaborator from 'interfaces/ICollaborator'
+import { AxiosRequestConfig } from 'axios'
    
 interface Props {
 	user: IUser
@@ -24,15 +26,37 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 
 	const navigate = useNavigate()
 
+	interface TokenProps {
+		id: number
+		iat: number
+		exp: number
+	}
+
 	useEffect(() => {
-		const user = localStorage.getItem('user')
-		if (user) {
-			const userObj = jwtDecode(user) as IUser
-			setUser(userObj)
-			if (window.location.pathname === '/') navigate('/system/myreleases')
-		} else {
-			setUser({} as IUser)
-		}	
+		let config: AxiosRequestConfig
+
+		async function loadUserFromStorage() {
+			const user = localStorage.getItem('user')
+			if (user) {
+				const userObj = jwtDecode(user) as IUser
+				setUser(userObj)
+				if (window.location.pathname === '/') navigate('/system/myreleases')
+			} else if (token) {
+				const myId = jwtDecode<TokenProps>(token).id
+				token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+				
+				try {
+					const res = await http.get<ICollaborator>(`colaboradores/${myId}`, config)
+					const myUser = res.data
+					myUser ? setUser(myUser) : setUser({} as IUser)
+				} catch (error) {
+					null
+				}
+			} else {	
+				setUser({} as IUser)
+			}
+		}
+		loadUserFromStorage()
 	}, [])
 
 	const login = async (email: string, password: string) => {		

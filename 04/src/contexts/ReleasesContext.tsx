@@ -4,6 +4,7 @@ import http from 'services/http'
 import { useUserContext } from './UserContext'
 import { AxiosRequestConfig } from 'axios'
 import { toast } from 'react-toastify'
+import { useBikesContext } from './BikesContext'
 interface Props {
 	releases: IRelease[]
 	getReleases: () => void
@@ -30,6 +31,7 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 	const [releases, setReleases] = useState<IRelease[]>([])
 
 	const { user, token } = useUserContext()
+	const { bikes } = useBikesContext()
 	let config: AxiosRequestConfig
 
 	const sortReleasesByIdAsc = (releases: IRelease[]) => {
@@ -81,10 +83,17 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 
 	const addRelease = async (km: number, tempo: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
+
+		if (!user.numeroBike) {
+			toast.info(`${user.nome.split(' ')[0]} você precisa de uma bicicleta para lançar informações!`)
+			return false
+		}
+
+		const bicicleta_id = bikes.find(bike => bike.numero == user.numeroBike)?.id
 		
 		const main = new Promise((resolve, reject) => {
 			http.post<IRelease>('lancamentos', {
-				km, tempo, colaborador_id: user.id
+				km, tempo, colaborador_id: user.id, bicicleta_id
 			}, config)
 				.then(res => {
 					res.data.tempo = parseFloat(`${res.data.tempo}`)
