@@ -3,7 +3,7 @@ import IUser from 'interfaces/IUser'
 import http from 'services/http'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-// import jwtDecode from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
    
 interface Props {
 	user: IUser
@@ -27,8 +27,7 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 	useEffect(() => {
 		const user = localStorage.getItem('user')
 		if (user) {
-			// const userObj = jwtDecode(user) as IUser
-			const userObj = JSON.parse(user) as IUser
+			const userObj = jwtDecode(user) as IUser
 			setUser(userObj)
 			if (window.location.pathname === '/') navigate('/system/myreleases')
 		} else {
@@ -36,30 +35,27 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 		}	
 	}, [])
 
-	const login = async (email: string, password: string) => {
-		interface colaboradorResponseProps extends IUser {
-			senha?: string
-		}
-		
+	const login = async (email: string, password: string) => {		
 		try {
 			const res = await http.post<{
-				mensagem: string, colaborador: colaboradorResponseProps, token: string
+				mensagem: string, colaborador: string, token: string
 			}>('login', {email: email, senha: password})
 
 			const { colaborador, token } = res.data
+			const user = jwtDecode(colaborador) as IUser
 
-			if (colaborador.nivel_id === 3) {
-				toast.info(`${colaborador.nome.split(' ')[0]}, seu acesso ainda não foi concedido. Aguarde liberação.`, {autoClose: false})
+			if (user.nivel_id === 3) {
+				toast.info(`${user.nome.split(' ')[0]}, seu acesso ainda não foi concedido. Aguarde liberação.`, {autoClose: false})
 				return false
 			}
 			
-			delete colaborador.senha //Security reasons
+			delete user.senha //Security reasons
 
-			setUser(colaborador)
+			setUser(user)
 			setToken(token)
 			localStorage.setItem('token', token)
-			localStorage.setItem('user', JSON.stringify(colaborador))
-			toast.success(`Bem vindo(a) ${colaborador.nome.split(' ')[0]}!`)
+			localStorage.setItem('user', colaborador)
+			toast.success(`Bem vindo(a) ${user.nome.split(' ')[0]}!`)
 			setTimeout(() => navigate('/system/myreleases'), 2500)
 		} catch (error: any) {
 			const { response, message } = error
