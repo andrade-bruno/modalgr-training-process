@@ -42,20 +42,20 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			}>('login', {email: email, senha: password})
 
 			const { colaborador, token } = res.data
-			const user = jwtDecode(colaborador) as IUser
+			const colaboradorObj = jwtDecode(colaborador) as IUser
 
-			if (user.nivel_id === 3) {
-				toast.info(`${user.nome.split(' ')[0]}, seu acesso ainda não foi concedido. Aguarde liberação.`, {autoClose: false})
+			if (colaboradorObj.nivel_id === 3) {
+				toast.info(`${colaboradorObj.nome.split(' ')[0]}, seu acesso ainda não foi concedido. Aguarde liberação.`, {autoClose: false})
 				return false
 			}
 			
-			delete user.senha //Security reasons
+			delete colaboradorObj.senha //Security reasons
 
-			setUser(user)
+			setUser(colaboradorObj)
 			setToken(token)
 			localStorage.setItem('token', token)
 			localStorage.setItem('user', colaborador)
-			toast.success(`Bem vindo(a) ${user.nome.split(' ')[0]}!`)
+			toast.success(`Bem vindo(a) ${colaboradorObj.nome.split(' ')[0]}!`)
 			setTimeout(() => navigate('/system/myreleases'), 2500)
 		} catch (error: any) {
 			const { response, message } = error

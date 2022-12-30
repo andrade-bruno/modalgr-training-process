@@ -48,7 +48,8 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 	}
 
 	const getAvailableBikes = () => {
-		const available = bikes[0] && bikes.filter(bike => bike.status == true && bike.colaborador_id == null)
+		const available = bikes[0] && bikes.filter(bike => 
+			bike.status == true && (bike.colaborador_id == null || bike.numero == user.numeroBike))
 		return (available && available.length >= 1) ? available : []
 	}
 

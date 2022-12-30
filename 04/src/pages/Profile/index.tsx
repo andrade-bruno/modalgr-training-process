@@ -25,7 +25,7 @@ const Profile = () => {
 		}
 		setName(user.nome)
 		setEmail(user.email)
-		setBikeNumber(user?.numeroBike)
+		setBikeNumber(user.numeroBike)
 	}, [user, token])
 	
 	const [isEditing, setIsEditing] = useState(false)
@@ -35,13 +35,10 @@ const Profile = () => {
 	const [oldPassword, setOldPassword] = useState('')
 	const [bikeNumber, setBikeNumber] = useState<number | null | undefined>()
 
-	if (!user) return <Unauthorized />
+	if (!user.nivel_id) return <Unauthorized />
 	
 	const avatarSize = 120
 	const availableBikes = getAvailableBikes()
-	if (bikeNumber) availableBikes.push({
-		id: 1, colaborador_id: user.id, status: true, createdAt: new Date(), updatedAt: new Date(), numero: bikeNumber
-	})
 
 	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.preventDefault()
@@ -53,24 +50,39 @@ const Profile = () => {
 			return false
 		}
 
-		if (user.nivel_id === 2 && bikeNumber && bikeNumber != 0 && bikeNumber != user.numeroBike) {
-			const bikeToUpdate = bikes.find(bike => bike.numero === bikeNumber)
-
-			if (bikeToUpdate) {
-				await updateBike(bikeToUpdate.id, {
-					colaborador_id: user.id,
-					numero: bikeToUpdate.numero,
-					status: bikeToUpdate.status
-				}, true)
-			}
-
-			const myPreviousBike = bikes.find(bike => bike.numero === user.numeroBike)
-			if (myPreviousBike) {
-				await updateBike(myPreviousBike.id, {
-					colaborador_id: null,
-					numero: myPreviousBike.numero,
-					status: myPreviousBike.status
-				}, true)
+		if (user.nivel_id === 2) {
+			if (bikeNumber != 0 && bikeNumber != user.numeroBike) {
+				// If selected a bike different than his previous one
+				const myNewBike = bikes.find(bike => bike.numero === bikeNumber)
+	
+				if (myNewBike) {
+					await updateBike(myNewBike.id, {
+						colaborador_id: user.id,
+						numero: myNewBike.numero,
+						status: myNewBike.status
+					}, true)
+				}
+	
+				const myPreviousBike = bikes.find(bike => bike.numero === user.numeroBike)
+	
+				if (myPreviousBike) {
+					await updateBike(myPreviousBike.id, {
+						colaborador_id: null,
+						numero: myPreviousBike.numero,
+						status: myPreviousBike.status
+					}, true)
+				}
+			} else if (bikeNumber == 0 && user.numeroBike) {
+				// If selected none and previously had a bike
+				const myPreviousBike = bikes.find(bike => bike.numero === user.numeroBike)
+	
+				if (myPreviousBike) {
+					await updateBike(myPreviousBike.id, {
+						colaborador_id: null,
+						numero: myPreviousBike.numero,
+						status: myPreviousBike.status
+					}, true)
+				}
 			}
 		}
 
@@ -80,7 +92,7 @@ const Profile = () => {
 			senha: newPassword,
 			nivel_id: user.nivel_id,
 			ativo: true,
-			numeroBike: bikeNumber
+			numeroBike: bikeNumber != 0 ? bikeNumber : null
 		}, true)
 
 		setIsEditing(false)
@@ -157,11 +169,13 @@ const Profile = () => {
 							required
 							disabled={!isEditing || user.nivel_id != 2}
 						>
-							{availableBikes.length > 0
-								? availableBikes.map(item => (
+							
+							{availableBikes.length > 0 && <MenuItem value={0}>Nenhuma</MenuItem>}
+							{availableBikes.length > 0 ?
+								availableBikes.map(item => (
 									<MenuItem value={item.numero} key={item.numero}>{item.numero}</MenuItem>
 								))
-								: <MenuItem value={0} selected>Nenhuma bicicleta disponível</MenuItem>
+								: <MenuItem value={0}>Nenhuma bicicleta disponível</MenuItem>
 							}
 						</Select>
 					</FormControl>

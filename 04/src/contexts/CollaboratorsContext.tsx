@@ -107,7 +107,7 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
 		let { ativo } = collaborator
 		ativo = (ativo === 'true') || (ativo === true)
-		
+
 		const main = new Promise((resolve, reject) => {
 			http.put<ICollaborator>(`colaborador/${id}`, {
 				nome, email, senha, data_registro, ativo, nivel_id
@@ -115,10 +115,11 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 				.then(res => {
 					const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
 					updatedList.push(res.data)
+					
 					delete res.data.senha
 					if (isUpdatingCurrentUser) {
 						setUser({...res.data})
-						localStorage.setItem('user', JSON.stringify({...res.data}))
+						localStorage.removeItem('user') // User must login again next session
 					}
 					const final = sortCollaboratorsByIdAsc(updatedList)
 					resolve(setCollaborators(final))

@@ -11,4 +11,6 @@ export default interface IUser {
     readonly updatedAt: Date
     nivel_id: number
 	numeroBike?: number | null
+	readonly iat?: number
+	readonly exp?: number
 }
