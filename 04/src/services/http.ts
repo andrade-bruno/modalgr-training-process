@@ -1,4 +1,5 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
+import { toast } from 'react-toastify'
 
 export const instance = axios.create({
 	baseURL: process.env.REACT_APP_API_URL,
@@ -29,11 +30,11 @@ const onResponseError = (error: AxiosError<ResponseDataProps>): Promise<AxiosErr
 
 	if (error.response) {
 		if (error.response.data.mensagem) {
-			console.info(`${error.response.data.mensagem}`)
+			toast.error(`${error.response.data.mensagem}`, {autoClose: 3000})
 		} else if (error.response.data.message) {
-			console.info(`${error.response.data.message}`)
+			toast.error(`${error.response.data.message}`, {autoClose: 3000})
 		} else if (error.message) {
-			console.info(`${error.message}`)
+			console.info(`${error.message}`, {autoClose: 3000})
 		}
 	}
 	console.info(`[${JSON.stringify(error)}]`)

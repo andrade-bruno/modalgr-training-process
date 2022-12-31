@@ -5,7 +5,8 @@ export const theme = {
 		orange: '#ED6C02',
 		white: '#FFF',
 		gray: '#969696',
-		darkgray: '#595959'
+		darkgray: '#595959',
+		error: '#D32F2F'
 	}
 }
 

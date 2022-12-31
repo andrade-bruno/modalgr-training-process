@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 import Input from 'components/Input'
+import { ControlledInput, Errors } from 'components/ControlledInput/styles'
 import { Main, Avatar, Form, Content, SideAvatar, BackgroundImg } from './styles'
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import Unauthorized from 'pages/Unauthorized'
 
 import { useUserContext } from 'contexts/UserContext'
@@ -11,28 +12,25 @@ import { useAccessLevelsContext } from 'contexts/AccessLevelsContext'
 import { useBikesContext } from 'contexts/BikesContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 import moment from 'moment'
+import { FieldValues, useForm } from 'react-hook-form'
 
 const Profile = () => {
 	const { getLevels, getAccessLevelNameById } = useAccessLevelsContext()
 	const { bikes, getBikes, updateBike, getAvailableBikes } = useBikesContext()
 	const { updateCollaborator } = useCollaboratorsContext()
 	const { user, token, checkIfCorrectPassword } = useUserContext()
+
+	const { register, handleSubmit, formState: { errors } } = useForm()
 	
 	useEffect(() => {
 		if (token && user) {
 			getLevels()
 			if (user.nivel_id == 2) getBikes()
 		}
-		setName(user.nome)
-		setEmail(user.email)
 		setBikeNumber(user.numeroBike)
 	}, [user, token])
 	
 	const [isEditing, setIsEditing] = useState(false)
-	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
-	const [newPassword, setNewPassword] = useState('')
-	const [oldPassword, setOldPassword] = useState('')
 	const [bikeNumber, setBikeNumber] = useState<number | null | undefined>()
 
 	if (!user.nivel_id) return <Unauthorized />
@@ -40,9 +38,15 @@ const Profile = () => {
 	const avatarSize = 120
 	const availableBikes = getAvailableBikes()
 
-	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		e.preventDefault()
-
+	interface FieldsProps {
+		email: string,
+		name: string,
+		oldPassword: string,
+		newPassword: string
+	}
+	
+	const handleSubmitForm = async (fields: FieldValues | FieldsProps) => {
+		const { email, name, oldPassword, newPassword } = fields
 		const isValid = await checkIfCorrectPassword(email, oldPassword)
 
 		if (!isValid) {
@@ -111,51 +115,72 @@ const Profile = () => {
 						{user.nome && user?.nome[0]}
 					</Avatar>
 				</SideAvatar>
-				<Form>
-					<Input
-						type='string'
+				<Form onSubmit={handleSubmit((e) => handleSubmitForm(e))}>
+					<TextField
+						type='number'
 						label='ID'
 						fullWidth
 						value={`${user.id}`}
+						margin='normal'
 						disabled
 					/>
-					<Input
+					<ControlledInput
+						{...register('name',{
+							required: 'Campo obrigatório',
+							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
+							minLength: {value: 3, message: 'Mínimo de 3 caracteres'},
+							value: user.nome
+						})}
+						error={errors.name ? true : false}
 						type='string'
 						label='Nome'
 						fullWidth
-						value={name}
-						setter={setName}
 						disabled={!isEditing}
 						required
 					/>
-					<Input
+					<Errors>{errors.name && `${errors.name.message}`}</Errors>
+					<ControlledInput
+						{...register('email',{
+							required: 'Campo obrigatório',
+							value: user.email
+							// pattern: 
+						})}
+						error={errors.email ? true : false}
 						type='string'
 						label='E-mail'
 						fullWidth
-						value={email}
-						setter={setEmail}
 						disabled={!isEditing || user.nivel_id != 2}
 						required
 					/>
-					<Input
+					<Errors>{errors.email && `${errors.email.message}`}</Errors>
+					<ControlledInput
+						{...register('oldPassword',{
+							required: 'Campo obrigatório',
+							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
+							minLength: {value: 6, message: 'Mínimo de 6 caracteres'}
+						})}
+						error={errors.oldPassword ? true : false}
 						type='password'
 						label='Senha'
 						fullWidth
-						value={oldPassword}
-						setter={setOldPassword}
 						disabled={!isEditing}
 						required
 					/>
-					<Input
+					<Errors>{errors.oldPassword && `${errors.oldPassword.message}`}</Errors>
+					<ControlledInput
+						{...register('newPassword',{
+							required: 'Campo obrigatório',
+							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
+							minLength: {value: 6, message: 'Mínimo de 6 caracteres'}
+						})}
+						error={errors.newPassword ? true : false}
 						type='password'
 						label='Nova senha'
 						fullWidth
-						value={newPassword}
-						setter={setNewPassword}
 						disabled={!isEditing}
 						required
-						sx={{marginBottom: 3}}
 					/>
+					<Errors>{errors.newPassword && `${errors.newPassword.message}`}</Errors>
 					<FormControl fullWidth>
 						<InputLabel id='bike-label'>Bicicleta</InputLabel>
 						<Select
@@ -194,25 +219,34 @@ const Profile = () => {
 						fullWidth
 						disabled
 					/>
-					<div style={{display: 'flex', width: '100%', gap: 6}}>
+					{!isEditing ?
 						<Button
-							onClick={(e) => isEditing ? handleSubmit(e) : setIsEditing(true)}
-							type={isEditing ? 'submit' : 'button'}
-							variant='outlined'
-							sx={{marginTop: 3, width: isEditing ? '50%' : '100%'}}
-						>
-							{isEditing ? 'Salvar' : 'Editar'}
-						</Button>
-						{isEditing && <Button
+							onClick={() => setIsEditing(true)}
 							type='button'
-							onClick={() => setIsEditing(false)}
 							variant='outlined'
-							color='error'
-							sx={{marginTop: 3, width: '50%'}}
+							sx={{marginTop: 3}}
 						>
-							Cancelar
-						</Button>}
-					</div>
+							Editar
+						</Button>
+						: <>
+							<Button
+								onClick={() => setIsEditing(false)}
+								type='button'
+								variant='outlined'
+								color='error'
+								sx={{marginTop: 3}}
+							>
+								Cancelar
+							</Button>
+							<Button
+								type='submit'
+								variant='outlined'
+								sx={{marginTop: 3}}
+							>
+								Salvar
+							</Button>
+						</>
+					}
 				</Form>
 			</Content>
 			<BackgroundImg />
