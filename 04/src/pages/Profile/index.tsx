@@ -27,7 +27,7 @@ const Profile = () => {
 			getLevels()
 			if (user.nivel_id == 2) getBikes()
 		}
-		setBikeNumber(user.numeroBike)
+		setBikeNumber(user.bike?.numero)
 	}, [user, token])
 	
 	const [isEditing, setIsEditing] = useState(false)
@@ -37,6 +37,7 @@ const Profile = () => {
 	
 	const avatarSize = 120
 	const availableBikes = getAvailableBikes()
+	if (user.bike) availableBikes.push(user.bike)
 
 	interface FieldsProps {
 		email: string,
@@ -55,7 +56,7 @@ const Profile = () => {
 		}
 
 		if (user.nivel_id === 2) {
-			if (bikeNumber != 0 && bikeNumber != user.numeroBike) {
+			if (bikeNumber != 0 && bikeNumber != user.bike?.numero) {
 				// If selected a bike different than his previous one
 				const myNewBike = bikes.find(bike => bike.numero === bikeNumber)
 	
@@ -67,7 +68,7 @@ const Profile = () => {
 					}, true)
 				}
 	
-				const myPreviousBike = bikes.find(bike => bike.numero === user.numeroBike)
+				const myPreviousBike = bikes.find(bike => bike.numero === user.bike?.numero)
 	
 				if (myPreviousBike) {
 					await updateBike(myPreviousBike.id, {
@@ -76,9 +77,9 @@ const Profile = () => {
 						status: myPreviousBike.status
 					}, true)
 				}
-			} else if (bikeNumber == 0 && user.numeroBike) {
+			} else if (bikeNumber == 0 && user.bike) {
 				// If selected none and previously had a bike
-				const myPreviousBike = bikes.find(bike => bike.numero === user.numeroBike)
+				const myPreviousBike = bikes.find(bike => bike.id === user.bike?.id)
 	
 				if (myPreviousBike) {
 					await updateBike(myPreviousBike.id, {
@@ -156,7 +157,7 @@ const Profile = () => {
 						{...register('oldPassword',{
 							required: 'Campo obrigatório',
 							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
-							minLength: {value: 6, message: 'Mínimo de 6 caracteres'}
+							minLength: {value: 8, message: 'Mínimo de 6 caracteres'}
 						})}
 						error={errors.oldPassword ? true : false}
 						type='password'

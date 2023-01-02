@@ -29,7 +29,7 @@ BikesContext.displayName = 'BikesContext'
 export const BikesProvider = ({children}: {children: JSX.Element}) => {
 	const [bikes, setBikes] = useState<IBike[]>({} as IBike[])
 
-	const { token, user } = useUserContext()
+	const { token, user, setUser } = useUserContext()
 	let config: AxiosRequestConfig
 
 	useEffect(() => {
@@ -49,7 +49,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 
 	const getAvailableBikes = () => {
 		const available = bikes[0] && bikes.filter(bike => 
-			bike.status == true && (bike.colaborador_id == null || bike.numero == user.numeroBike))
+			bike.status == true && bike.colaborador_id == null)
 		return (available && available.length >= 1) ? available : []
 	}
 
@@ -127,6 +127,12 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 				numero, colaborador_id, status
 			}, config)
 				.then(res => {
+					if (id === user.bike?.id || colaborador_id === user.id) {
+						(!res.data.colaborador_id) ? setUser({...user, bike: null}) : setUser({...user, bike: res.data})
+						
+						localStorage.removeItem('user') // User must login again next session
+					}
+
 					const updatedList = bikes.filter(bike => bike.id !== id)
 					updatedList.push(res.data)
 					const final = sortBikesByIdAsc(updatedList)

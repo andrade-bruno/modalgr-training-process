@@ -4,8 +4,8 @@ import http from 'services/http'
 import { useUserContext } from './UserContext'
 import { AxiosRequestConfig } from 'axios'
 import { toast } from 'react-toastify'
-import { useBikesContext } from './BikesContext'
 import { useCollaboratorsContext } from './CollaboratorsContext'
+
 interface Props {
 	releases: IRelease[]
 	getReleases: () => void
@@ -32,7 +32,6 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 	const [releases, setReleases] = useState<IRelease[]>([])
 
 	const { user, token } = useUserContext()
-	const { bikes } = useBikesContext()
 	const { collaborators } = useCollaboratorsContext()
 	let config: AxiosRequestConfig
 
@@ -86,12 +85,9 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 	const addRelease = async (km: number, tempo: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
-		const bike = bikes.find(bike => bike.numero == user.numeroBike)
-		// Usuario deveria saber o objeto inteiro da bicicleta dele, não somente o numero
-		
 		const main = new Promise((resolve, reject) => {
 			http.post<IRelease>('lancamentos', {
-				km, tempo, colaborador_id: user.id, bicicleta_id: bike?.id
+				km, tempo, colaborador_id: user.id, bicicleta_id: user.bike?.id
 			}, config)
 				.then(res => {
 					res.data.tempo = parseFloat(`${res.data.tempo}`)
@@ -161,12 +157,12 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 
 	const validateRelease = ({killometers, collaboratorId, hours, releaseDate, idToEdit}: validateProps) => {
 		// Step 1
-		if (user.nivel_id == 1 && !user.numeroBike) {
+		if (user.nivel_id == 1 && !user.bike) {
 			toast.info(`${user.nome.split(' ')[0]}, você precisa de uma bicicleta para criar lançamentos`)
 			return false
 		} else if (user.nivel_id == 2) {
 			const collaborator = collaborators[0] && collaborators.find(item => item.id == collaboratorId)
-			if (collaborator && !collaborator.numeroBike) {
+			if (collaborator && !collaborator.bike) {
 				toast.info(`${collaborator.nome.split(' ')[0]}${collaboratorId == user.id ? ', você' : null} precisa de uma bicicleta para criar lançamentos`)
 				return false
 			}

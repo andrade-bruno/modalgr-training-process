@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs'
+import IBike from './IBike'
 
 export default interface IUser {
 	readonly id: number
@@ -10,7 +11,7 @@ export default interface IUser {
     readonly createdAt: Date
     readonly updatedAt: Date
     nivel_id: number
-	numeroBike?: number | null
+	bike: IBike | null
 	readonly iat?: number
 	readonly exp?: number
 }
