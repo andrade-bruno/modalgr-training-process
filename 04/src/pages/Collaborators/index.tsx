@@ -35,7 +35,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Unauthorized from 'pages/Unauthorized'
 import { Header, Form } from 'styles/commom'
 import Modal from 'components/Modal'
-import Input from 'components/Input'
 import { useUserContext } from 'contexts/UserContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 import { useAccessLevelsContext } from 'contexts/AccessLevelsContext'
@@ -43,6 +42,8 @@ import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import { ControlledInput, Errors } from 'components/ControlledInput/styles'
+import { FieldValues, useForm } from 'react-hook-form'
 
 const Collaborators = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -52,9 +53,6 @@ const Collaborators = () => {
 	const [selectedCollaborator, setSelectedCollaborator] = useState<number>(0)
 	const [accessLevel, setAccessLevel] = useState(0)
 
-	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
 	const [registerDate, setRegisterDate] = useState<Dayjs | Date | string | null>(null)
 	const [permissionLevel, setPermissionLevel] = useState(1)
 	const [isActive, setIsActive] = useState<string>('true')
@@ -65,6 +63,7 @@ const Collaborators = () => {
 	const { user, token } = useUserContext()
 	const { getCollaborators, collaborators, addColaborator, getCollaboratorById, updateCollaborator, inactivateCollaborator, guaranteeAccess } = useCollaboratorsContext()
 	const { levels, getLevels } = useAccessLevelsContext()
+	const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm()
 	
 	useEffect(() => {
 		if (token && user.nivel_id === 2) {
@@ -85,13 +84,12 @@ const Collaborators = () => {
 	const handleCloseModal = () => {
 		setIsOpen(false)
 		setTimeout(() => {
-			setName('')
-			setEmail('')
 			setRegisterDate(null)
 			setPermissionLevel(1)
 			setSelectedCollaborator(0)
 			setIsEditing(false)
 			setIsActive('true')
+			reset()
 		}, 500)
 	}
 	const handleAddCollaborator = () => {
@@ -99,8 +97,8 @@ const Collaborators = () => {
 		setIsOpen(true)
 		handleCloseMenu()
 	}
-	const handleSubmitAdd = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+	const handleSubmitAdd = async (e: FieldValues) => {
+		const { email, name, password } = e
 		await addColaborator({
 			nome: name,
 			email: email,
@@ -115,8 +113,8 @@ const Collaborators = () => {
 		setIsEditing(true)
 		const res = await getCollaboratorById(Number(anchorEl?.id))
 		if (res) {
-			setName(res.nome)
-			setEmail(res.email)
+			setValue('name', res.nome)
+			setValue('email', res.email)
 			setRegisterDate(res.data_registro)
 			setPermissionLevel(res.nivel_id)
 			setIsActive(String(res.ativo))
@@ -125,9 +123,9 @@ const Collaborators = () => {
 			handleCloseMenu()
 		}
 	}
-	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		if (selectedCollaborator == 1 && (permissionLevel != 2 || email != 'rodrigo.lopes@modalgr.com.br')) {
+	const handleSubmitEdit = async (e: FieldValues) => {
+		const { email, name, password } = e
+		if (selectedCollaborator == 1 && (permissionLevel != 2 || email != process.env.REACT_APP_ADMIN_MASTER)) {
 			toast.info('Você não possui permissão para alterar este usuário')
 			return false
 		}
@@ -227,7 +225,6 @@ const Collaborators = () => {
 				open={open}
 				onClose={handleCloseMenu}
 			>
-				
 				{accessLevel === 3 ?
 					<MenuItem onClick={handleGuaranteeAccess} style={{gap: 6}}>
 						<CheckRounded color='success'/> Liberar
@@ -246,42 +243,53 @@ const Collaborators = () => {
 				onClose={() => handleCloseModal()}
 				title={isEditing ? 'Editar colaborador' : 'Adicionar colaborador'}
 			>
-				<Form onSubmit={(e) => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e)}>
-					<Input
-						label='Nome'
-						value={name}
-						setter={setName}
+				<Form onSubmit={handleSubmit(e => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e))}>
+					<ControlledInput
+						{...register('name',{
+							required: 'Campo obrigatório',
+							minLength: {value: 3, message: 'Mínimo de 3 caracteres'},
+							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
+						})}
+						error={errors.name ? true : false}
 						type='string'
+						label='Nome'
 						fullWidth
 						required
 					/>
-					<Input
-						label='E-mail'
-						value={email}
-						setter={setEmail}
+					<Errors>{errors.name && `${errors.name.message}`}</Errors>
+					<ControlledInput
+						{...register('email',{
+							required: 'Campo obrigatório',
+							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
+							pattern: {value: /^\w+([.-]?\w+)*@modalgr.com.br$/, message: 'E-mail inválido'}
+						})}
+						error={errors.email ? true : false}
 						type='email'
+						label='E-mail'
 						fullWidth
 						required
-						disabled={selectedCollaborator === 1}
 					/>
-					<Input
-						label={isEditing ? 'Nova senha': 'Senha'}
-						value={password}
-						setter={setPassword}
+					<Errors>{errors.email && `${errors.email.message}`}</Errors>
+					<ControlledInput
+						{...register('password',{
+							required: {value: isEditing ? false : true, message: 'Campo obrigatório'},
+							minLength: {value: 8, message: 'Mínimo de 8 caracteres'},
+							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
+						})}
+						error={errors.password ? true : false}
 						type='password'
+						label={isEditing ? 'Nova senha': 'Senha'}
 						fullWidth
 						required={!isEditing}
-						disabled={selectedCollaborator === 1}
 					/>
+					<Errors>{errors.password && `${errors.password.message}`}</Errors>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
 							label='Data de registro'
 							value={registerDate}
 							views={['day', 'month', 'year']}
 							maxDate={currentDate}
-							onChange={(newValue) => {
-								setRegisterDate(newValue)
-							}}
+							onChange={newValue => setRegisterDate(newValue)}
 							renderInput={(params) => <TextField
 								fullWidth
 								required
@@ -301,7 +309,6 @@ const Collaborators = () => {
 							margin='dense'
 							fullWidth
 							required
-							disabled={selectedCollaborator === 1}
 						>
 							{levels[0] && levels.map(item => (
 								item.id != 3 && <MenuItem value={item.id} key={item.id}>{item.nivel}</MenuItem>
@@ -314,8 +321,8 @@ const Collaborators = () => {
 							onChange={e => setIsActive((e.target as HTMLInputElement).value)}
 							style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start'}}
 						>
-							<FormControlLabel value='true' control={<Radio />} label='Ativo' disabled={selectedCollaborator === 1}/>
-							<FormControlLabel value='false' control={<Radio />} label='Inativo' disabled={selectedCollaborator === 1}/>
+							<FormControlLabel value='true' control={<Radio />} label='Ativo' />
+							<FormControlLabel value='false' control={<Radio />} label='Inativo' />
 						</RadioGroup>
 					</FormControl>
 					<Button

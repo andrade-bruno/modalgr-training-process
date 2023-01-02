@@ -35,14 +35,14 @@ const SignIn = () => {
 					<ControlledInput
 						{...register('password',{
 							required: 'Campo obrigatório',
-							minLength: {value: 6, message: 'Mínimo de 6 caracteres'},
+							minLength: {value: 8, message: 'Mínimo de 8 caracteres'},
 							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
 						})}
 						error={errors.password ? true : false}
 						type='password'
 						label='Senha'
 						fullWidth
-						required
+						// required
 					/>
 					<Errors>{errors.password && `${errors.password.message}`}</Errors>
 					<Typography variant='overline' component='h6'>

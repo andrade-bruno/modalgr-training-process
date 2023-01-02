@@ -19,7 +19,7 @@ interface Props {
 interface addOrUpdateProps {
 	nome: ICollaborator['nome']
 	email: ICollaborator['email']
-	senha: string
+	senha?: string //Change a password isn't required
 	data_registro?: ICollaborator['data_registro']
 	nivel_id: ICollaborator['nivel_id']
 	ativo: boolean | string
@@ -107,11 +107,11 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		const { nome, email, senha, data_registro, nivel_id } = collaborator
 		let { ativo } = collaborator
 		ativo = (ativo === 'true') || (ativo === true)
+		const body = {nome, email, senha, data_registro, ativo, nivel_id}
+		if (!body.senha) delete body.senha
 
 		const main = new Promise((resolve, reject) => {
-			http.put<ICollaborator>(`colaborador/${id}`, {
-				nome, email, senha, data_registro, ativo, nivel_id
-			}, config)
+			http.put<ICollaborator>(`colaborador/${id}`, body, config)
 				.then(res => {
 					const updatedList = collaborators.filter(collaborator => collaborator.id !== id)
 					updatedList.push(res.data)
