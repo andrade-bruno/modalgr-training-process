@@ -49,7 +49,7 @@ const Bikes = () => {
 	interface FormProps {
 		bikeNumber: number
 	}
-	const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormProps>()
+	const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<FormProps>()
 
 	const [collaboratorId, setCollaboratorId] = useState<number>(0)
 	const [isActive, setIsActive] = useState<string>('true')
@@ -81,6 +81,7 @@ const Bikes = () => {
 			setSelectedBike(0)
 			setIsActive('true')
 			setIsEditing(false)
+			reset()
 		}, 500)
 	}
 	const handleAddBike = () => {
