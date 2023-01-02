@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import Input from 'components/Input'
 import { ControlledInput, Errors } from 'components/ControlledInput/styles'
 import { Main, Avatar, Form, Content, SideAvatar, BackgroundImg } from './styles'
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import Unauthorized from 'pages/Unauthorized'
 
 import { useUserContext } from 'contexts/UserContext'
@@ -116,12 +116,11 @@ const Profile = () => {
 					</Avatar>
 				</SideAvatar>
 				<Form onSubmit={handleSubmit((e) => handleSubmitForm(e))}>
-					<TextField
+					<Input
 						type='number'
 						label='ID'
 						fullWidth
 						value={`${user.id}`}
-						margin='normal'
 						disabled
 					/>
 					<ControlledInput

@@ -10,7 +10,8 @@ import {
 	Paper,
 	Menu,
 	MenuItem,
-	Button
+	Button,
+	Chip
 } from '@mui/material'
 
 import {
@@ -38,6 +39,7 @@ const MyReleases = () => {
 	const [hours, setHours] = useState<number>(0)
 	const [selectedRelease, setSelectedRelease] = useState<IRelease>({} as IRelease)
 	const [isEditing, setIsEditing] = useState(false)
+	const average = killometers/hours
 
 	const { releases, addRelease, getReleases, getMyReleases, getReleaseById, removeRelease, updateRelease, validateRelease } = useReleasesContext()
 	const { user, token } = useUserContext()
@@ -76,7 +78,7 @@ const MyReleases = () => {
 			releaseDate: selectedRelease.createdAt,
 			idToEdit: selectedRelease.id
 		})) {
-			await updateRelease(selectedRelease.id, killometers, hours)
+			await updateRelease(selectedRelease.id, killometers, hours, user.id)
 			setIsOpen(false)
 			handleCloseMenu()
 		}
@@ -194,10 +196,12 @@ const MyReleases = () => {
 						fullWidth
 						required
 					/>
+					{average > 0 && hours > 0 && <Chip variant='outlined' color='success' label={`Média de ${average.toFixed(2)} km/h` }/>}
 					<Button
 						variant='outlined'
 						color='success'
 						type='submit'
+						sx={{marginTop: 2}}
 					>
 						{isEditing ? 'Editar' : 'Adicionar'}
 					</Button>

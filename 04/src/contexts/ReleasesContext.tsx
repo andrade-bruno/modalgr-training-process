@@ -5,6 +5,7 @@ import { useUserContext } from './UserContext'
 import { AxiosRequestConfig } from 'axios'
 import { toast } from 'react-toastify'
 import { useBikesContext } from './BikesContext'
+import { useCollaboratorsContext } from './CollaboratorsContext'
 interface Props {
 	releases: IRelease[]
 	getReleases: () => void
@@ -12,7 +13,7 @@ interface Props {
 	getReleaseById: (id: number) => Promise<IRelease | undefined>
 	addRelease: (km: number, tempo: number) => void
 	removeRelease: (id: number) => void
-	updateRelease: (releaseId: number, km: number, tempo: number) => void
+	updateRelease: (releaseId: number, km: number, tempo: number, collaboratorId: number) => void
 	validateRelease: (props: validateProps) => boolean
 }
 
@@ -32,6 +33,7 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 
 	const { user, token } = useUserContext()
 	const { bikes } = useBikesContext()
+	const { collaborators } = useCollaboratorsContext()
 	let config: AxiosRequestConfig
 
 	const sortReleasesByIdAsc = (releases: IRelease[]) => {
@@ -84,16 +86,12 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 	const addRelease = async (km: number, tempo: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 
-		if (!user.numeroBike) {
-			toast.info(`${user.nome.split(' ')[0]} você precisa de uma bicicleta para lançar informações!`)
-			return false
-		}
-
-		const bicicleta_id = bikes.find(bike => bike.numero == user.numeroBike)?.id
+		const bike = bikes.find(bike => bike.numero == user.numeroBike)
+		// Usuario deveria saber o objeto inteiro da bicicleta dele, não somente o numero
 		
 		const main = new Promise((resolve, reject) => {
 			http.post<IRelease>('lancamentos', {
-				km, tempo, colaborador_id: user.id, bicicleta_id
+				km, tempo, colaborador_id: user.id, bicicleta_id: bike?.id
 			}, config)
 				.then(res => {
 					res.data.tempo = parseFloat(`${res.data.tempo}`)
@@ -135,12 +133,12 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 		)
 	}
 
-	const updateRelease = async (releaseId: number, km: number, tempo: number) => {
+	const updateRelease = async (releaseId: number, km: number, tempo: number, collaboratorId: number) => {
 		token ? config = {headers: {Authorization: `Bearer ${token}`}} : null
 		
 		const main = new Promise((resolve, reject) => {
 			http.put<IRelease>(`lancamentos/${releaseId}`, {
-				km, tempo, colaborador_id: user.id
+				km, tempo, colaborador_id: collaboratorId
 			}, config)
 				.then(res => {
 					const updatedList = releases.filter(release => release.id !== releaseId)
@@ -163,6 +161,24 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 
 	const validateRelease = ({killometers, collaboratorId, hours, releaseDate, idToEdit}: validateProps) => {
 		// Step 1
+		if (user.nivel_id == 1 && !user.numeroBike) {
+			toast.info(`${user.nome.split(' ')[0]}, você precisa de uma bicicleta para criar lançamentos`)
+			return false
+		} else if (user.nivel_id == 2) {
+			const collaborator = collaborators[0] && collaborators.find(item => item.id == collaboratorId)
+			if (collaborator && !collaborator.numeroBike) {
+				toast.info(`${collaborator.nome.split(' ')[0]}${collaboratorId == user.id ? ', você' : null} precisa de uma bicicleta para criar lançamentos`)
+				return false
+			}
+		}
+
+		// Step 2
+		if (killometers <= 0 || hours <= 0) {
+			toast.info('Preencha os dados corretamente')
+			return false
+		}
+
+		// Step 3
 		const average = killometers / hours
 		const maxAverage = Number(process.env.REACT_APP_MAX_AVERAGE_SPEED)
 
@@ -171,7 +187,7 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 			return false
 		}
 		
-		// Step 2
+		// Step 4
 		const baseDate = new Date(releaseDate).toLocaleDateString('pt-br')
 		const collaboratorReleases = releases.filter(release => release.colaborador_id === collaboratorId)
 
