@@ -31,12 +31,13 @@ import {
 import Unauthorized from 'pages/Unauthorized'
 import { Header, Form } from 'styles/commom'
 import Modal from 'components/Modal'
-import Input from 'components/Input'
 import { useUserContext } from 'contexts/UserContext'
 import { useBikesContext } from 'contexts/BikesContext'
 import { useCollaboratorsContext } from 'contexts/CollaboratorsContext'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import { ControlledInput, Errors } from 'components/ControlledInput/styles'
+import { FieldValues, useForm } from 'react-hook-form'
 
 const Bikes = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -45,7 +46,11 @@ const Bikes = () => {
 	const [isEditing, setIsEditing] = useState(false)
 	const [selectedBike, setSelectedBike] = useState<number>(0)
 
-	const [bikeNumber, setBikeNumber] = useState<number>(0)
+	interface FormProps {
+		bikeNumber: number
+	}
+	const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormProps>()
+
 	const [collaboratorId, setCollaboratorId] = useState<number>(0)
 	const [isActive, setIsActive] = useState<string>('true')
 
@@ -71,7 +76,7 @@ const Bikes = () => {
 	const handleCloseModal = () => {
 		setIsOpen(false)
 		setTimeout(() => {
-			setBikeNumber(0)
+			setValue('bikeNumber', 1000)
 			setCollaboratorId(0)
 			setSelectedBike(0)
 			setIsActive('true')
@@ -83,11 +88,10 @@ const Bikes = () => {
 		setIsOpen(true)
 		handleCloseMenu()
 	}
-	const handleSubmitAdd = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+	const handleSubmitAdd = (e: FieldValues | FormProps) => {
 		addBike({
 			colaborador_id: Number(collaboratorId),
-			numero: bikeNumber,
+			numero: e.bikeNumber,
 			status: true
 		})
 		handleCloseModal()
@@ -96,7 +100,7 @@ const Bikes = () => {
 		setIsEditing(true)
 		const res = await getBikeById(Number(anchorEl?.id))
 		if (res) {
-			setBikeNumber(res.numero)
+			setValue('bikeNumber', res.numero)
 			setCollaboratorId(res.colaborador_id)
 			setSelectedBike(Number(anchorEl?.id))
 			setIsActive(String(res.status))
@@ -104,8 +108,7 @@ const Bikes = () => {
 			handleCloseMenu()
 		}
 	}
-	const handleSubmitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+	const handleSubmitEdit = async (e: FieldValues | FormProps) => {
 		if (isActive == 'false' && collaboratorId) {
 			toast.info('Não é possível desativar a bicicleta, a mesma está em uso.')
 			return false
@@ -118,7 +121,7 @@ const Bikes = () => {
 
 		await updateBike(selectedBike, {
 			colaborador_id: Number(collaboratorId),
-			numero: bikeNumber,
+			numero: e.bikeNumber,
 			status: isActive
 		})
 		setIsOpen(false)
@@ -211,15 +214,23 @@ const Bikes = () => {
 				onClose={handleCloseModal}
 				title={isEditing ? 'Editar bicicleta' : 'Adicionar bicicleta'}
 			>
-				<Form onSubmit={(e) => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e)}>
-					<Input
+				<Form
+					style={{paddingTop: 20}}
+					onSubmit={handleSubmit((e) => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e))}
+				>
+					<ControlledInput
+						{...register('bikeNumber',{
+							required: 'Campo obrigatório',
+							maxLength: {value: 4, message: 'Máximo de 4 dígitos'},
+							minLength: {value: 4, message: 'Mínimo de 4 dígitos'}
+						})}
+						error={errors.bikeNumber ? true : false}
 						label='Número'
-						value={bikeNumber}
-						setter={setBikeNumber}
 						type='number'
 						fullWidth
 						required
 					/>
+					<Errors>{errors.bikeNumber && `${errors.bikeNumber.message}`}</Errors>
 					<FormControl fullWidth>
 						<InputLabel id='user-label'>Usuário (opcional)</InputLabel>
 						<Select
