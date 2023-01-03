@@ -70,7 +70,7 @@ const SignUp = () => {
 					<ControlledInput
 						{...register('password',{
 							required: 'Campo obrigatório',
-							minLength: {value: 8, message: 'Mínimo de 8 caracteres'},
+							minLength: {value: 6, message: 'Mínimo de 6 caracteres'},
 							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
 						})}
 						error={errors.password ? true : false}
@@ -83,7 +83,7 @@ const SignUp = () => {
 					<ControlledInput
 						{...register('confirmPassword',{
 							required: 'Campo obrigatório',
-							minLength: {value: 8, message: 'Mínimo de 8 caracteres'},
+							minLength: {value: 6, message: 'Mínimo de 6 caracteres'},
 							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
 						})}
 						error={errors.confirmPassword ? true : false}

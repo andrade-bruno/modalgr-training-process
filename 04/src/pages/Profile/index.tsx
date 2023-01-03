@@ -157,7 +157,7 @@ const Profile = () => {
 						{...register('oldPassword',{
 							required: 'Campo obrigatório',
 							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
-							minLength: {value: 8, message: 'Mínimo de 6 caracteres'}
+							minLength: {value: 6, message: 'Mínimo de 6 caracteres'}
 						})}
 						error={errors.oldPassword ? true : false}
 						type='password'

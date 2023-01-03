@@ -243,7 +243,10 @@ const Collaborators = () => {
 				onClose={() => handleCloseModal()}
 				title={isEditing ? 'Editar colaborador' : 'Adicionar colaborador'}
 			>
-				<Form onSubmit={handleSubmit(e => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e))}>
+				<Form
+					style={{paddingTop: 20}}
+					onSubmit={handleSubmit(e => isEditing ? handleSubmitEdit(e) : handleSubmitAdd(e))}
+				>
 					<ControlledInput
 						{...register('name',{
 							required: 'Campo obrigatório',
@@ -273,7 +276,7 @@ const Collaborators = () => {
 					<ControlledInput
 						{...register('password',{
 							required: {value: isEditing ? false : true, message: 'Campo obrigatório'},
-							minLength: {value: 8, message: 'Mínimo de 8 caracteres'},
+							minLength: {value: 6, message: 'Mínimo de 6 caracteres'},
 							maxLength: {value: 128, message: 'Máximo de 128 caracteres'},
 						})}
 						error={errors.password ? true : false}
