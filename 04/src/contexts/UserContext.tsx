@@ -82,10 +82,7 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
 			toast.success(`Bem vindo(a) ${colaboradorObj.nome.split(' ')[0]}!`)
 			setTimeout(() => navigate('/system/myreleases'), 2500)
 		} catch (error: any) {
-			const { response, message } = error
-			response?.data ? toast.error(`${response.data}`)
-				: message ? toast.error(`${message}`)
-					: toast.error('Não foi possível acessar a plataforma')
+			if (error.response.status < 400) toast.error('Não foi possível acessar a plataforma')
 		}
 	}
 

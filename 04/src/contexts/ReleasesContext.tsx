@@ -66,8 +66,8 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<IRelease[]>(`lancamento/${user.id}`, config)
 			setReleases(res.data)
-		} catch (error) {
-			toast.error('Não foi possível obter os seus lançamentos')
+		} catch (error: any) {
+			if (error.response.status < 400) toast.error('Não foi possível obter os seus lançamentos')
 		}
 	}
 
@@ -77,8 +77,8 @@ export const ReleasesProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<IRelease>(`lancamentos/${id}`, config)
 			return res.data
-		} catch (error) {
-			toast.error('Não foi possível obter os dados do lançamento')
+		} catch (error: any) {
+			if (error.response.status < 400) toast.error('Não foi possível obter os dados do lançamento')
 		}
 	}
 

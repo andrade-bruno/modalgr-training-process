@@ -116,7 +116,7 @@ const Bikes = () => {
 		}
 		
 		if (collaboratorId && isCollaboratorUsingOtherBike(selectedBike, collaboratorId)) {
-			toast.error('O colaborador selecionado está utilizando outra bicicleta')
+			toast.info('O colaborador selecionado está utilizando outra bicicleta')
 			return false
 		}
 

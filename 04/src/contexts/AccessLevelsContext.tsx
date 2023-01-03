@@ -52,7 +52,7 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<IAccessLevel[]>('niveis', config)
 			setLevels(res.data)
 		} catch (error: any) {
-			toast.error('Não foi possível obter a lista de níveis de acesso')
+			if (error.response.status < 400) toast.error('Não foi possível obter a lista de níveis de acesso')
 		}
 	}
 
@@ -62,8 +62,8 @@ export const AccessLevelProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<IAccessLevel>(`niveis/${id}`, config)
 			return res.data
-		} catch (error) {
-			toast.error(`Não foi possível obter dados do nível de acesso #${id}`)
+		} catch (error: any) {
+			if (error.response.status < 400) toast.error(`Não foi possível obter dados do nível de acesso #${id}`)
 		} 
 	}
 

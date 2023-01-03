@@ -49,8 +49,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<ICollaborator[]>('colaboradores', config)
 			setCollaborators(res.data)
-		} catch (error) {
-			toast.error('Não foi possível obter a lista de colaboradores')
+		} catch (error: any) {
+			if (error.response.status < 400) toast.error('Não foi possível obter a lista de colaboradores')
 		}
 	}
 
@@ -60,8 +60,8 @@ export const CollaboratorsProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<ICollaborator>(`colaboradores/${id}`, config)
 			return res.data
-		} catch (error) {
-			toast.error(`Não foi possível obter dados do colaborador #${id}`)
+		} catch (error: any) {
+			if (error.response.status < 400) toast.error(`Não foi possível obter dados do colaborador #${id}`)
 		} 
 	}
 

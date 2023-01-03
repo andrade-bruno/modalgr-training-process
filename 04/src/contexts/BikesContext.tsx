@@ -60,7 +60,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 			const res = await http.get<IBike[]>('bicicletas', config)
 			setBikes(res.data)
 		} catch (error: any) {
-			toast.error('Não foi possível obter a lista de bicicletas')
+			if (error.response.status < 400) toast.error('Não foi possível obter a lista de bicicletas')
 		}
 	}
 
@@ -70,8 +70,8 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 		try {
 			const res = await http.get<IBike>(`bicicletas/${id}`, config)
 			return res.data
-		} catch (error) {
-			toast.error(`Não foi possível obter dados da bicicleta #${id}`)
+		} catch (error: any) {
+			if (error.response.status < 400) toast.error(`Não foi possível obter dados da bicicleta #${id}`)
 		} 
 	}
 
@@ -118,7 +118,7 @@ export const BikesProvider = ({children}: {children: JSX.Element}) => {
 		}
 
 		if (!userKnowsAvailableBikes && colaborador_id && isCollaboratorUsingOtherBike(id, colaborador_id)) {
-			toast.error('O colaborador selecionado está utilizando outra bicicleta')
+			toast.info('O colaborador selecionado está utilizando outra bicicleta')
 			return false
 		}
 		

@@ -19,25 +19,20 @@ const onRequestError = (error: AxiosError): Promise<AxiosError> => {
 const onResponse = (response: AxiosResponse): AxiosResponse => {
 	return response
 }
+
 interface ResponseDataProps extends AxiosResponse {
-	message?: string
 	mensagem?: string
 }
 
 const onResponseError = (error: AxiosError<ResponseDataProps>): Promise<AxiosError> => {
 	delete error.stack
 	console.info('[response error]')
-
-	if (error.response) {
-		if (error.response.data.mensagem) {
-			toast.error(`${error.response.data.mensagem}`, {autoClose: 3000})
-		} else if (error.response.data.message) {
-			toast.error(`${error.response.data.message}`, {autoClose: 3000})
-		} else if (error.message) {
-			console.info(`${error.message}`, {autoClose: 3000})
-		}
+	
+	if (error.response && error.response.data.mensagem) {
+		const { mensagem } = error.response.data
+		toast.error(`${mensagem}`, {autoClose: 5000})
+		console.error(`[${mensagem.toUpperCase()}]`)
 	}
-	console.info(`[${JSON.stringify(error)}]`)
 
 	return Promise.reject(error)
 }
